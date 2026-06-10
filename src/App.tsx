@@ -332,7 +332,7 @@ export default function App() {
                   {/* Math Derivation Text section */}
                   <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm space-y-5">
                     <h3 className="font-sans font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-slate-100 pb-2">
-                      Mathematical Background & Formula Derivation
+                      {currentLesson.id === 'behavioral' ? 'Core Concept Overview' : 'Mathematical Background & Formula Derivation'}
                     </h3>
 
                     {/* Left/Right layout for text and key equations */}
@@ -413,6 +413,38 @@ export default function App() {
                                   {processMathText(trimmed)}
                                 </div>
                               </div>
+                            );
+                          }
+
+                          // 3.1 Classroom Experiment callout
+                          if (trimmed.startsWith('🧪')) {
+                            return (
+                              <div className="bg-emerald-50/60 border-l-4 border-emerald-500 rounded-r-xl p-4 my-4 flex items-start gap-3 shadow-xs font-sans text-xs sm:text-sm" key={idx}>
+                                <div className="text-emerald-900 leading-relaxed font-serif">
+                                  {processMathText(trimmed)}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // 3.2 Anatomy or Search Case callout
+                          if (trimmed.startsWith('🔍')) {
+                            return (
+                              <div className="bg-sky-50/60 border-l-4 border-sky-500 rounded-r-xl p-4 my-4 flex items-start gap-3 shadow-xs font-sans text-xs sm:text-sm" key={idx}>
+                                <div className="text-sky-900 leading-relaxed font-serif">
+                                  {processMathText(trimmed)}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // 3.3 Text-art / Preformatted Diagram codeblock
+                          if (trimmed.startsWith('DIAGRAM|')) {
+                            const cleanDiagram = trimmed.substring(8);
+                            return (
+                              <pre key={idx} className="font-mono text-[10px] sm:text-xs leading-normal bg-slate-50 border border-slate-200 p-4 rounded-xl overflow-x-auto text-slate-700 my-4 whitespace-pre">
+                                {cleanDiagram}
+                              </pre>
                             );
                           }
 

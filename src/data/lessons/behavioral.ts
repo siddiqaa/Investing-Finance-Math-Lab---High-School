@@ -64,7 +64,7 @@ export const behavioral: LessonContent = {
     },
     {
       id: 'b2',
-      question: 'If stock returns follow an $AR(1)$ process $r_t = \mu + \varphi r_{t-1} + \varepsilon_t$ with $\\varphi > 0$, how does the expected trade payoff ($E[r_{t+1} \\times r_t]$) behave relative to the random walk null hypothesis?',
+      question: 'If stock returns follow an $AR(1)$ process $r_t = \\mu + \\varphi r_{t-1} + \\varepsilon_t$ with $\\varphi > 0$, how does the expected trade payoff ($E[r_{t+1} \\times r_t]$) behave relative to the random walk null hypothesis?',
       options: [
         'It is strictly zero',
         'It is proportional to $\\varphi \\times \\text{Var}(r_t)$',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { QuizQuestion } from '../types';
 import { CheckCircle, AlertCircle, HelpCircle, RefreshCw } from 'lucide-react';
+import { processMathText } from '../lib/math';
 
 interface QuizSectionProps {
   quizzes: QuizQuestion[];
@@ -89,14 +90,14 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName })
               </div>
 
               <p className="font-sans font-semibold text-slate-800 text-sm mt-3.5 leading-relaxed">
-                {quiz.question}
+                {processMathText(quiz.question)}
               </p>
 
               {/* Show Hint area */}
               {showHint && !isSubmitted && (
                 <div className="mt-3 p-3 bg-amber-50 border border-amber-200/50 rounded-xl text-xs text-amber-900 font-sans leading-relaxed animate-fadeIn">
                   <span className="font-semibold block mb-0.5">Pedagogical Hint:</span>
-                  {quiz.hint}
+                  {processMathText(quiz.hint || '')}
                 </div>
               )}
 
@@ -128,7 +129,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName })
                         !isSubmitted ? 'cursor-pointer' : 'cursor-default'
                       }`}
                     >
-                      <span>{opt}</span>
+                      <span>{processMathText(opt)}</span>
                       {isSubmitted && oIdx === quiz.correctIndex && (
                         <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0 ml-2" />
                       )}
@@ -179,7 +180,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName })
                   <span className="font-bold text-slate-800 text-xs block uppercase tracking-wider mb-2">Step-by-Step Analytical Proof</span>
                   <div className="text-xs text-slate-600 space-y-2">
                     <p className="font-sans font-medium text-slate-700 block whitespace-pre-line">
-                      {quiz.explanation}
+                      {processMathText(quiz.explanation)}
                     </p>
                   </div>
                 </div>

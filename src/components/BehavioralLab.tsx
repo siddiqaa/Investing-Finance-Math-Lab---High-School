@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { randomNormal, formatPercent, formatCurrency } from '../utils/mathUtils';
-import { MathRenderer } from './MathRenderer';
+import { MathSpan, processMathText } from '../lib/math';
 import { 
   Users, 
   Flame, 
@@ -17,177 +17,9 @@ export const BehavioralLab: React.FC = () => {
   const [activeLessonIdx, setActiveLessonIdx] = useState<number>(0);
 
   // ---------------------------------------------------------
-  // Inline Math rendering helpers
+  // Markdown & Math Text rendering
   // ---------------------------------------------------------
-  const renderInlineMath = (eq: string): React.ReactNode => {
-    const trimmed = eq.trim();
-
-    if (trimmed === 'r_t = \\ln(S_t / S_{t-1})') {
-      return <span>r<sub>t</sub> = ln(S<sub>t</sub> / S<sub>t-1</sub>)</span>;
-    }
-    if (trimmed === '\\mathbb{E}[r_{t+1} \\mid r_t, r_{t-1}, \\dots] = \\mu') {
-      return <span className="font-serif">E[r<sub>t+1</sub> | r<sub>t</sub>, r<sub>t-1</sub>, ...] = μ</span>;
-    }
-    if (trimmed === '\\rho(k) = \\text{Cov}(r_t, r_{t-k}) / \\text{Var}(r_t)') {
-      return <span className="font-serif">ρ(k) = Cov(r<sub>t</sub>, r<sub>t-k</sub>) / Var(r<sub>t</sub>)</span>;
-    }
-    if (trimmed === '\\rho(k) \\approx 0') {
-      return <span>ρ(k) ≈ 0</span>;
-    }
-    if (trimmed === '\\pm 2/\\sqrt{N}' || trimmed === '\\pm2/\\sqrt{N}') {
-      return <span className="font-serif">±2 / √N</span>;
-    }
-    if (trimmed === 'r_{t+1} = \\mu + \\varphi r_t + \\varepsilon_t') {
-      return <span className="font-serif">r<sub>t+1</sub> = μ + φr<sub>t</sub> + ε<sub>t</sub></span>;
-    }
-    if (trimmed === '\\varphi > 0') {
-      return <span>φ &gt; 0</span>;
-    }
-    if (trimmed === '\\varphi \\cdot \\text{Var}(r)') {
-      return <span className="font-serif">φ · Var(r)</span>;
-    }
-    if (trimmed === 'T^H') {
-      return <span className="font-serif">T<sup>H</sup></span>;
-    }
-    if (trimmed === 'H = 0.5') {
-      return <span className="font-serif">H = 0.5</span>;
-    }
-    if (trimmed === 'H > 0.5') {
-      return <span className="font-serif">H &gt; 0.5</span>;
-    }
-    if (trimmed === 'H < 0.5') {
-      return <span className="font-serif">H &lt; 0.5</span>;
-    }
-    if (trimmed === 'p > 0.5') {
-      return <span className="font-serif">p &gt; 0.5</span>;
-    }
-    if (trimmed === 'P(\\text{wrong cascade}) = \\frac{(1 - p)^2}{2(p^2 - p + 1)}') {
-      return (
-        <span className="font-serif inline-flex items-center space-x-1">
-          <span>P(wrong cascade) =</span>
-          <span className="flex flex-col items-center leading-none px-1">
-            <span className="border-b border-slate-400 pb-0.5 text-[11px]">(1 - p)<sup>2</sup></span>
-            <span className="text-[11px]">2(p<sup>2</sup> - p + 1)</span>
-          </span>
-        </span>
-      );
-    }
-    if (trimmed === 'p = 0.7') {
-      return <span className="font-serif">p = 0.7</span>;
-    }
-    if (trimmed === 'v(x) = x^{\\alpha}') {
-      return <span className="font-serif">v(x) = x<sup>α</sup></span>;
-    }
-    if (trimmed === 'x \\ge 0') {
-      return <span className="font-serif">x ≥ 0</span>;
-    }
-    if (trimmed === 'v(x) = -\\lambda(-x)^{\\beta}') {
-      return <span className="font-serif">v(x) = -λ(-x)<sup>β</sup></span>;
-    }
-    if (trimmed === 'x < 0') {
-      return <span className="font-serif">x &lt; 0</span>;
-    }
-    if (trimmed === '\\alpha \\approx \\beta \\approx 0.88') {
-      return <span className="font-serif">α ≈ β ≈ 0.88</span>;
-    }
-    if (trimmed === '\\lambda \\approx 2.25') {
-      return <span className="font-serif">λ ≈ 2.25</span>;
-    }
-    if (trimmed === '\\lambda > 1') {
-      return <span className="font-serif">λ &gt; 1</span>;
-    }
-    if (trimmed === '\\alpha, \\beta < 1') {
-      return <span className="font-serif font-serif">α, β &lt; 1</span>;
-    }
-    if (trimmed === 'w(p)') {
-      return <span className="font-serif">w(p)</span>;
-    }
-    if (trimmed === '\\sigma_{\\text{implied}}') {
-      return <span className="font-serif">σ<sub>implied</sub></span>;
-    }
-    if (trimmed === 'r > g') {
-      return <span className="font-serif">r &gt; g</span>;
-    }
-    if (trimmed === 'g \\ge r') {
-      return <span className="font-serif font-serif">g ≥ r</span>;
-    }
-    if (trimmed === 'F = S \\cdot e^{(r + u - y)T}') {
-      return <span className="font-serif">F = S · e<sup>(r + u - y)T</sup></span>;
-    }
-    if (trimmed === 'S < 0') {
-      return <span className="font-serif">S &lt; 0</span>;
-    }
-    if (trimmed === 'E[R_i]') {
-      return <span className="font-serif">E[R<sub>i</sub>]</span>;
-    }
-    if (trimmed === 'R_f') {
-      return <span className="font-serif">R<sub>f</sub></span>;
-    }
-    if (trimmed === 'R_m') {
-      return <span className="font-serif">R<sub>m</sub></span>;
-    }
-    if (trimmed === '\\beta_i') {
-      return <span className="font-serif">β<sub>i</sub></span>;
-    }
-    if (trimmed === 's_i \\cdot SML_{\\text{momentum}}') {
-      return <span className="font-serif">s<sub>i</sub> · SML<sub>momentum</sub></span>;
-    }
-    if (trimmed === '\\rho(k)') {
-      return <span className="font-serif">ρ(k)</span>;
-    }
-    if (trimmed === 'k \\ge 1') {
-      return <span className="font-serif">k ≥ 1</span>;
-    }
-    if (trimmed === '|r_t|') {
-      return <span className="font-serif">|r<sub>t</sub>|</span>;
-    }
-    if (trimmed === 'r_t^2') {
-      return <span className="font-serif">r<sub>t</sub><sup>2</sup></span>;
-    }
-    if (trimmed === '\\sigma_s') {
-      return <span className="font-serif">σ<sub>s</sub></span>;
-    }
-    if (trimmed === '\\sigma') {
-      return <span className="font-serif">σ</span>;
-    }
-    if (trimmed === '\\gamma') {
-      return <span className="font-serif">γ</span>;
-    }
-    if (trimmed === '\\kappa') {
-      return <span className="font-serif">κ</span>;
-    }
-    if (trimmed === '\\rho(k) \\approx 0') {
-      return <span className="font-serif">ρ(k) ≈ 0</span>;
-    }
-    if (trimmed === 'dS = [\\mu + \\kappa \\cdot (r_{\\text{recent}})] S dt + \\sigma S dW_t') {
-      return <span className="font-serif">dS = [μ + κ · r<sub>recent</sub>] S dt + σ S dW<sub>t</sub></span>;
-    }
-
-    // Fallback replacing LaTeX syntax with beautiful character layouts
-    const formatted = trimmed
-      .replace(/\\mathbb\{E\}/g, 'E')
-      .replace(/\\mid/g, '|')
-      .replace(/\\dots/g, '...')
-      .replace(/\\text\{([^\}]+)\}/g, '$1')
-      .replace(/\\mu/g, 'μ')
-      .replace(/\\rho/g, 'ρ')
-      .replace(/\\alpha/g, 'α')
-      .replace(/\\beta/g, 'β')
-      .replace(/\\lambda/g, 'λ')
-      .replace(/\\epsilon/g, 'ε')
-      .replace(/\\varphi/g, 'φ')
-      .replace(/\\sigma/g, 'σ')
-      .replace(/\\kappa/g, 'κ')
-      .replace(/\\approx/g, '≈')
-      .replace(/\\ge/g, '≥')
-      .replace(/\\le/g, '≤')
-      .replace(/\\pm/g, '±')
-      .replace(/\\cdot/g, '·')
-      .replace(/\\ln/g, 'ln');
-    return <span className="font-serif italic">{formatted}</span>;
-  };
-
-  const renderParagraphWithMath = (text: string) => {
+  const renderLabParagraph = (text: string) => {
     if (text === '---') {
       return <hr className="my-5 border-slate-200" />;
     }
@@ -203,32 +35,8 @@ export const BehavioralLab: React.FC = () => {
     if (text.startsWith('*') && text.endsWith('*')) {
       return <span className="italic block text-slate-500 text-sm sm:text-base border-l-2 border-indigo-200 pl-3 py-1 bg-indigo-50/10 rounded-r-lg my-3">{text.substring(1, text.length - 1)}</span>;
     }
-    const parts = text.split('$');
-    return (
-      <span>
-        {parts.map((part, index) => {
-          if (index % 2 === 1) {
-            return (
-              <span key={index} className="inline-block px-1 font-serif text-slate-800 bg-indigo-50/50 border border-indigo-100 rounded text-xs sm:text-sm mx-0.5">
-                {renderInlineMath(part)}
-              </span>
-            );
-          }
-          
-          if (part.includes('**')) {
-            const boldParts = part.split('**');
-            return boldParts.map((bp, bIdx) => {
-              if (bIdx % 2 === 1) {
-                return <strong key={bIdx} className="font-bold text-slate-900">{bp}</strong>;
-              }
-              return bp;
-            });
-          }
-          
-          return <span key={index}>{part}</span>;
-        })}
-      </span>
-    );
+    
+    return <p className="leading-relaxed my-3">{processMathText(text)}</p>;
   };
 
   // ---------------------------------------------------------
@@ -1041,7 +849,7 @@ export const BehavioralLab: React.FC = () => {
                 {LESSONS_DATA[activeLessonIdx].formulas.map((eq, eIdx) => (
                   <div key={eIdx} className="bg-white border border-slate-100 p-3 rounded-xl flex flex-col justify-between items-center text-center shadow-sm">
                     <span className="text-slate-400 font-mono text-[9px] uppercase tracking-wide block mb-1">Math Identity {eIdx + 1}</span>
-                    <MathRenderer equation={eq} block />
+                    <MathSpan tex={eq} block />
                   </div>
                 ))}
               </div>
@@ -1049,18 +857,10 @@ export const BehavioralLab: React.FC = () => {
 
             <div className="space-y-3.5 text-slate-600 font-serif text-sm sm:text-base leading-relaxed max-w-none pt-2">
               {LESSONS_DATA[activeLessonIdx].paragraphs.map((para, pIdx) => {
-                const isBlockElement = para === '---' || para.startsWith('# ') || para.startsWith('## ') || para.startsWith('### ');
-                if (isBlockElement) {
-                  return (
-                    <div key={pIdx}>
-                      {renderParagraphWithMath(para)}
-                    </div>
-                  );
-                }
                 return (
-                  <p key={pIdx} className="pb-1 leading-normal sm:leading-relaxed">
-                    {renderParagraphWithMath(para)}
-                  </p>
+                  <div key={pIdx} className="pb-1 leading-normal sm:leading-relaxed">
+                    {renderLabParagraph(para)}
+                  </div>
                 );
               })}
             </div>

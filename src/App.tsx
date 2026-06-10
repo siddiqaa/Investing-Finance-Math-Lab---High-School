@@ -6,7 +6,7 @@ import { PortfolioLab } from './components/PortfolioLab';
 import { OptionsLab } from './components/OptionsLab';
 import { BehavioralLab } from './components/BehavioralLab';
 import { QuizSection } from './components/QuizSection';
-import { MathRenderer, renderParagraphWithMath } from './components/MathRenderer';
+import { MathSpan, processMathText } from './lib/math';
 import { 
   BookOpen, 
   PieChart, 
@@ -338,9 +338,114 @@ export default function App() {
                     {/* Left/Right layout for text and key equations */}
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
                       <div className="xl:col-span-8 space-y-4 text-slate-600 font-serif text-sm sm:text-base leading-relaxed">
-                        {currentLesson.fullText.map((p, idx) => (
-                          <p key={idx}>{renderParagraphWithMath(p)}</p>
-                        ))}
+                        {currentLesson.fullText.map((p, idx) => {
+                          const trimmed = p.trim();
+
+                          // 1. Header parsing (e.g. "1. **The Time Value of Money**" or "### **The...")
+                          const headerMatch = trimmed.match(/^(\d+)\.\s+\*\*([^*]+)\*\*/);
+                          if (headerMatch) {
+                            const [_, num, headerText] = headerMatch;
+                            return (
+                              <div key={idx} className="pt-4 pb-1">
+                                <h4 className="font-sans font-bold text-slate-800 text-base md:text-lg flex items-center gap-2">
+                                  <span className="flex items-center justify-center bg-indigo-100 text-indigo-700 w-7 h-7 rounded-lg text-sm font-bold flex-shrink-0">
+                                    {num}
+                                  </span>
+                                  {headerText}
+                                </h4>
+                              </div>
+                            );
+                          }
+
+                          // General bold title check without digit
+                          if (trimmed.startsWith('**') && trimmed.endsWith('**') && !trimmed.includes('\n')) {
+                            const cleanText = trimmed.replace(/\*\*/g, '');
+                            return (
+                              <div key={idx} className="pt-3 pb-1">
+                                <h5 className="font-sans font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider text-slate-600">
+                                  {processMathText(cleanText)}
+                                </h5>
+                              </div>
+                            );
+                          }
+
+                          // 2. Table parsing
+                          if (trimmed.includes('|')) {
+                            const tableContent = trimmed.replace(/^[A-Z0-9_]+_TABLE\|/, '');
+                            const lines = tableContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                            if (lines.length > 0) {
+                              const headers = lines[0].split('|').map(h => h.trim());
+                              const rows = lines.slice(1).map(line => line.split('|').map(cell => cell.trim()));
+                              return (
+                                <div className="my-4 overflow-x-auto border border-slate-200 rounded-xl overflow-hidden shadow-xs" key={idx}>
+                                  <table className="min-w-full divide-y divide-slate-200 text-left text-xs sm:text-sm">
+                                    <thead className="bg-slate-50 font-sans font-bold text-slate-700">
+                                      <tr>
+                                        {headers.map((h, hIdx) => (
+                                          <th key={hIdx} className="px-4 py-2 hover:bg-slate-100/50 transition-colors font-semibold">
+                                            {processMathText(h)}
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-100 bg-white font-serif text-slate-600">
+                                      {rows.map((row, rIdx) => (
+                                        <tr key={rIdx} className="hover:bg-slate-50/50 transition-colors">
+                                          {row.map((cell, cIdx) => (
+                                            <td key={cIdx} className="px-4 py-2">
+                                              {processMathText(cell)}
+                                            </td>
+                                          ))}
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              );
+                            }
+                          }
+
+                          // 3. Warning callout
+                          if (trimmed.startsWith('⚠️')) {
+                            return (
+                              <div className="bg-amber-50/60 border-l-4 border-amber-500 rounded-r-xl p-4 my-4 flex items-start gap-3 shadow-xs font-sans text-xs sm:text-sm" key={idx}>
+                                <div className="text-amber-800 leading-relaxed">
+                                  {processMathText(trimmed)}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // 4. Worked Example / Problem callouts
+                          if (trimmed.startsWith('**Worked Example') || trimmed.startsWith('**Real-World Problem')) {
+                            return (
+                              <div className="bg-indigo-50/40 border-l-4 border-indigo-500/80 rounded-r-xl p-4 my-4 font-serif text-slate-700 shadow-2xs leading-relaxed" key={idx}>
+                                {processMathText(trimmed)}
+                              </div>
+                            );
+                          }
+
+                          // 5. Bullet points / Lists
+                          if (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- '))) {
+                            const lines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                            return (
+                              <div className="space-y-2 my-3 pl-2" key={idx}>
+                                {lines.map((line, lIdx) => {
+                                  const cleanLine = line.replace(/^[•\-\*]\s*/, '');
+                                  return (
+                                    <div key={lIdx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-slate-600">
+                                      <span className="text-indigo-500 mt-1 flex-shrink-0">•</span>
+                                      <div>{processMathText(cleanLine)}</div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            );
+                          }
+
+                          // 6. Default standard text paragraph
+                          return <p key={idx} className="font-serif leading-relaxed text-sm sm:text-base text-slate-600 my-3">{processMathText(p)}</p>;
+                        })}
                       </div>
 
                       {/* Display Equations block on the right */}
@@ -351,7 +456,7 @@ export default function App() {
                         <div className="space-y-4 divide-y divide-slate-200/60 pt-1">
                           {currentLesson.equations.map((eq, eqIdx) => (
                             <div key={eqIdx} className="pt-3 first:pt-0">
-                              <MathRenderer equation={eq} block />
+                              <MathSpan tex={eq} block />
                             </div>
                           ))}
                         </div>

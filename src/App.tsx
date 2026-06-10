@@ -315,23 +315,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Collaboration section */}
-                <div className="bg-slate-100 border border-slate-200/50 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center space-x-3.5">
-                    <div className="bg-indigo-100 p-2 rounded-xl text-indigo-700 flex-shrink-0">
-                      <HeartHandshake className="w-5 h-5 animate-pulse" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <h4 className="font-sans font-bold text-slate-800 text-sm">Study Partner Guide for Father & Son</h4>
-                      <p className="text-xs text-slate-500 font-sans">
-                        Solve equations, discuss geometric limits, run extreme simulations, and contrast numerical answers with analytical proofs.
-                      </p>
-                    </div>
-                  </div>
-                  <span className="text-slate-400 text-xs font-mono select-none">
-                    Session Active
-                  </span>
-                </div>
+
               </motion.div>
             ) : (
               currentLesson && (

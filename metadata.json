@@ -1,0 +1,8 @@
+{
+  "name": "Investing \u0026 Finance Math Lab - High School",
+  "description": "An interactive, mathematically-rigorous investing and financial markets learning laboratory for math students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

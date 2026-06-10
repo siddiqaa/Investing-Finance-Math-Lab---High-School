@@ -1,6 +1,6 @@
 # Project Instructions & AI Assistant Guidelines
 
-This repository contains the **Investing & Finance Math Lab**, an interactive, mathematically-rigorous simulation platform designed to bridge academic finance theory with real-world empirical realities.
+This repository contains the **Investing & Finance Math Lab**, an interactive, engaging learning platform designed to teach high school students and families the essential algebra behind investing and financial markets.
 
 Please follow these guidelines strictly during any future development, refactoring, or feature expansion:
 

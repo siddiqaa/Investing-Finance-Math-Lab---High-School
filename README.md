@@ -1,8 +1,8 @@
 # Investing & Finance Math Lab
 
-An interactive, mathematically-rigorous investing and financial markets learning laboratory designed for mathematics, physics, and financial engineering students. This application reconciles classical quantitative finance machinery with real-world empirical realities, market structures, and behavioral anomalies. 
+An interactive, engaging investing and financial markets learning laboratory designed specifically for high school students and families. This application breaks down financial theory into intuitive concepts using fundamental high school algebra, exponents, percentages, and basic probability. 
 
-The lab is fully self-contained and offers real-time visualization engines, interactive simulation parameter tuning, and dynamic verification utilities.
+The lab is fully self-contained and offers real-time visualization engines, interactive simulation parameter tuning, and friendly quiz-based verification utilities.
 
 ---
 

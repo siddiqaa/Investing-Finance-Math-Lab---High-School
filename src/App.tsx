@@ -139,20 +139,7 @@ export default function App() {
             </nav>
           </div>
 
-          {/* Quick Stats/Progress Info for father/son study */}
-          <div className="bg-slate-900 text-slate-300 border border-slate-950 rounded-2xl p-4 shadow-sm text-xs space-y-2">
-            <span className="text-slate-500 font-mono text-[10px] block uppercase tracking-wider font-semibold">Study Progress Tracker</span>
-            <div className="flex items-center justify-between">
-              <span>Completed Units:</span>
-              <span className="font-mono font-bold text-indigo-400">0 / 5</span>
-            </div>
-            <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1">
-              <div className="bg-indigo-500 h-full w-0" />
-            </div>
-            <p className="text-[10px] text-slate-400 pt-2 border-t border-slate-800/80 leading-relaxed font-serif italic">
-              "In financial economics, mathematics isn't merely an estimation; it is the replication algorithm."
-            </p>
-          </div>
+
         </aside>
 
         {/* Dynamic Main Workspace Content */}

@@ -26,3 +26,33 @@ Please follow these guidelines strictly during any future development, refactori
 - **Modular Layout:** Keep laboratories structurally independent (e.g., `DcfLab`, `StochasticLab`, `PortfolioLab`, `OptionsLab`, `BehavioralLab`).
   - Coordinate these laboratories within `src/App.tsx`.
   - Maintain the interactive, dual-panel layout of "Theoretical Syllabus" side-by-side with "Visual Simulation parameters."
+
+---
+
+## 🛠️ Technology Stack
+* **Framework:** React with Vite
+* **Language:** TypeScript (Strictly typed schemas)
+* **Styling:** Tailwind CSS (Modern, desktop-first responsive aesthetic)
+* **Animations:** Framer Motion (`motion` for buttery smooth state crossovers)
+* **Icons:** Lucide React
+* **Math Rendering:** Fully automated inline LaTeX formatting and mathematical identity cards
+
+---
+
+## 🌌 Architecture & Key Laboratories
+The laboratory is structured into multiple core simulation modules, each targeting a key pillar of quantitative and empirical finance:
+
+### 1. 📈 Discounted Cash Flows & Continuous Compounding (DCF Lab)
+* **Core Concepts:** Continuous discounting, Net Present Value ($NPV$), multi-period yield curves, compounding frequency effects ($\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$), and bond pricing.
+
+### 2. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
+* **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification: $dS_t = \mu S_t dt + \sigma S_t dW_t$
+
+### 3. 🎯 Modern Portfolio Theory (Portfolio Lab)
+* **Core Concepts:** Markowitz Mean-Variance Optimization, the Efficient Frontier, the Sharpe Ratio, and Covariance matrices ($\Sigma$).
+
+### 4. 📊 Black-Scholes-Merton Option Pricing (Options Lab)
+* **Core Concepts:** Black-Scholes closed-form solutions for European options, the Greek derivatives ($\Delta, \Gamma, \Theta, Vega$), and Implied Volatility ($IV$).
+
+### 5. 🧠 Behavioral Finance & Market Crowds (Behavioral Lab)
+* **Core Concepts:** Momentum anomalies, information cascades (rational herding), loss aversion and the disposition effect, self-feeding asset bubbles, and commodity short squeezes.

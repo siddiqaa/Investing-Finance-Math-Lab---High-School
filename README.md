@@ -1,51 +1,22 @@
 # Investing & Finance Math Lab
 
+🌍 **Live Deployment:** [https://investing-finance-math-lab-high-sch.vercel.app/](https://investing-finance-math-lab-high-sch.vercel.app/)
+
 An interactive, engaging investing and financial markets learning laboratory designed specifically for high school students and families. This application breaks down financial theory into intuitive concepts using fundamental high school algebra, exponents, percentages, and basic probability. 
 
 The lab is fully self-contained and offers real-time visualization engines, interactive simulation parameter tuning, and friendly quiz-based verification utilities.
 
 ---
 
-## 🌌 Architecture & Key Laboratories
+## 🔬 Core Features & Laboratories
 
-The laboratory is structured into multiple core simulation modules, each targeting a key pillar of quantitative and empirical finance:
-
-### 1. 📈 Discounted Cash Flows & Continuous Compounding (DCF Lab)
-Explore the mathematical foundation of time value under discrete and continuous intervals.
-* **Core Concepts:** Continuous discounting, Net Present Value ($NPV$), multi-period yield curves, compounding frequency effects ($\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$), and bond pricing.
-* **Interactive Tooling:** Dynamic yield curve builders and continuous cash flow present-value modelers with visual compounding comparisons.
-
-### 2. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
-Simulate the continuous random walks of equity prices under the Arbitrage Pricing theory.
-* **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification:
-  $$dS_t = \mu S_t dt + \sigma S_t dW_t$$
-* **Interactive Tooling:** Real-time multi-path Monte Carlo simulations, distribution histograms, and Hurst exponent estimators ($H$) to analyze sub-diffusive or super-diffusive behavior.
-
-### 3. 🎯 Modern Portfolio Theory (Portfolio Lab)
-Construct optimal risk-adjusted asset allocations over multiple risky assets.
-* **Core Concepts:** Markowitz Mean-Variance Optimization, the Efficient Frontier, the Sharpe Ratio, and Covariance matrices ($\Sigma$).
-* **Interactive Tooling:** Interactive three-asset covariance weights simulator illustrating the "Markowitz Bullet," tangent Capital Allocation Lines (CAL), and utility curve intersections.
-
-### 4. 📊 Black-Scholes-Merton Option Pricing (Options Lab)
-Model derivatives contracts pricing and structural volatility spaces.
-* **Core Concepts:** Black-Scholes closed-form solutions for European options, the Greek derivatives ($\Delta, \Gamma, \Theta, Vega$), and Implied Volatility ($IV$).
-  $$d_1 = \frac{\ln(S/K) + (r + \sigma^2/2)t}{\sigma \sqrt{t}}$$
-* **Interactive Tooling:** Dynamic Option Greek visualizers, 3D/2D parameter surfaces, and implied volatility solvers using the Newton-Raphson method.
-
-### 5. 🧠 Behavioral Finance & Market Crowds (Behavioral Lab)
-Witness the psychological and architectural feedback loops that cause actual prices to pull away from the theoretical mathematical anchors.
-* **Core Concepts:** Momentum anomalies, information cascades (rational herding), loss aversion and the disposition effect, self-feeding asset bubbles, and commodity short squeezes.
-* **Interactive Tooling:** Custom positive-feedback simulation engine modeling speculative bubble expansion, capital margin constraints, and systemic arbitrage liquidations when the crowd forces price deviation over physical reality.
-
----
-
-## 🛠️ Technology Stack
-* **Framework:** React with Vite
-* **Language:** TypeScript (Strictly typed schemas)
-* **Styling:** Tailwind CSS (Modern, desktop-first responsive aesthetic)
-* **Animations:** Framer Motion (`motion` for buttery smooth state crossovers)
-* **Icons:** Lucide React
-* **Math Rendering:** Fully automated inline LaTeX formatting and mathematical identity cards
+- **Interactive Syllabus & Study Companion:** A dual-panel design structurally links theoretical study chapters with real-time interactive parameters on the side panel.
+- **DCF Lab (Discounted Cash Flows):** Dynamic yield curve builders and continuous cash flow present-value modelers with visual compounding comparisons.
+- **Stochastic Lab (Random Walks):** Real-time multi-path Monte Carlo simulations, distribution histograms, and interactive volatility modeling.
+- **Portfolio Lab (Modern Portfolio Theory):** Interactive three-asset covariance weights simulator illustrating the "Markowitz Bullet" and the Efficient Frontier.
+- **Options Lab (Black-Scholes):** Dynamic Option Greek visualizers and implied volatility solvers.
+- **Behavioral Lab (Market Crowds & Sentiment):** Custom positive-feedback simulation engine modeling speculative bubble expansion, information cascades, and commodity squeezes.
+- **Knowledge Verification quizzes:** End-of-module interactive quizzes reinforcing the key insights of mathematical derivations and market mechanics.
 
 ---
 

@@ -6,6 +6,7 @@ import { PortfolioLab } from './components/PortfolioLab';
 import { OptionsLab } from './components/OptionsLab';
 import { BehavioralLab } from './components/BehavioralLab';
 import { QuizSection } from './components/QuizSection';
+import { PdfExportButton } from './components/PdfExportButton';
 import { MathSpan, processMathText } from './lib/math';
 import { 
   BookOpen, 
@@ -174,6 +175,7 @@ export default function App() {
                       >
                         Launch Lesson 1: Compound & Growth
                       </button>
+                      <PdfExportButton />
                     </div>
                   </div>
 
@@ -328,6 +330,34 @@ export default function App() {
                       {currentLesson.subtitle}
                     </p>
                   </div>
+
+                  {/* Narrative Introduction Panel */}
+                  {currentLesson.introduction && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-white border-l-4 border-l-indigo-600 border-y border-r border-slate-200 rounded-r-3xl rounded-l-lg p-8 sm:p-10 shadow-sm space-y-6 relative overflow-hidden"
+                    >
+                      <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+                        <BookOpen className="w-32 h-32 text-indigo-900" />
+                      </div>
+                      <div className="relative z-10">
+                        <h3 className="font-sans font-bold text-slate-900 text-lg sm:text-xl flex items-center gap-2 mb-4">
+                          <HeartHandshake className="w-5 h-5 text-indigo-600" />
+                          The Big Picture
+                        </h3>
+                        <div className="font-serif text-slate-700 text-base sm:text-lg leading-relaxed space-y-4 max-w-4xl prose prose-slate prose-indigo">
+                          {currentLesson.introduction.split('\n\n').map((paragraph, pIdx) => (
+                            <p key={pIdx}>{processMathText(paragraph)}</p>
+                          ))}
+                        </div>
+                        <div className="pt-6 border-t border-slate-100 flex items-center gap-3">
+                          <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">End of Narrative Hook — Transitioning to Mathematical Models</span>
+                          <div className="flex-1 h-px bg-slate-100" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Math Derivation Text section */}
                   <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm space-y-5">

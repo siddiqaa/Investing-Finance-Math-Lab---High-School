@@ -14,6 +14,7 @@ export interface LessonContent {
   mathTopic: string;
   equations: string[];
   description: string;
+  introduction?: string;
   fullText: string[];
   quizzes: QuizQuestion[];
 }

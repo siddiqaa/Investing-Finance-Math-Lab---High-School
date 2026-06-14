@@ -47,10 +47,3 @@ npm run build
 ```
 The asset bundle will be generated under the `dist/` workspace directory.
 
----
-
-## 📚 Study Companion
-
-Each interactive laboratory pane is structurally linked with its corresponding chapter in the **Syllabus Hub**. This structural pairing allows you to read theoretical derivations and instantly test the assumptions under real-time interactive parameters on the side panel.
-
-*Happy mathematical modeling!*

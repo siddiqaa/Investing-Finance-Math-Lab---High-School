@@ -48,8 +48,11 @@ Please follow these guidelines strictly during any future development, refactori
 ## 🌌 Architecture & Key Laboratories
 The laboratory is structured into multiple core simulation modules, each targeting a key pillar of quantitative and empirical finance:
 
-### 1. 📈 Discounted Cash Flows & Continuous Compounding (DCF Lab)
-* **Core Concepts:** Continuous discounting, Net Present Value ($NPV$), multi-period yield curves, compounding frequency effects ($\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$), and bond pricing.
+### 1. 🍋 Lemonade Stand & Net Present Value (NPV Lab)
+* **Core Concepts:** Present Value ($PV$), Net Present Value ($NPV$), opportunity cost, and cash flow discounting.
+
+### 2. 📈 Discounted Cash Flows & Continuous Compounding (DCF Lab)
+* **Note:** This lab contains advanced yield curve modelling and is currently archived for advanced exploration.
 
 ### 2. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
 * **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification: $dS_t = \mu S_t dt + \sigma S_t dW_t$

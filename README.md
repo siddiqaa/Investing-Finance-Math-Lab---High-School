@@ -17,7 +17,7 @@ The platform is structured into 9 comprehensive units, guiding students from fun
 ### 1. 📈 Unit 1: Time Value of Money & Compound Growth (`compounding`)
 * **Math Focus:** Exponents, interest rates, and compounding frequencies.
 * **Core Formula:** $A = P(1 + r)^n$ and the limit as compounding approaches infinity: $\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$.
-* **Interactive Sandbox (DCF Lab):** Dynamic yield curve builder, continuous discount modeller, and cash flow stream NPV comparisons.
+* **Interactive Sandbox (Lemonade Stand Lab):** An intuitive business simulation where students "buy" a stand and calculate Net Present Value ($NPV$) based on projected cash flows and opportunity costs.
 * **Knowledge Check:** `TvmKnowledgeCheck` for immediate calculation verification.
 
 ### 2. 🏦 Unit 1.5: Selecting the Rate ($r$) in Practice (`rateSelection`)

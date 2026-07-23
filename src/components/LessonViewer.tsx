@@ -10,7 +10,7 @@ import { LessonContent } from '../types';
 import { MathSpan, processMathText } from '../lib/math';
 
 // Import Labs
-import { DcfLab } from './DcfLab';
+import { LemonadeStandLab } from './LemonadeStandLab';
 import { BankLab } from './BankLab';
 import { StockBridgeLab } from './StockBridgeLab';
 import { ValuationLab } from './ValuationLab';
@@ -39,7 +39,7 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
   const renderLabWidget = (moduleId: string) => {
     switch (moduleId) {
       case 'compounding':
-        return <DcfLab />;
+        return <LemonadeStandLab />;
       case 'rateSelection':
         return <BankLab />;
       case 'stockBridge':

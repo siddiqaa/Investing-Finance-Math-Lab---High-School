@@ -229,6 +229,45 @@ export const PdfExportButton: React.FC = () => {
                   }
                 }
 
+                // Knowledge Check TVM table
+                if (trimmed.startsWith('KNOWLEDGE_CHECK_TVM')) {
+                  return (
+                    <div className="my-6 border rounded-xl p-5" key={pIdx} style={{ backgroundColor: '#f8fafc', borderColor: '#cbd5e1' }}>
+                      <h4 className="font-bold text-base mb-3 font-sans" style={{ color: '#0f172a' }}>Knowledge Check: TVM Practice Table ($PV = \$5,000$, $r = 6\%$)</h4>
+                      <table className="w-full border-collapse text-sm">
+                        <thead className="font-bold" style={{ backgroundColor: '#e2e8f0', color: '#1e293b' }}>
+                          <tr>
+                            <th className="px-4 py-2 border text-left">Years ($n$)</th>
+                            <th className="px-4 py-2 border text-left">Initial Value ($PV$)</th>
+                            <th className="px-4 py-2 border text-left">Calculation Formula</th>
+                            <th className="px-4 py-2 border text-left">Final Value ($FV$)</th>
+                          </tr>
+                        </thead>
+                        <tbody style={{ color: '#334155' }}>
+                          <tr>
+                            <td className="px-4 py-2 border font-mono">1 Year</td>
+                            <td className="px-4 py-2 border font-mono">$5,000</td>
+                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^1$</td>
+                            <td className="px-4 py-2 border font-mono">$5,300.00</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-2 border font-mono">5 Years</td>
+                            <td className="px-4 py-2 border font-mono">$5,000</td>
+                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^5$</td>
+                            <td className="px-4 py-2 border font-mono">$6,691.13</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-2 border font-mono">10 Years</td>
+                            <td className="px-4 py-2 border font-mono">$5,000</td>
+                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^{10}$</td>
+                            <td className="px-4 py-2 border font-mono">$8,954.24</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+
                 // Diagrams
                 if (trimmed.startsWith('DIAGRAM|')) {
                   return (

@@ -22,7 +22,13 @@ Please follow these guidelines strictly during any future development, refactori
 ---
 
 ## 📊 Math & Interactive Labs Structure
-- **Formula Syntax:** Mathematical equations inside study chapters and components use standard math expressions or custom inline LaTeX identifiers. Keep mathematical formulas correct and visually prominent.
+- **Formula Syntax & KaTeX Processing:** 
+  - Standard React JSX text nodes (e.g., `<p>`, `<div>`, `<li>`) containing `$...$` math delimiters **do not** render as LaTeX by default.
+  - You **MUST** wrap any paragraph, heading, or list item containing inline formulas in the `{processMathText('My formula is $r = 0.05$.')}` helper from `src/lib/math.tsx`.
+  - For standalone block equations or custom inline nodes, use the `<MathSpan tex="..." block={true/false} />` component.
+  - **Double Escaping in JS/TS Strings:** Inside JavaScript/TypeScript strings (including lessons in `.ts` files), backslashes MUST be double-escaped. Write `\\sum`, `\\frac`, `\\dots`, `\\infty`, `\\approx`, `\\sum_{i=1}^{n}`, `\\%` for percentage signs, and `\\text{...}` for text formatting. Single backslashes like `\sum` will be treated as escape sequences and will fail to render or compile.
+  - **Syllabus and Lessons Mapping:** Lesson `fullText` and `introduction` blocks contain text with `$...$` math. Ensure they are mapped using `processMathText(paragraph)` inside `App.tsx` or your custom renderers.
+  - **Bullet List Elements:** For bullet lists with bold terms and math, use clean separate nodes (e.g., `<li><strong className="text-slate-800">Term (<MathSpan tex="x" />):</strong> details</li>`) instead of passing complex nested HTML strings to parsing functions.
 - **Modular Layout:** Keep laboratories structurally independent (e.g., `DcfLab`, `StochasticLab`, `PortfolioLab`, `OptionsLab`, `BehavioralLab`).
   - Coordinate these laboratories within `src/App.tsx`.
   - Maintain the interactive, dual-panel layout of "Theoretical Syllabus" side-by-side with "Visual Simulation parameters."

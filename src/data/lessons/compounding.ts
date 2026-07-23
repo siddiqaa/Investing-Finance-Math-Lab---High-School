@@ -3,14 +3,14 @@ import { LessonContent } from '../../types';
 export const compounding: LessonContent = {
   id: 'compounding',
   title: 'Time Value of Money & Compound Growth',
-  subtitle: 'Exponents, compound growth, backwards present value, and company valuation',
-  mathTopic: 'Exponents, Percentages, Present Value, Net Present Value, and the Gordon Growth Model',
+  subtitle: 'Exponents, compound growth, backwards present value, and project valuation',
+  mathTopic: 'Exponents, Percentages, Present Value, and Net Present Value',
   equations: [
     'FV = PV \\times (1 + r)^n',
-    'PV = \\sum_{t=1}^{\\infty} \\frac{CF_t}{(1 + r)^t}',
-    'P_0 = \\frac{D_0 (1 + g)}{r - g} \\quad (r > g)'
+    'PV = \\frac{FV}{(1 + r)^n}',
+    'NPV = \\sum_{t=1}^{T} \\frac{CF_t}{(1 + r)^t}'
   ],
-  description: 'Understand the power of exponents and percentages through compound growth. Discover why a dollar today is worth more than a dollar tomorrow, and learn how to work backwards to find present value and value growing dividends.',
+  description: 'Understand the power of exponents and percentages through compound growth. Discover why a dollar today is worth more than a dollar tomorrow, and learn how to work backwards to find present value and analyze investment cash flow streams.',
   introduction: `The story of modern finance begins not with a bank, but with a simple, quiet realization: time is a physical dimension of value. In our everyday lives, we measure things in height, width, and weight. But in the world of money, there is a fourth dimension—Time. If you have a chocolate bar today, you can eat it now. If I promise you a chocolate bar in ten years, that promise is significantly less useful. You can't satisfy your hunger today with a promise from the future. This intuitive gap between "Having it Now" and "Having it Later" is the entire reason the financial world exists.
 
 Imagine you are a sea merchant in the 1700s. You have a ship full of spice, but it will take two years to sail across the ocean and return with gold. During those two years, your family still needs to eat, and your crew still needs to be paid. You have wealth in the *future*, but you are poor in the *present*. To bridge that gap, you might go to a lender. You ask for gold now, promising to pay back even more gold when your ship returns. The lender isn't just "charging you a fee"; they are giving up their own ability to use that gold today. They are selling you their *patience*. The price of that patience is what we call **Interest**.
@@ -30,18 +30,20 @@ In this first unit, we will master both directions: building the future with com
     'YEARS_TABLE|Years | Calculation | Final Value\n10 | $10,000 \\times (1.07)^{10}$ | \\$19,672\n20 | $10,000 \\times (1.07)^{20}$ | \\$38,697\n30 | $10,000 \\times (1.07)^{30}$ | \\$76,123',
     'Notice the "Snowball Effect": the jump from year 20 to year 30 (\\$37,000) is nearly four times larger than the jump from year 0 to year 10 (\\$9,000). Compounding reward the patient. The math tells us that the most important variable in your wealth isn\'t how much you start with, but how *long* you let it grow.',
     '⚠️ **Common Mistake:** Students often think 7% per year for 10 years = 70% total growth. In Reality, it\'s $(1.07)^{10} - 1 \\approx 96.7\\%$ total growth. You aren\'t just adding 7% ten times; you are growing by 1.07x ten times. Always multiply growth factors — never add them.',
+    'KNOWLEDGE_CHECK_TVM|Initial Value: 5000, Annual Growth Rate: 6%',
     '2. **Discounting: Thinking in Reverse**\nIn finance, we often need to look at a future promise and figure out what it\'s worth *now*. If a company promises to pay you \\$10,000 in ten years, you shouldn\'t value it at \\$10,000 because you have to wait for it. We "discount" that future value to find its equivalent today.',
     'We flip the compounding formula using algebra:\n$PV = \\frac{FV}{(1 + r)^n}$\nThis is the "Price Tag" of the future. The higher the interest rate (or risk), the more we "shrink" the future value back to the present.',
     '**Real-World Problem — The Lottery Dilemma:**\nYou win a lottery. You can take either:\n- Option A: \\$1,000,000 today\n- Option B: \\$1,300,000 paid in 5 years',
     'Which should you choose? It depends on your **Discount Rate**. \n- At $r = 5\\%$: $PV_B = \\frac{1{,}300{,}000}{(1.05)^5} \\approx \\$1{,}018{,}800$. Option B is better.\n- At $r = 8\\%$: $PV_B = \\frac{1{,}300{,}000}{(1.08)^5} \\approx \\$885{,}000$. Option A wins.',
     'The "right" value of a future payment isn\'t fixed; it changes based on what else you could do with the money in the meantime.',
+    'KNOWLEDGE_CHECK_DISCOUNT|Future Value: 10000, Annual Discount Rate: 8%',
     '3. **Net Present Value (NPV): Valuing a Stream**\nMost investments aren\'t just one payment; they are a "stream" of payments over years (like a lemonade stand, a rental property, or a giant tech company). By discounting *every* individual future payment and adding them all up, we find the **Net Present Value (NPV)**. This is the "Holy Grail" of valuation math.',
     '$NPV = \\sum_{t=1}^{T} \\frac{CF_t}{(1 + r)^t}$',
+    'SIDE_QUEST_CALLOUT|side_quest_sigma|Summation (Sigma)',
     '**Worked Example — The Lemonade Stand Valuation:**\nYour friend\'s lemonade stand earns \\$500 in profit every year for 5 years, then closes. What is this business worth today if your required return is $10\\%$?',
     'STAND_TABLE|Year | Cash Flow | Discount Factor | Present Value\n1 | \\$500 | $\\div 1.10^1 = 0.909$ | \\$454.50\n2 | \\$500 | $\\div 1.10^2 = 0.826$ | \\$413.00\n3 | \\$500 | $\\div 1.10^3 = 0.751$ | \\$375.50\n4 | \\$500 | $\\div 1.10^4 = 0.683$ | \\$341.55\n5 | \\$500 | $\\div 1.10^5 = 0.621$ | \\$310.45\nTotal NPV | | | \\$1,895.00',
     'Even though the stand pays out \\$2,500 total, it is only "worth" \\$1,895 today. If your friend asks for \\$2,000 to buy the business, the math says: **No.** The price is higher than the value.',
-    '4. **The Gordon Growth Model**\nWhat if the business never closes? A mature company like Coca-Cola pays a dividend that grows slightly every year, forever. We can value this infinite stream with a surprisingly simple formula:\n$P_0 = \\frac{D_0 \\times (1 + g)}{r - g} \\qquad \\text{(requires } r > g \\text{)}$',
-    '**Why "r - g" is so sensitive:**\nImagine a stock paying a \\$2 dividend. If you require 10% ($r$) and it grows at 5% ($g$), the price is \\$40. But if growth picks up to 8%, the denominator ($r-g$) shrinks from 5% to 2%, and the price **triples to \\$100**. This is why the stock market goes crazy when a company changes its "growth guidance" by even 1% — the math of infinity makes small changes have massive impact.'
+    'KNOWLEDGE_CHECK_NPV|Annual Discount Rate: 10%',
   ],
   quizzes: [
     {
@@ -59,16 +61,16 @@ In this first unit, we will master both directions: building the future with com
     },
     {
       id: 'c2',
-      question: 'Under the Gordon Growth Model, if a company pays a dividend of \\$2.00 next year ($D_1$) and this dividend is expected to grow at 3% forever, what is its stock value if your required return ($r$) is 8%?',
+      question: 'If you invest \\$1,000 today at an 8% annual interest rate, which compounding frequency yields the highest balance after 5 years?',
       options: [
-        '\\$40.00',
-        '\\$20.00',
-        '\\$25.00',
-        '\\$100.00'
+        'Annual compounding (once per year)',
+        'Daily compounding (365 times per year)',
+        'Continuous compounding (infinitely frequent compounding)',
+        'All frequencies yield the exact same final balance'
       ],
-      correctIndex: 0,
-      explanation: 'The Gordon Growth Model gives the stock price as $P_0 = D_1 / (r - g)$. Substituting $D_1 = \\$2.00$, $r = 0.08$, and $g = 0.03$, we get $P_0 = 2 / (0.08 - 0.03) = 2 / 0.05 = \\$40.00$.',
-      hint: 'Use the formula $P_0 = D_1 / (r - g)$, where next year\'s dividend $D_1$ has already factored in the growth.'
+      correctIndex: 2,
+      explanation: 'Continuous compounding represents the mathematical upper limit of compounding frequency: as compounding frequency approaches infinity, we use A = P * e^(rt). Because interest is converted to principal and starts earning its own interest instantly, continuous compounding always yields the highest possible final balance.',
+      hint: 'Recall that compounding more frequently means earning interest on your interest sooner.'
     },
     {
       id: 'c3',

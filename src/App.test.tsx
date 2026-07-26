@@ -40,7 +40,12 @@ describe('App', () => {
     expect(screen.getAllByText(/The Big Picture/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/time is a physical dimension of value/i).length).toBeGreaterThan(0);
     
-    // 2. Switch to Stochastic Calculus
+    // 2. Switch to Auto Loans & TCO
+    const autoLoanBtn = screen.getByRole('button', { name: /Bonus Unit: Auto Loans & TCO/i });
+    fireEvent.click(autoLoanBtn);
+    expect(await screen.findByText(/buying a first car is the single biggest financial transaction/i)).toBeInTheDocument();
+
+    // 3. Switch to Stochastic Calculus
     const stochasticBtn = screen.getByRole('button', { name: /Unit 3: Stock Prices & Randomness/i });
     fireEvent.click(stochasticBtn);
     expect(await screen.findByText(/heartbeat of a person running a marathon/i)).toBeInTheDocument();

@@ -250,6 +250,28 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               <ChevronsRight className="w-3 h-3" />
             </button>
           </div>
+
+          {/* Bonus Unit - Auto Loans & Ownership */}
+          <div className="bg-white border border-indigo-200 hover:border-indigo-300 transition-colors rounded-2xl p-5 space-y-3 bg-gradient-to-br from-white to-indigo-50/20">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-600 block uppercase">Bonus Unit</span>
+              <span className="bg-indigo-100 text-indigo-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">Amortization & Car Ownership</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Auto Loans & Total Cost of Ownership
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Master car loan amortization algebra PMT = P · r(1+r)ⁿ / ((1+r)ⁿ - 1). Calculate interest vs. principal decay and model Total Cost of Ownership (TCO) comparing Gas (ICE) vs. Electric (EV) vehicles.
+            </p>
+            <button
+              onClick={() => setActiveModule('amortization')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-200 hover:border-indigo-300 px-2.5 py-1.5 rounded-lg bg-indigo-50 transition-all cursor-pointer"
+              id="btn-nav-unit-bonus"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
         </div>
       </div>
 

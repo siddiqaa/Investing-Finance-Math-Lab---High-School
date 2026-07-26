@@ -65,3 +65,6 @@ The laboratory is structured into multiple core simulation modules, each targeti
 
 ### 5. 🧠 Behavioral Finance & Market Crowds (Behavioral Lab)
 * **Core Concepts:** Momentum anomalies, information cascades (rational herding), loss aversion and the disposition effect, self-feeding asset bubbles, and commodity short squeezes.
+
+### 6. 🚗 Auto Loans & Total Cost of Ownership (Bonus Amortization Lab)
+* **Core Concepts:** Loan Amortization ($PMT = P \cdot \frac{r(1+r)^n}{(1+r)^n - 1}$), interest vs. principal decay schedule, and Total Cost of Ownership (TCO) comparing Internal Combustion Engine (ICE) gas vehicles vs. Electric Vehicles (EV) considering fuel/electricity rates, insurance, and maintenance.

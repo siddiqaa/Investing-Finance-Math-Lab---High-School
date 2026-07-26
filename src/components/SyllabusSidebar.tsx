@@ -12,7 +12,8 @@ import {
   Sigma, 
   Landmark, 
   Briefcase, 
-  Zap 
+  Zap,
+  Car
 } from 'lucide-react';
 
 interface SyllabusSidebarProps {
@@ -90,6 +91,10 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitNumber = '6';
               unitTitle = 'Behavioral Market Math';
               stepIcon = <Users className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'amortization') {
+              unitNumber = 'Bonus';
+              unitTitle = 'Auto Loans & TCO';
+              stepIcon = <Car className="w-4 h-4 flex-shrink-0" />;
             }
 
             return (
@@ -105,7 +110,7 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               >
                 <span className="flex items-center space-x-2.5 min-w-0">
                   <span className={isSelected ? 'text-indigo-400' : 'text-slate-400'}>{stepIcon}</span>
-                  <span className="truncate font-sans font-bold">Unit {unitNumber}: <span className="font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">{unitTitle}</span></span>
+                  <span className="truncate font-sans font-bold">{les.id === 'amortization' ? 'Bonus Unit' : `Unit ${unitNumber}`}: <span className="font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">{unitTitle}</span></span>
                 </span>
                 <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
               </button>

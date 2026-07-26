@@ -13,6 +13,7 @@ import { ContentRenderer } from './ContentRenderer';
 
 // Import Labs
 import { LemonadeStandLab } from './LemonadeStandLab';
+import { AutoLoanLab } from './AutoLoanLab';
 import { BankLab } from './BankLab';
 import { StockBridgeLab } from './StockBridgeLab';
 import { ValuationLab } from './ValuationLab';
@@ -35,6 +36,8 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
     switch (moduleId) {
       case 'compounding':
         return <LemonadeStandLab />;
+      case 'amortization':
+        return <AutoLoanLab />;
       case 'rateSelection':
         return <BankLab />;
       case 'stockBridge':

@@ -1,5 +1,6 @@
 import { LessonContent } from '../types';
 import { compounding } from './lessons/compounding';
+import { amortization } from './lessons/amortization';
 import { rateSelection } from './lessons/rateSelection';
 import { stockBridge } from './lessons/stockBridge';
 import { valuation } from './lessons/valuation';
@@ -19,4 +20,5 @@ export const LESSONS: Record<string, LessonContent> = {
   portfolio,
   options,
   behavioral,
+  amortization,
 };

@@ -11,7 +11,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
-import { MathSpan } from '../lib/math';
+import { MathSpan, processMathText } from '../lib/math';
 
 export const BankLab: React.FC = () => {
   const [initialDeposit, setInitialDeposit] = useState<number>(1000);
@@ -91,7 +91,7 @@ export const BankLab: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              Initial Deposit ($P$)
+              {processMathText('Initial Deposit ($P$)')}
             </label>
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-slate-700">$</span>
@@ -107,7 +107,7 @@ export const BankLab: React.FC = () => {
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-              Annual Interest Rate ($r$)
+              <span>{processMathText('Annual Interest Rate ($r$)')}</span>
               <Info className="w-3 h-3 cursor-help text-slate-300" />
             </label>
             <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export const BankLab: React.FC = () => {
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              Years ($n$)
+              {processMathText('Years ($n$)')}
             </label>
             <div className="flex items-center gap-2">
               <input 
@@ -209,7 +209,7 @@ export const BankLab: React.FC = () => {
           <div className="mt-6 p-4 bg-slate-50 rounded-xl text-xs text-slate-500 italic flex gap-3">
             <RefreshCcw className="w-4 h-4 text-slate-400 shrink-0 mt-0.5 animate-spin-slow" />
             <p>
-              The <strong>indigo gap</strong> above the gray bars represents your compound interest. Notice how it grows wider each year as interest begins to earn interest on itself.
+              The <span className="font-bold text-slate-800">indigo gap</span> above the gray bars represents your compound interest. Notice how it grows wider each year as interest begins to earn interest on itself.
             </p>
           </div>
         </div>
@@ -268,7 +268,7 @@ export const BankLab: React.FC = () => {
             <div className="mt-auto pt-8">
               <div className="bg-white/5 p-4 rounded-xl border border-white/10 text-xs text-slate-400 leading-relaxed">
                 <span className="text-white font-bold block mb-1">Economics Lesson:</span>
-                "By keeping {formatCurrency(initialDeposit)} in cash, you are effectively 'paying' {formatCurrency(totalInterest)} for the safety of having physical bills. That is your <strong>Opportunity Cost</strong>."
+                "By keeping {formatCurrency(initialDeposit)} in cash, you are effectively 'paying' {formatCurrency(totalInterest)} for the safety of having physical bills. That is your <span className="font-bold text-white">Opportunity Cost</span>."
               </div>
             </div>
           </div>

@@ -17,11 +17,12 @@ describe('processMathText', () => {
     expect(codeTag?.textContent).toBe('$E=mc^2$');
   });
 
-  it('handles bold text with **', () => {
-    const { container } = render(<>{processMathText('This is **bold** text')}</>);
-    const strongTag = container.querySelector('strong');
-    expect(strongTag).toBeInTheDocument();
-    expect(strongTag?.textContent).toBe('bold');
+  it('handles bold text with ** and *', () => {
+    const { container } = render(<>{processMathText('This is **bold** and *also bold* text')}</>);
+    const boldSpans = container.querySelectorAll('span.font-bold');
+    expect(boldSpans.length).toBe(2);
+    expect(boldSpans[0].textContent).toBe('bold');
+    expect(boldSpans[1].textContent).toBe('also bold');
   });
 
   it('restores escaped dollar signs as currency', () => {

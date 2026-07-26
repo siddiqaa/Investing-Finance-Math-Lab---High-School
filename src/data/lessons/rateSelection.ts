@@ -6,8 +6,8 @@ export const rateSelection: LessonContent = {
   subtitle: 'Lending to banks, savings accounts vs. CDs, and opportunity cost',
   mathTopic: 'Interest Rates, Opportunity Cost, and Savings benchmarks',
   equations: [
-    'r_{\\text{bank}} = \\text{The interest rate you get from giving your money to a bank}',
-    'PV = \\frac{FV}{(1 + r)^n}'
+    'FV = P \\times (1 + r_{\\text{bank}})^n',
+    '\\text{Opportunity Cost} = FV_{\\text{bank}} - P'
   ],
   description: 'Learn how the magical "interest rate" (r) is chosen in real life. For high schoolers and savers, we simplify this to the return you can get by putting your money in a savings account or a certificate of deposit at your local bank.',
   introduction: `In Unit 1, we learned that the interest rate, $r$, is like a mathematical time-machine slider. It grows our money forward into the future and shrinks promises backward to the present. But where does this mysterious "rate $r$" actually come from?

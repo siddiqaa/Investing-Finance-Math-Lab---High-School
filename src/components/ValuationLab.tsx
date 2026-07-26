@@ -248,7 +248,7 @@ export const ValuationLab: React.FC = () => {
           <div className="pt-4 flex items-start gap-2 text-xs text-slate-500 leading-relaxed font-serif">
             <BookOpen className="w-4 h-4 text-indigo-500 flex-shrink-0 mt-0.5" />
             <p>
-              Even though the company continues paying dividends forever, their Present Value shrinking to zero proves why the total sum is **finite**. The sum of these heights is exactly equal to the calculated stock price of **{formatCurrency(theoreticalPrice)}**.
+              {processMathText(`Even though the company continues paying dividends forever, their Present Value shrinking to zero proves why the total sum is **finite**. The sum of these heights is exactly equal to the calculated stock price of **${formatCurrency(theoreticalPrice)}**.`)}
             </p>
           </div>
         </div>
@@ -264,7 +264,7 @@ export const ValuationLab: React.FC = () => {
           <div className="space-y-1.5">
             <span className="font-bold text-slate-800 block">1. The Infinity Denominator Paradox</span>
             <p className="leading-relaxed">
-              When the required return $r$ approaches the growth rate $g$ from above, the denominator $(r - g)$ approaches zero. Mathematically, dividing by a number close to zero causes the stock price to **skyrocket toward infinity**. This is why the stock market goes into wild swings when growth expectations drop by even 0.5%—the math multiplies tiny changes dramatically!
+              {processMathText('When the required return $r$ approaches the growth rate $g$ from above, the denominator $(r - g)$ approaches zero. Mathematically, dividing by a number close to zero causes the stock price to **skyrocket toward infinity**. This is why the stock market goes into wild swings when growth expectations drop by even 0.5%—the math multiplies tiny changes dramatically!')}
             </p>
           </div>
           <div className="space-y-1.5">

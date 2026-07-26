@@ -1,13 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
-import jsPDF from 'jspdf';
-import * as htmlToImage from 'html-to-image';
-import { Download, Loader2, BrainCircuit } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import { Download, BrainCircuit, CheckCircle2, HelpCircle } from 'lucide-react';
 import { LESSONS } from '../data/lessons';
 import { MathSpan, processMathText } from '../lib/math';
+import { ContentRenderer } from './ContentRenderer';
 
 /**
  * PDF Book Generation logic
- * Renders all lessons into a hidden container and captures them as PDF.
+ * Renders all lessons into a hidden container and captures them as printable HTML / PDF view.
  */
 export const PdfExportButton: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -74,7 +73,7 @@ export const PdfExportButton: React.FC = () => {
               margin: 0 auto;
               background: white;
               box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-              padding: 4rem;
+              padding: 3rem;
               border-radius: 0.5rem;
             }
             @page {
@@ -89,7 +88,7 @@ export const PdfExportButton: React.FC = () => {
                 <h3 class="font-bold text-indigo-900">Printable Study Guide</h3>
                 <p class="text-sm text-indigo-700">Use <kbd class="px-1 py-0.5 bg-white border rounded tracking-tighter">Ctrl+P</kbd> to save as PDF or print.</p>
               </div>
-              <button onclick="window.print()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-colors">
+              <button onclick="window.print()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-colors cursor-pointer">
                 Print Syllabus
               </button>
             </div>
@@ -100,7 +99,6 @@ export const PdfExportButton: React.FC = () => {
           </div>
 
           <script>
-            // Ensure tailwind config matches app
             tailwind.config = {
               theme: {
                 extend: {
@@ -130,21 +128,37 @@ export const PdfExportButton: React.FC = () => {
         <span>Open Printable Syllabus</span>
       </button>
 
-      {/* Hidden container for rendering - we keep it so we can grab the HTML */}
+      {/* Hidden container for rendering */}
       <div className="fixed -left-[10000px] top-0 opacity-0 pointer-events-none" ref={containerRef}>
         {/* Cover Page */}
-        <div id="pdf-lesson-cover" className="w-[800px] h-[1130px] p-24 flex flex-col justify-center items-center text-center" style={{ backgroundColor: '#0f172a', color: '#ffffff' }}>
-          <div className="w-24 h-24 rounded-3xl mb-8 flex items-center justify-center" style={{ backgroundColor: '#4f46e5' }}>
-            <BrainCircuit className="w-16 h-16 text-white" />
+        <div id="pdf-lesson-cover" className="w-[800px] p-16 flex flex-col justify-center items-center text-center mb-16 rounded-2xl" style={{ backgroundColor: '#0f172a', color: '#ffffff' }}>
+          <div className="w-20 h-20 rounded-2xl mb-6 flex items-center justify-center" style={{ backgroundColor: '#4f46e5' }}>
+            <BrainCircuit className="w-12 h-12 text-white" />
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 font-sans tracking-tight">Investing & Finance Math Lab</h1>
-          <p className="text-xl font-mono tracking-widest uppercase mb-12" style={{ color: '#a5b4fc' }}>Syllabus Study Guide</p>
-          <div className="w-32 h-1 mb-12" style={{ backgroundColor: '#6366f1' }}></div>
-          <p className="font-sans max-w-md" style={{ color: '#94a3b8' }}>
+          <h1 className="text-4xl font-extrabold mb-3 font-sans tracking-tight">Investing & Finance Math Lab</h1>
+          <p className="text-lg font-mono tracking-widest uppercase mb-8" style={{ color: '#a5b4fc' }}>Complete Course Syllabus & Study Guide</p>
+          <div className="w-24 h-1 mb-8" style={{ backgroundColor: '#6366f1' }}></div>
+          <p className="font-sans max-w-lg text-sm leading-relaxed mb-10" style={{ color: '#94a3b8' }}>
             A comprehensive guide to the mathematical foundations of financial markets, 
-            designed for high school students and families studying quantitative economics.
+            designed for students and families studying quantitative economics, algebra, and stochastic finance.
           </p>
-          <div className="mt-auto pt-24 font-mono text-sm" style={{ color: '#64748b' }}>
+
+          <div className="w-full text-left bg-slate-800/80 border border-slate-700 p-6 rounded-xl space-y-3 font-sans text-xs">
+            <h3 className="text-indigo-400 font-mono font-bold uppercase tracking-wider text-xs">Course Modules Index</h3>
+            <div className="grid grid-cols-1 gap-2 text-slate-300">
+              <div>• <strong>Unit 1:</strong> Compounding, Discounting & Time Value of Money</div>
+              <div>• <strong>Unit 1.2:</strong> Selecting the Discount Rate & Cost of Capital</div>
+              <div>• <strong>Unit 1.5:</strong> From Bank Accounts to Stock Ownership</div>
+              <div>• <strong>Unit 2:</strong> Dividend Discount Model & Gordon Growth Formula</div>
+              <div>• <strong>Unit 2.5:</strong> Information Shocks & Random Walk Bridge</div>
+              <div>• <strong>Unit 3:</strong> Stochastic Calculus & Asset Price Paths (GBM)</div>
+              <div>• <strong>Unit 4:</strong> Modern Portfolio Theory & Mean-Variance Optimization</div>
+              <div>• <strong>Unit 5:</strong> Black-Scholes-Merton Option Pricing & The Greeks</div>
+              <div>• <strong>Unit 6:</strong> Behavioral Finance, Market Crowds & Speculative Dynamics</div>
+            </div>
+          </div>
+
+          <div className="mt-12 font-mono text-xs" style={{ color: '#64748b' }}>
             Generated on {new Date().toLocaleDateString()}
           </div>
         </div>
@@ -153,20 +167,24 @@ export const PdfExportButton: React.FC = () => {
           <div 
             key={lesson.id} 
             id={`pdf-lesson-${lesson.id}`} 
-            className="w-[800px] p-12"
+            className="w-[800px] p-10 mb-16 border border-slate-200 rounded-2xl lesson-card"
             style={{ backgroundColor: '#ffffff', color: '#1e293b', fontFamily: 'Georgia, serif' }}
           >
-            <div className="mb-8 border-b-2 pb-4" style={{ borderBottomColor: '#4f46e5' }}>
-              <h1 className="text-3xl font-bold mb-2 font-sans tracking-tight" style={{ color: '#0f172a' }}>{lesson.title}</h1>
-              <p className="italic text-lg" style={{ color: '#64748b' }}>{lesson.subtitle}</p>
+            {/* Unit Header */}
+            <div className="mb-6 border-b-2 pb-4" style={{ borderBottomColor: '#4f46e5' }}>
+              <div className="text-xs font-mono text-indigo-600 font-semibold uppercase tracking-wider mb-1">
+                {lesson.mathTopic}
+              </div>
+              <h1 className="text-3xl font-bold mb-1 font-sans tracking-tight" style={{ color: '#0f172a' }}>{lesson.title}</h1>
+              <p className="italic text-base" style={{ color: '#64748b' }}>{lesson.subtitle}</p>
             </div>
 
             <div className="space-y-6">
               {/* Narrative Introduction */}
               {lesson.introduction && (
-                <div className="p-8 border-l-4 rounded-r-xl mb-8" style={{ backgroundColor: '#fcfcfd', borderLeftColor: '#4f46e5', borderTop: '1px solid #f1f5f9', borderRight: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
-                  <h2 className="text-xl font-bold mb-4 font-sans" style={{ color: '#0f172a' }}>The Big Picture</h2>
-                  <div className="space-y-4 text-lg leading-relaxed font-serif" style={{ color: '#475569' }}>
+                <div className="p-6 border-l-4 rounded-r-xl mb-6" style={{ backgroundColor: '#fcfcfd', borderLeftColor: '#4f46e5', borderTop: '1px solid #f1f5f9', borderRight: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
+                  <h2 className="text-lg font-bold mb-3 font-sans" style={{ color: '#0f172a' }}>The Big Picture</h2>
+                  <div className="space-y-3 text-base leading-relaxed font-serif" style={{ color: '#475569' }}>
                     {lesson.introduction.split('\n\n').map((para, paraIdx) => (
                       <p key={paraIdx}>{processMathText(para)}</p>
                     ))}
@@ -174,130 +192,75 @@ export const PdfExportButton: React.FC = () => {
                 </div>
               )}
 
-              {lesson.fullText.map((p, pIdx) => {
-                const trimmed = p.trim();
-
-                // Simple header check
-                const headerMatch = trimmed.match(/^(\d+)\.\s+\*\*([^*]+)\*\*/);
-                if (headerMatch) {
-                  const [_, num, headerText] = headerMatch;
-                  return (
-                    <div key={pIdx} className="pt-6">
-                      <h2 className="text-2xl font-bold mb-4 font-sans flex items-center gap-3" style={{ color: '#0f172a' }}>
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-lg font-bold" style={{ backgroundColor: '#e0e7ff', color: '#4338ca' }}>
-                          {num}
-                        </span>
-                        {headerText}
-                      </h2>
-                    </div>
-                  );
-                }
-
-                // Table parsing
-                if (trimmed.includes('|') && !trimmed.startsWith('DIAGRAM|')) {
-                  const tableContent = trimmed.replace(/^[A-Z0-9_]+_TABLE\|/, '');
-                  const lines = tableContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                  if (lines.length > 0) {
-                    const headers = lines[0].split('|').map(h => h.trim());
-                    const rows = lines.slice(1).map(line => line.split('|').map(cell => cell.trim()));
-                    return (
-                      <div className="my-6 border rounded-lg overflow-hidden" key={pIdx} style={{ borderColor: '#e2e8f0' }}>
-                        <table className="w-full border-collapse text-sm">
-                          <thead className="font-bold" style={{ backgroundColor: '#f8fafc', color: '#334155' }}>
-                            <tr>
-                              {headers.map((h, hIdx) => (
-                                <th key={hIdx} className="px-4 py-3 border-b text-left" style={{ borderBottomColor: '#e2e8f0' }}>
-                                  {processMathText(h)}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y" style={{ borderTopColor: '#f1f5f9' }}>
-                            {rows.map((row, rIdx) => (
-                              <tr key={rIdx}>
-                                {row.map((cell, cIdx) => (
-                                  <td key={cIdx} className="px-4 py-3" style={{ color: '#475569', borderTop: '1px solid #f1f5f9' }}>
-                                    {processMathText(cell)}
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+              {/* Core Formula Reference Block */}
+              {lesson.equations && lesson.equations.length > 0 && (
+                <div className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 mb-6">
+                  <span className="text-slate-500 font-mono text-xs block uppercase tracking-wider font-semibold">
+                    Core Formula Reference
+                  </span>
+                  <div className="space-y-1.5 divide-y divide-slate-200/60 pt-0.5">
+                    {lesson.equations.map((eq, eqIdx) => (
+                      <div key={eqIdx} className="pt-1.5 first:pt-0 overflow-x-auto">
+                        <MathSpan tex={eq} block className="my-0.5 [&_.katex-display]:my-0" />
                       </div>
-                    );
-                  }
-                }
-
-                // Knowledge Check TVM table
-                if (trimmed.startsWith('KNOWLEDGE_CHECK_TVM')) {
-                  return (
-                    <div className="my-6 border rounded-xl p-5" key={pIdx} style={{ backgroundColor: '#f8fafc', borderColor: '#cbd5e1' }}>
-                      <h4 className="font-bold text-base mb-3 font-sans" style={{ color: '#0f172a' }}>Knowledge Check: TVM Practice Table ($PV = \$5,000$, $r = 6\%$)</h4>
-                      <table className="w-full border-collapse text-sm">
-                        <thead className="font-bold" style={{ backgroundColor: '#e2e8f0', color: '#1e293b' }}>
-                          <tr>
-                            <th className="px-4 py-2 border text-left">Years ($n$)</th>
-                            <th className="px-4 py-2 border text-left">Initial Value ($PV$)</th>
-                            <th className="px-4 py-2 border text-left">Calculation Formula</th>
-                            <th className="px-4 py-2 border text-left">Final Value ($FV$)</th>
-                          </tr>
-                        </thead>
-                        <tbody style={{ color: '#334155' }}>
-                          <tr>
-                            <td className="px-4 py-2 border font-mono">1 Year</td>
-                            <td className="px-4 py-2 border font-mono">$5,000</td>
-                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^1$</td>
-                            <td className="px-4 py-2 border font-mono">$5,300.00</td>
-                          </tr>
-                          <tr>
-                            <td className="px-4 py-2 border font-mono">5 Years</td>
-                            <td className="px-4 py-2 border font-mono">$5,000</td>
-                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^5$</td>
-                            <td className="px-4 py-2 border font-mono">$6,691.13</td>
-                          </tr>
-                          <tr>
-                            <td className="px-4 py-2 border font-mono">10 Years</td>
-                            <td className="px-4 py-2 border font-mono">$5,000</td>
-                            <td className="px-4 py-2 border font-mono">$5,000 \times (1.06)^{10}$</td>
-                            <td className="px-4 py-2 border font-mono">$8,954.24</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                }
-
-                // Diagrams
-                if (trimmed.startsWith('DIAGRAM|')) {
-                  return (
-                    <pre key={pIdx} className="border p-6 rounded-xl font-mono text-xs my-6 whitespace-pre" style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0', color: '#334155' }}>
-                      {trimmed.substring(8)}
-                    </pre>
-                  );
-                }
-
-                return (
-                  <p key={pIdx} className="text-lg leading-relaxed font-serif" style={{ color: '#334155' }}>
-                    {processMathText(p)}
-                  </p>
-                );
-              })}
-            </div>
-
-            {/* Formulas Summary Section in PDF */}
-            <div className="mt-12 p-8 border rounded-2xl" style={{ backgroundColor: '#f5f7ff', borderColor: '#e0e7ff' }}>
-              <h3 className="font-bold uppercase tracking-widest text-sm mb-6 border-b pb-2 font-sans" style={{ color: '#3730a3', borderBottomColor: '#c7d2fe' }}>
-                Key Formulas for Reference
-              </h3>
-              <div className="grid grid-cols-1 gap-8">
-                {lesson.equations.map((eq, eqIdx) => (
-                  <div key={eqIdx} className="text-xl">
-                    <MathSpan tex={eq} block />
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {/* Full Text Content */}
+              <ContentRenderer fullText={lesson.fullText} isPdfExport={true} />
             </div>
+
+            {/* Quizzes & Practice Derivations */}
+            {lesson.quizzes && lesson.quizzes.length > 0 && (
+              <div className="mt-10 pt-8 border-t-2" style={{ borderTopColor: '#e2e8f0' }}>
+                <h3 className="font-bold uppercase tracking-widest text-xs mb-6 font-sans text-indigo-900 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-indigo-600" />
+                  <span>Module Derivation & Practice Assessment</span>
+                </h3>
+                <div className="space-y-6">
+                  {lesson.quizzes.map((quiz, qIdx) => (
+                    <div key={quiz.id || qIdx} className="p-5 border border-slate-200 rounded-xl bg-slate-50/60 font-sans space-y-3">
+                      <div className="font-bold text-sm text-slate-900">
+                        {qIdx + 1}. {processMathText(quiz.question)}
+                      </div>
+                      <div className="grid grid-cols-1 gap-1.5 pl-2 text-xs text-slate-700">
+                        {quiz.options.map((opt, optIdx) => {
+                          const isCorrect = optIdx === quiz.correctIndex;
+                          return (
+                            <div 
+                              key={optIdx} 
+                              className={`p-2 rounded-lg border ${
+                                isCorrect 
+                                  ? 'bg-emerald-50 border-emerald-300 text-emerald-900 font-semibold' 
+                                  : 'bg-white border-slate-200'
+                              }`}
+                            >
+                              <span className="font-mono font-bold mr-2">{String.fromCharCode(65 + optIdx)}.</span>
+                              {processMathText(opt)}
+                              {isCorrect && <span className="ml-2 text-[10px] bg-emerald-600 text-white px-1.5 py-0.5 rounded font-mono font-bold">✓ CORRECT ANSWER</span>}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                        <div className="font-bold text-indigo-800 flex items-center gap-1 text-[11px]">
+                          <HelpCircle className="w-3.5 h-3.5" />
+                          <span>Mathematical Explanation & Step-by-Step Derivation:</span>
+                        </div>
+                        <div>{processMathText(quiz.explanation)}</div>
+                        {quiz.hint && (
+                          <div className="text-[11px] text-slate-500 italic pt-1 border-t border-slate-100">
+                            Hint: {processMathText(quiz.hint)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

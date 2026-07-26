@@ -698,7 +698,7 @@ export const BehavioralLab: React.FC = () => {
                   </div>
                 </div>
                 <div className="p-3 bg-indigo-50/50 rounded-lg text-[11px] text-indigo-900 border border-indigo-100/30 leading-relaxed font-sans">
-                  <strong>High Schooler Rule of Thumb:</strong> {trendChasing > 0 
+                  <span className="font-bold text-slate-900">High Schooler Rule of Thumb:</span> {trendChasing > 0 
                     ? "With high positive Trend-Chasing, prices are sticky and form long trends (like a skateboard rolling downhill). This helps Momentum Traders crush simple Buy & Hold investors!"
                     : trendChasing < 0 
                     ? "Negative Trend-Chasing means tomorrow reverses today (like a bouncing ball). Momentum gets whipped around, and classical buy-and-hold is much safer."
@@ -716,7 +716,7 @@ export const BehavioralLab: React.FC = () => {
           <div className="space-y-1.5">
             <h3 className="font-sans font-extrabold text-lg text-slate-800">Lab 2: Herding & Information Cascade Simulator</h3>
             <p className="text-xs text-slate-500 max-w-3xl leading-relaxed">
-              Watch 30 agents trade sequentially. Each acts based on the crowd's visible history and a private research signal. Notice how easily a <strong>false cascade</strong> locks the entire crowd into a wrong decision because the first few agents happened to swap incorrect cards!
+              Watch 30 agents trade sequentially. Each acts based on the crowd's visible history and a private research signal. Notice how easily a <span className="font-bold text-slate-800">false cascade</span> locks the entire crowd into a wrong decision because the first few agents happened to swap incorrect cards!
             </p>
           </div>
 
@@ -796,7 +796,7 @@ export const BehavioralLab: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-500 italic pt-1.5 border-t border-indigo-100/50 leading-normal">
-                  <strong>High School Rule of Thumb:</strong> When signal reliability is {formatPercent(accuracyP)}, there is a {(((1 - accuracyP)**2) / (2 * (accuracyP**2 - accuracyP + 1) || 1) * 100).toFixed(0)}% chance that the entire crowd locks into the incorrect action simply because the first 2 people happened to flip an error! Herd dynamics break traditional price discovery.
+                  <span className="font-bold text-slate-800">High School Rule of Thumb:</span> When signal reliability is {formatPercent(accuracyP)}, there is a {(((1 - accuracyP)**2) / (2 * (accuracyP**2 - accuracyP + 1) || 1) * 100).toFixed(0)}% chance that the entire crowd locks into the incorrect action simply because the first 2 people happened to flip an error! Herd dynamics break traditional price discovery.
                 </p>
               </div>
             </div>
@@ -1099,7 +1099,7 @@ export const BehavioralLab: React.FC = () => {
               <div className="p-3 bg-slate-100 border border-slate-200 rounded-xl space-y-1 mt-2 text-[10px] leading-relaxed">
                 <span className="font-sans font-extrabold text-indigo-700 block uppercase">Squeeze Case Study</span>
                 <p className="text-slate-500">
-                  <strong>Nickel Squeeze 2022:</strong> A short seller got trapped with massive margin calls, forcing panic buying. Convenience yield shot up instantly, bending the futures curve into backwardation!
+                  <span className="font-bold text-slate-800">Nickel Squeeze 2022:</span> A short seller got trapped with massive margin calls, forcing panic buying. Convenience yield shot up instantly, bending the futures curve into backwardation!
                 </p>
               </div>
             </div>

@@ -392,7 +392,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                   Divergent Infinite Series! ($g \ge r$)
                 </h3>
                 <p className="font-serif text-slate-600 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                  Because the dividend growth rate **({(g * 100).toFixed(1)}%)** is equal to or greater than the discount rate **({(r * 100).toFixed(1)}%)**, each future discounted cash flow is larger than (or equal to) the previous one. The sum blows up to **infinity** ($\infty$) and the formula breaks!
+                  {processMathText(`Because the dividend growth rate **(${(g * 100).toFixed(1)}%)** is equal to or greater than the discount rate **(${(r * 100).toFixed(1)}%)**, each future discounted cash flow is larger than (or equal to) the previous one. The sum blows up to **infinity** ($\\infty$) and the formula breaks!`)}
                 </p>
                 <div className="bg-white border border-rose-100 p-3 rounded-xl max-w-sm mx-auto font-mono text-[11px] text-rose-800">
                   {processMathText(`Common Ratio $x = \\frac{1 + g}{1 + r} = \\frac{1 + ${g.toFixed(3)}}{1 + ${r.toFixed(3)}} = ${((1 + g) / (1 + r)).toFixed(3)} \\ge 1.0$`)}
@@ -435,7 +435,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                   </table>
                 </div>
                 <p className="text-[10px] text-slate-400 italic font-serif leading-relaxed">
-                  Notice that the cumulative sum of the first 5 terms is **${termsData[4].cumulative.toFixed(2)}**, which is already climbing toward the theoretical infinite sum of **${theoreticalPrice?.toFixed(2)}**!
+                  {processMathText(`Notice that the cumulative sum of the first 5 terms is **$${termsData[4].cumulative.toFixed(2)}**, which is already climbing toward the theoretical infinite sum of **$${theoreticalPrice?.toFixed(2)}**!`)}
                 </p>
               </div>
             )}

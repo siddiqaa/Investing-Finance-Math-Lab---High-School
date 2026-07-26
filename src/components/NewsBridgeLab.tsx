@@ -15,6 +15,7 @@ import {
   Briefcase
 } from 'lucide-react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
+import { processMathText } from '../lib/math';
 
 interface NewsEvent {
   id: string;
@@ -418,7 +419,7 @@ export const NewsBridgeLab: React.FC = () => {
             <span>Bridging to Stochastic Calculus (Unit 3):</span>
           </span>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Look at the stair-step chart above! By clicking positive and negative news events randomly, you have created a jagged, unpredictable path. This represents **exactly** how stock prices behave in the real world. In the next unit, we will upgrade from discrete "step shocks" to **continuous stochastic processes** where random market forces operate at every single millisecond.
+            {processMathText('Look at the stair-step chart above! By clicking positive and negative news events randomly, you have created a jagged, unpredictable path. This represents **exactly** how stock prices behave in the real world. In the next unit, we will upgrade from discrete "step shocks" to **continuous stochastic processes** where random market forces operate at every single millisecond.')}
           </p>
         </div>
 

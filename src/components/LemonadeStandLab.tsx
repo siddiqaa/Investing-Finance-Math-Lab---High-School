@@ -6,7 +6,7 @@ import {
   LineChart,
   RefreshCcw
 } from 'lucide-react';
-import { MathSpan } from '../lib/math';
+import { MathSpan, processMathText } from '../lib/math';
 
 export const LemonadeStandLab: React.FC = () => {
   // Scenario State
@@ -63,18 +63,21 @@ export const LemonadeStandLab: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              Stand Cost
+              Stand Price
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-slate-700">$</span>
               <input 
-                type="number"
+                type="range"
+                min="20"
+                max="500"
+                step="5"
                 value={initialInvestment}
                 onChange={(e) => setInitialInvestment(Number(e.target.value))}
-                className="w-full bg-transparent text-2xl font-bold text-indigo-600 focus:outline-none"
+                className="w-full h-2 bg-indigo-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
               />
+              <span className="text-xl font-bold text-indigo-600 min-w-[3.5rem] text-right">${initialInvestment}</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">Initial Pay ($I_0$)</p>
+            <p className="text-[10px] text-slate-400 mt-1">{processMathText('Initial Pay ($I_0$)')}</p>
           </div>
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
@@ -93,12 +96,12 @@ export const LemonadeStandLab: React.FC = () => {
               />
               <span className="text-xl font-bold text-emerald-600 min-w-[3.5rem] text-right">{growthRate}%</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1 italic">Annual Growth ($g$)</p>
+            <p className="text-[10px] text-slate-400 mt-1 italic">{processMathText('Annual Growth ($g$)')}</p>
           </div>
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-              Bank Rate ($r$)
+              <span>{processMathText('Bank Rate ($r$)')}</span>
               <Info className="w-3 h-3 cursor-help text-slate-300" />
             </label>
             <div className="flex items-center gap-2">
@@ -139,9 +142,15 @@ export const LemonadeStandLab: React.FC = () => {
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
               Verdict
             </label>
-            <div className={`text-xl font-black uppercase tracking-tight ${isProfitable ? 'text-emerald-600' : 'text-rose-600'}`}>
+            <motion.div 
+              key={isProfitable ? 'buy' : 'skip'}
+              initial={{ scale: 0.9, opacity: 0.8 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className={`text-xl font-black uppercase tracking-tight ${isProfitable ? 'text-emerald-600' : 'text-rose-600'}`}
+            >
               {isProfitable ? '✅ Buy It' : '❌ Skip It'}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -209,7 +218,7 @@ export const LemonadeStandLab: React.FC = () => {
           <div className="mt-6 p-4 bg-slate-50 rounded-xl text-xs text-slate-500 italic flex gap-3">
             <RefreshCcw className="w-4 h-4 text-slate-400 shrink-0 mt-0.5 animate-spin-slow" />
             <p>
-              Notice how the <strong>indigo bars</strong> get shorter relative to the light bars as time passes. Even if profits grow, their <strong>value today</strong> is eaten away by the discount rate.
+              Notice how the <span className="font-bold text-slate-800">indigo bars</span> get shorter relative to the light bars as time passes. Even if profits grow, their <span className="font-bold text-slate-800">value today</span> is eaten away by the discount rate.
             </p>
           </div>
         </div>

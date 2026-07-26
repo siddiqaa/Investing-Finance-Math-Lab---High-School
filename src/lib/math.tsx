@@ -39,9 +39,12 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
         strict: false
       });
       
+      const hasMarginY = className.includes('my-') || className.includes('py-');
+      const blockMargin = block ? (hasMarginY ? "" : "my-4") : "";
+
       return (
         <span
-          className={`${block ? "block text-center my-4 overflow-x-auto" : "inline-block align-middle mx-1"} ${className}`}
+          className={`${block ? `block text-center overflow-x-auto ${blockMargin}` : "inline-block align-middle mx-1"} ${className}`}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       );
@@ -56,6 +59,44 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
       {block ? `$$${tex}$$` : `$${tex}$`}
     </code>
   );
+};
+
+/**
+ * Converts markdown bolding (*text* or **text**) in standard text into HTML spans.
+ */
+const parseMarkdownFormatting = (text: string, keyPrefix: string | number): React.ReactNode => {
+  if (!text) return null;
+
+  // Match **bold** or *bold* where group 1 is ** or * and group 2 is content
+  const regex = /(\*\*|\*)([^*]+)\1/g;
+  const elements: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      elements.push(text.substring(lastIndex, match.index));
+    }
+    
+    const content = match[2];
+    elements.push(
+      <span key={`${keyPrefix}-${match.index}`} className="font-bold text-slate-900">
+        {content}
+      </span>
+    );
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex === 0) {
+    return text;
+  }
+
+  if (lastIndex < text.length) {
+    elements.push(text.substring(lastIndex));
+  }
+
+  return <React.Fragment key={keyPrefix}>{elements}</React.Fragment>;
 };
 
 /**
@@ -80,19 +121,7 @@ export const processMathText = (text: string): React.ReactNode => {
         // Even indices are standard text - restore currency signs
         const restoredText = token.replace(/___ESC_DOLLAR___/g, '$');
         
-        // Minor inline bolding check for simplicity
-        if (restoredText.includes('**')) {
-           const boldParts = restoredText.split('**');
-           return (
-             <span key={i}>
-               {boldParts.map((bp, bIdx) => 
-                 bIdx % 2 === 1 ? <strong key={bIdx} className="font-bold text-slate-900">{bp}</strong> : bp
-               )}
-             </span>
-           );
-        }
-
-        return <span key={i}>{restoredText}</span>;
+        return parseMarkdownFormatting(restoredText, i);
       })}
     </>
   );

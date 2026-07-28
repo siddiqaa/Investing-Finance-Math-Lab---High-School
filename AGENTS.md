@@ -15,6 +15,8 @@ Please follow these guidelines strictly during any future development, refactori
 ---
 
 ## ⚠️ React Architecture & Rendering Constraints
+- **Centralized Mastery State (`useMastery`):** Always consume `useMastery()` from `src/context/MasteryContext.tsx` for mastery scores, quiz completion state, and progress persistence. Do not create uncoordinated local localStorage locks or isolated state duplicates.
+- **Code Splitting & Lazy Loading:** Interactive simulation modules and side quests MUST be dynamically imported using `React.lazy()` and rendered inside `<Suspense fallback={<LabSkeletonLoader />}>` boundaries to maintain minimal initial bundle sizes and fast page load speeds.
 - **Avoid Hydration / Nested Element Errors:** Always ensure that block-level HTML tags (`<div>`, `<hr>`, `<h3>`, `<h4>`, `<h5>`, `<ul>`, etc.) are never rendered inside a paragraph `<p>` element. Check mapping logic like `renderParagraphWithMath` to ensure that standard text paragraphs output inside `<p>` tags, whereas markdown block headers, horizontal dividers, or formulas output inside `<div>` containers.
 - **Strict Linting Standards:** Keep the codebase perfectly clean by avoiding unused variables and unused imports. Always run `npm run lint` (`tsc --noEmit`) to verify that no TS6133 or TS6138 errors block compilation.
 - **State Updates & Infinite Loops:** Never perform state updates directly in the body of a component; isolate side-effects within standard React hooks, taking care to avoid placing volatile objects or function pointers in dependency arrays.
@@ -23,15 +25,15 @@ Please follow these guidelines strictly during any future development, refactori
 
 ## 📊 Math & Interactive Labs Structure
 - **Formula Syntax & KaTeX Processing:** 
-  - Standard React JSX text nodes (e.g., `<p>`, `<div>`, `<li>`) containing `$...$` math delimiters **do not** render as LaTeX by default.
-  - You **MUST** wrap any paragraph, heading, or list item containing inline formulas in the `{processMathText('My formula is $r = 0.05$.')}` helper from `src/lib/math.tsx`.
+  - Standard React JSX text nodes (e.g., `<p>`, `<div>`, `<li>`, `<span>`, `<h3>`) containing `$...$` math delimiters **do not** render as LaTeX by default in raw JSX.
+  - You **MUST** wrap any paragraph, heading, badge, or list item containing inline formulas in the `{processMathText('My formula is $r = 0.05$.')}` helper from `src/lib/math.tsx` or use `<MathText text="..." />`.
   - For standalone block equations or custom inline nodes, use the `<MathSpan tex="..." block={true/false} />` component.
-  - **Double Escaping in JS/TS Strings:** Inside JavaScript/TypeScript strings (including lessons in `.ts` files), backslashes MUST be double-escaped. Write `\\sum`, `\\frac`, `\\dots`, `\\infty`, `\\approx`, `\\sum_{i=1}^{n}`, `\\%` for percentage signs, and `\\text{...}` for text formatting. Single backslashes like `\sum` will be treated as escape sequences and will fail to render or compile.
-  - **Syllabus and Lessons Mapping:** Lesson `fullText` and `introduction` blocks contain text with `$...$` math. Ensure they are mapped using `processMathText(paragraph)` inside `App.tsx` or your custom renderers.
+  - **KaTeX String Cache & Memoization:** `MathSpan` and `MathText` are wrapped in `React.memo` and backed by `katexCache` string memoization to eliminate re-parsing overhead during interactive slider updates.
+  - **Deterministic Single-Pass Tokenizer:** `src/lib/math.tsx` uses a single-pass state-machine tokenizer (`parseMathStringToAST`) without regex tokenizers or regex replacements to parse text, KaTeX formulas, currency amounts (e.g., `$10`, `$2,500.00`), and HTML spans deterministically. When writing explicit LaTeX string literals in TypeScript, continue double-escaping backslashes (`\\sum`, `\\frac`, `\\%`).
   - **No Markdown Bolding in Arrays:** Never use standard Markdown bolding (e.g., `**word**`) inside the `.ts` lesson strings (like `fullText` or `introduction`). The custom string parser does not convert Markdown `**` tags to HTML. You **MUST** use literal HTML spans instead: `<span className="text-indigo-600 font-bold">word</span>` (or `text-slate-800` depending on context).
   - **Bullet List Elements:** For bullet lists with bold terms and math, use clean separate nodes (e.g., `<li><strong className="text-slate-800">Term (<MathSpan tex="x" />):</strong> details</li>`) instead of passing complex nested HTML strings to parsing functions.
 - **Modular Layout:** Keep laboratories structurally independent (e.g., `DcfLab`, `StochasticLab`, `PortfolioLab`, `OptionsLab`, `BehavioralLab`).
-  - Coordinate these laboratories within `src/App.tsx`.
+  - Coordinate these laboratories within `src/App.tsx` and `src/components/LessonViewer.tsx`.
   - Maintain the interactive, dual-panel layout of "Theoretical Syllabus" side-by-side with "Visual Simulation parameters."
 
 ---

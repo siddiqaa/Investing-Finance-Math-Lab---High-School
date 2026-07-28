@@ -77,7 +77,7 @@ export const LemonadeStandLab: React.FC = () => {
               />
               <span className="text-xl font-bold text-indigo-600 min-w-[3.5rem] text-right">${initialInvestment}</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">{processMathText('Initial Pay ($I_0$)')}</p>
+            <p className="text-[10px] text-slate-400 mt-1">Initial Pay (<MathSpan tex="I_0" />)</p>
           </div>
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
@@ -96,12 +96,12 @@ export const LemonadeStandLab: React.FC = () => {
               />
               <span className="text-xl font-bold text-emerald-600 min-w-[3.5rem] text-right">{growthRate}%</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1 italic">{processMathText('Annual Growth ($g$)')}</p>
+            <p className="text-[10px] text-slate-400 mt-1 italic">Annual Growth (<MathSpan tex="g" />)</p>
           </div>
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-              <span>{processMathText('Bank Rate ($r$)')}</span>
+              <span>Bank Rate (<MathSpan tex="r" />)</span>
               <Info className="w-3 h-3 cursor-help text-slate-300" />
             </label>
             <div className="flex items-center gap-2">

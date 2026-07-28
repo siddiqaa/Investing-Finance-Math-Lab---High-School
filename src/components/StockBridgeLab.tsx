@@ -12,7 +12,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
-import { processMathText } from '../lib/math';
+import { processMathText, MathSpan } from '../lib/math';
 
 export const StockBridgeLab: React.FC = () => {
   const [deposit, setDeposit] = useState<number>(1000); // $1,000 default
@@ -97,7 +97,7 @@ export const StockBridgeLab: React.FC = () => {
               <div className="flex justify-between text-sm font-sans">
                 <span className="text-slate-500 font-semibold flex items-center gap-1">
                   <Coins className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Principal (PV)</span>
+                  <span>Principal</span> (<MathSpan tex="\text{PV}" />)
                 </span>
                 <span className="font-mono text-indigo-600 font-bold">{formatCurrency(deposit)}</span>
               </div>
@@ -121,7 +121,7 @@ export const StockBridgeLab: React.FC = () => {
               <div className="flex justify-between text-sm font-sans">
                 <span className="text-slate-500 font-semibold flex items-center gap-1">
                   <Landmark className="w-3.5 h-3.5 text-indigo-500" />
-                  <span>Bank Rate (r_bank)</span>
+                  <span>Bank Rate</span> (<MathSpan tex="r_{\text{bank}}" />)
                 </span>
                 <span className="font-mono text-indigo-600 font-bold">{formatPercent(bankRate)}</span>
               </div>
@@ -145,7 +145,7 @@ export const StockBridgeLab: React.FC = () => {
               <div className="flex justify-between text-sm font-sans">
                 <span className="text-slate-500 font-semibold flex items-center gap-1">
                   <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
-                  <span>Stock Return (r_stock)</span>
+                  <span>Stock Return</span> (<MathSpan tex="r_{\text{stock}}" />)
                 </span>
                 <span className="font-mono text-indigo-600 font-bold">{formatPercent(stockRate)}</span>
               </div>

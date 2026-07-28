@@ -351,7 +351,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             <span>Perpetuity & Growth Simulator</span>
           </h2>
           <p className="text-xs text-slate-500 font-sans">
-            Adjust the sliders below to see how changes in growth ($g$) and discount rate ($r$) dynamically alter the discounted cash flows and ultimate stock price.
+            {processMathText('Adjust the sliders below to see how changes in growth ($g$) and discount rate ($r$) dynamically alter the discounted cash flows and ultimate stock price.')}
           </p>
         </div>
 
@@ -361,7 +361,10 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             {/* Slider 1: D0 */}
             <div className="space-y-1.5">
               <div className="flex justify-between font-bold">
-                <span className="text-slate-600">Current Dividend ($D_0$):</span>
+                <span className="text-slate-600 flex items-center gap-1">
+                  <span>Current Dividend</span>
+                  <span>(<MathSpan tex="D_0" />):</span>
+                </span>
                 <span className="text-indigo-600">${d0.toFixed(2)}</span>
               </div>
               <input
@@ -379,7 +382,10 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             {/* Slider 2: Discount Rate (r) */}
             <div className="space-y-1.5">
               <div className="flex justify-between font-bold">
-                <span className="text-slate-600">Discount Rate ($r$):</span>
+                <span className="text-slate-600 flex items-center gap-1">
+                  <span>Discount Rate</span>
+                  <span>(<MathSpan tex="r" />):</span>
+                </span>
                 <span className="text-indigo-600">{(r * 100).toFixed(1)}%</span>
               </div>
               <input
@@ -400,7 +406,10 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             {/* Slider 3: Growth Rate (g) */}
             <div className="space-y-1.5">
               <div className="flex justify-between font-bold">
-                <span className="text-slate-600">Growth Rate ($g$):</span>
+                <span className="text-slate-600 flex items-center gap-1">
+                  <span>Growth Rate</span>
+                  <span>(<MathSpan tex="g" />):</span>
+                </span>
                 <span className={`font-bold ${isDivergent ? 'text-rose-500' : 'text-indigo-600'}`}>
                   {(g * 100).toFixed(1)}%
                 </span>
@@ -421,8 +430,11 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             <div className="bg-slate-900 border border-slate-950 p-4 rounded-xl space-y-2 text-slate-300 font-mono text-[11px]">
               <span className="text-slate-500 font-extrabold uppercase tracking-wider text-[9px] block">LIVE MODEL SUMMARY</span>
               <div className="space-y-1">
-                <div className="flex justify-between">
-                  <span>Simple Perpetuity ($g = 0$):</span>
+                <div className="flex justify-between items-center">
+                  <span className="flex items-center gap-1">
+                    <span>Simple Perpetuity</span>
+                    <span>(<MathSpan tex="g = 0" />):</span>
+                  </span>
                   <span className="text-white font-bold">${simplePerpetuityPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
@@ -442,8 +454,9 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 <div className="bg-rose-100 text-rose-700 w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
                   ⚠️
                 </div>
-                <h3 className="font-sans font-extrabold text-slate-900 text-base">
-                  Divergent Infinite Series! ($g \ge r$)
+                <h3 className="font-sans font-extrabold text-slate-900 text-base flex items-center justify-center gap-1.5">
+                  <span>Divergent Infinite Series!</span>
+                  <span>(<MathSpan tex="g \ge r" />)</span>
                 </h3>
                 <p className="font-serif text-slate-600 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
                   {processMathText(`Because the dividend growth rate <span className="font-bold text-rose-700">(${(g * 100).toFixed(1)}%)</span> is equal to or greater than the discount rate <span className="font-bold text-rose-700">(${(r * 100).toFixed(1)}%)</span>, each future discounted cash flow is larger than (or equal to) the previous one. The sum blows up to <span className="font-bold text-rose-800">infinity</span> ($\\infty$) and the formula breaks!`)}
@@ -471,8 +484,12 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                     <thead className="bg-slate-50 font-sans font-bold text-slate-700">
                       <tr>
                         <th className="px-4 py-2 font-semibold">Year (t)</th>
-                        <th className="px-4 py-2 font-semibold">Dividend ($D_t$)</th>
-                        <th className="px-4 py-2 font-semibold">Discounted ($DCF_t$)</th>
+                        <th className="px-4 py-2 font-semibold flex items-center gap-1">
+                          <span>Dividend</span> (<MathSpan tex="D_t" />)
+                        </th>
+                        <th className="px-4 py-2 font-semibold flex items-center gap-1">
+                          <span>Discounted</span> (<MathSpan tex="DCF_t" />)
+                        </th>
                         <th className="px-4 py-2 font-semibold">Cumulative Sum</th>
                       </tr>
                     </thead>

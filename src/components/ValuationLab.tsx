@@ -66,7 +66,7 @@ export const ValuationLab: React.FC = () => {
           {/* Recent Dividend (D0) */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500 font-medium font-sans">Recent Dividend ($D_0$)</span>
+              <span className="text-slate-500 font-medium font-sans">Recent Dividend (<MathSpan tex="D_0" />)</span>
               <span className="font-mono text-indigo-600 font-semibold">{formatCurrency(d0)}</span>
             </div>
             <input
@@ -88,7 +88,7 @@ export const ValuationLab: React.FC = () => {
           {/* Growth Rate (g) */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500 font-medium font-sans">Dividend Growth Rate ($g$)</span>
+              <span className="text-slate-500 font-medium font-sans">Dividend Growth Rate (<MathSpan tex="g" />)</span>
               <span className="font-mono text-indigo-600 font-semibold">{formatPercent(g)}</span>
             </div>
             <input
@@ -110,7 +110,7 @@ export const ValuationLab: React.FC = () => {
           {/* Required Return (r) */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500 font-medium font-sans">Required Discount Rate ($r$)</span>
+              <span className="text-slate-500 font-medium font-sans">Required Discount Rate (<MathSpan tex="r" />)</span>
               <span className="font-mono text-indigo-600 font-semibold">{formatPercent(r)}</span>
             </div>
             <input
@@ -142,7 +142,7 @@ export const ValuationLab: React.FC = () => {
             </div>
             
             <div className="relative z-10">
-              <h4 className="font-sans text-xs uppercase tracking-wider text-indigo-200">Theoretical Stock Price ($P_0$)</h4>
+              <h4 className="font-sans text-xs uppercase tracking-wider text-indigo-200">Theoretical Stock Price (<MathSpan tex="P_0" />)</h4>
               <div className="font-sans text-4xl font-extrabold tracking-tight mt-1" id="stock-theoretical-price">
                 {theoreticalPrice > 0 ? formatCurrency(theoreticalPrice) : 'Infinite / Error'}
               </div>
@@ -152,11 +152,11 @@ export const ValuationLab: React.FC = () => {
 
               <div className="mt-5 border-t border-indigo-800/50 pt-4 space-y-3">
                 <div className="flex justify-between text-xs font-mono text-indigo-200">
-                  <span>Next Year Dividend ($D_1$):</span>
+                  <span>Next Year Dividend (<MathSpan tex="D_1" />):</span>
                   <span className="text-white font-bold">{formatCurrency(d1)}</span>
                 </div>
                 <div className="flex justify-between text-xs font-mono text-indigo-200">
-                  <span>Algebraic Denominator ($r - g$):</span>
+                  <span>Algebraic Denominator (<MathSpan tex="r - g" />):</span>
                   <span className="text-white font-bold">
                     {formatPercent(r)} - {formatPercent(g)} = {formatPercent(r - g)}
                   </span>
@@ -175,17 +175,17 @@ export const ValuationLab: React.FC = () => {
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm space-y-3">
             <h4 className="font-sans font-bold text-slate-700 text-xs uppercase tracking-wider">Expected Return Decomposed</h4>
             <p className="text-xs text-slate-500 font-sans leading-relaxed">
-              Your required return ($r$) consists of a cash payout yield plus your capital growth yield:
+              {processMathText('Your required return ($r$) consists of a cash payout yield plus your capital growth yield:')}
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-1 font-sans">
               <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wide block font-semibold">Dividend Yield ($D_1 / P_0$)</span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wide block font-semibold">Dividend Yield (<MathSpan tex="\frac{D_1}{P_0}" />)</span>
                 <div className="text-lg font-bold font-mono text-slate-800 mt-0.5">{formatPercent(divYield)}</div>
                 <p className="text-[10px] text-slate-400 mt-0.5">Annual cash flow payout</p>
               </div>
               <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wide block font-semibold">Capital Growth ($g$)</span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wide block font-semibold">Capital Growth (<MathSpan tex="g" />)</span>
                 <div className="text-lg font-bold font-mono text-slate-800 mt-0.5">{formatPercent(capGainsYield)}</div>
                 <p className="text-[10px] text-slate-400 mt-0.5">Infinite price appreciation</p>
               </div>
@@ -268,9 +268,9 @@ export const ValuationLab: React.FC = () => {
             </p>
           </div>
           <div className="space-y-1.5">
-            <span className="font-bold text-slate-800 block">2. Why can't a company grow faster than r forever? ($g \ge r$)</span>
+            <span className="font-bold text-slate-800 block">{processMathText('2. Why can\'t a company grow faster than r forever? ($g \\ge r$)')}</span>
             <p className="leading-relaxed">
-              If $g \ge r$, the denominator becomes zero or negative, resulting in a negative or infinite price. In the real world, a company cannot grow faster than its required discount rate (which is bounded by the growth of the overall economy) forever. If it did, that single company would eventually become larger than the entire global economy combined!
+              {processMathText('If $g \\ge r$, the denominator becomes zero or negative, resulting in a negative or infinite price. In the real world, a company cannot grow faster than its required discount rate (which is bounded by the growth of the overall economy) forever. If it did, that single company would eventually become larger than the entire global economy combined!')}
             </p>
           </div>
         </div>

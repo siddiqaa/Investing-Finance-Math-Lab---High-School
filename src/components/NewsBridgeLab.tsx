@@ -15,7 +15,7 @@ import {
   Briefcase
 } from 'lucide-react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
-import { processMathText } from '../lib/math';
+import { processMathText, MathSpan } from '../lib/math';
 
 interface NewsEvent {
   id: string;
@@ -189,7 +189,9 @@ export const NewsBridgeLab: React.FC = () => {
             {/* D1 */}
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs font-sans">
-                <span className="text-slate-500 font-bold">Next Year Dividend (D_1)</span>
+                <span className="text-slate-500 font-bold flex items-center gap-1">
+                  <span>Next Year Dividend</span> (<MathSpan tex="D_1" />)
+                </span>
                 <span className="font-mono font-bold text-indigo-600">{formatCurrency(baseD1)}</span>
               </div>
               <input
@@ -296,7 +298,9 @@ export const NewsBridgeLab: React.FC = () => {
               {/* Price Display */}
               <div className="p-4 bg-white border border-slate-200 rounded-xl flex items-center justify-between shadow-3xs">
                 <div className="space-y-0.5">
-                  <span className="text-[10px] text-slate-400 font-sans font-bold uppercase block">Current Fair Value (P_0)</span>
+                  <span className="text-[10px] text-slate-400 font-sans font-bold uppercase flex items-center gap-1">
+                    <span>Current Fair Value</span> (<MathSpan tex="P_0" />)
+                  </span>
                   <div className="font-mono text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {formatCurrency(currentPrice)}
                   </div>

@@ -91,7 +91,7 @@ export const BankLab: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              {processMathText('Initial Deposit ($P$)')}
+              <span>Initial Deposit</span> (<MathSpan tex="P" />)
             </label>
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-slate-700">$</span>
@@ -107,7 +107,7 @@ export const BankLab: React.FC = () => {
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-              <span>{processMathText('Annual Interest Rate ($r$)')}</span>
+              <span><span>Annual Interest Rate</span> (<MathSpan tex="r" />)</span>
               <Info className="w-3 h-3 cursor-help text-slate-300" />
             </label>
             <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export const BankLab: React.FC = () => {
 
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              {processMathText('Years ($n$)')}
+              <span>Years</span> (<MathSpan tex="n" />)
             </label>
             <div className="flex items-center gap-2">
               <input 

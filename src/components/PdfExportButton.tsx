@@ -149,7 +149,7 @@ export const PdfExportButton: React.FC = () => {
               <div>• <strong>Unit 1:</strong> Compounding, Discounting & Time Value of Money</div>
               <div>• <strong>Unit 2:</strong> Selecting the Discount Rate & Cost of Capital</div>
               <div>• <strong>Unit 3:</strong> From Bank Accounts to Stock Ownership</div>
-              <div>• <strong>Unit 3.5:</strong> Stock Valuation Without Growth (Zero Growth DDM)</div>
+              <div>• <strong>Unit 3.5:</strong> Stock Valuation Without Growth (Zero-Growth Dividend Discount Model — DDM)</div>
               <div>• <strong>Unit 4:</strong> Dividend Discount Model & Gordon Growth Formula</div>
               <div>• <strong>Unit 5:</strong> Information Shocks & Random Walk Bridge</div>
               <div>• <strong>Unit 6:</strong> Stochastic Calculus & Asset Price Paths (GBM)</div>

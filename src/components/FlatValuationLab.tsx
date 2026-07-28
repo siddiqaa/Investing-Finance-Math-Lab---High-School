@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
 import { Sparkles, TrendingUp, ArrowRight, Layers } from 'lucide-react';
-import { MathSpan } from '../lib/math';
+import { MathSpan, processMathText } from '../lib/math';
 
 export const FlatValuationLab: React.FC = () => {
   const [d, setD] = useState<number>(4.00); // Constant dividend $4.00
@@ -36,7 +36,7 @@ export const FlatValuationLab: React.FC = () => {
           <span>Zero-Growth Stock Valuation Lab</span>
           <span className="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded border border-slate-200 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-            Zero-Growth DDM Engine ($g = 0$)
+            <span>Zero-Growth Dividend Discount Model (DDM) Engine (<MathSpan tex="g = 0" />)</span>
           </span>
         </h3>
 
@@ -99,7 +99,10 @@ export const FlatValuationLab: React.FC = () => {
         {/* Card 1: Fair Price P0 */}
         <div className="p-5 bg-indigo-900 text-white rounded-2xl shadow-md border border-indigo-800 space-y-2 relative overflow-hidden">
           <div className="text-xs font-mono text-indigo-300 font-semibold uppercase tracking-wider flex items-center justify-between">
-            <span>Fair Stock Price ($P_0$)</span>
+            <span className="flex items-center gap-1">
+              <span>Fair Stock Price</span>
+              <span>(<MathSpan tex="P_0" />)</span>
+            </span>
             <Sparkles className="w-4 h-4 text-indigo-300" />
           </div>
           <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight" id="flat-stock-price">

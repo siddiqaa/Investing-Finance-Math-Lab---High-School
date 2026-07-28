@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { randomNormal, formatPercent, formatCurrency } from '../utils/mathUtils';
+import { MathSpan } from '../lib/math';
 
 interface PathResult {
   pathId: number;
@@ -405,7 +406,10 @@ export const StochasticLab: React.FC = () => {
                 <div className="text-xl font-bold font-mono text-blue-400 mt-0.5">
                   {formatCurrency(theoreticalExpectation)}
                 </div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Formula: S_T = S_0 * (1 + daily_drift)ᵀ</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 flex items-center gap-1">
+                  <span>Formula:</span>
+                  <MathSpan tex="S_T = S_0 \times (1 + \mu_{\text{daily}})^T" />
+                </div>
               </div>
 
               <div className="border-b border-slate-800 pb-3">

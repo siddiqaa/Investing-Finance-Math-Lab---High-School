@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { formatPercent } from '../utils/mathUtils';
+import { MathSpan, processMathText } from '../lib/math';
 
 // Asset constants
 const ASSETS = [
@@ -420,7 +421,10 @@ export const PortfolioLab: React.FC = () => {
           <span className={`text-xl font-bold font-mono block mt-1 ${sharpeRatio > 0.4 ? 'text-green-600': 'text-slate-800'}`} id="portfolio-sharpe-display">
             {sharpeRatio.toFixed(3)}
           </span>
-          <span className="text-[10px] text-slate-400 font-sans block mt-0.5">Formula: <span className="font-serif italic font-semibold text-slate-500">(R_p - R_f) / Volatility</span></span>
+          <span className="text-[10px] text-slate-400 font-sans block mt-0.5 flex items-center gap-1">
+            <span>Formula:</span>
+            <MathSpan tex="\frac{R_p - R_f}{\text{Volatility}}" />
+          </span>
         </div>
 
         {/* Portfolio Beta Card */}
@@ -443,8 +447,8 @@ export const PortfolioLab: React.FC = () => {
           <p>
             This occurs because when correlation is low or negative, the assets do not move in perfect harmony. When one asset underperforms, the other protects values by staying steady or moving upwards. Balanced diversification actively cancels out individual variances of volatile stocks!
           </p>
-          <p className="pt-2 border-t border-slate-800 text-xs font-serif text-indigo-200 flex flex-wrap gap-4">
-            <span>R_f = {formatPercent(RF_RATE)} Risk-Free rate hurdle</span>
+          <p className="pt-2 border-t border-slate-800 text-xs font-serif text-indigo-200 flex flex-wrap gap-4 items-center">
+            <span>{processMathText(`$R_f = ${formatPercent(RF_RATE)}$ Risk-Free rate hurdle`)}</span>
           </p>
         </div>
       </div>

@@ -154,7 +154,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               <span className="bg-sky-50 text-sky-700 text-[10px] font-mono px-2 py-0.5 rounded">Zero-Growth DDM</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Stock Valuation Without Growth (Flat Dividends)
+              Stock Valuation Without Growth (Zero-Growth Dividend Discount Model — DDM)
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
               Master the foundational zero-growth perpetuity formula P_0 = D / r for constant cash dividends, preferred stock, and discount rate inversion before adding growth.

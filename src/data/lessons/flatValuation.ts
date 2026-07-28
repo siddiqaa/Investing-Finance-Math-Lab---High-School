@@ -2,7 +2,7 @@ import { LessonContent } from '../../types';
 
 export const flatValuation: LessonContent = {
   id: 'flatValuation',
-  title: 'Stock Valuation Without Growth (Zero-Growth DDM)',
+  title: 'Stock Valuation Without Growth (Zero-Growth Dividend Discount Model — DDM)',
   subtitle: 'Valuing constant perpetual cash flows and flat dividend streams',
   mathTopic: 'Zero-Growth Perpetuities & Discount Rate Inversion',
   equations: [

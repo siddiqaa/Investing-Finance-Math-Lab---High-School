@@ -61,7 +61,7 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
 
       return (
         <span
-          className={`${block ? `block text-center overflow-x-auto ${blockMargin}` : "inline-block align-middle mx-1"} ${className}`}
+          className={`${block ? `block text-center overflow-x-auto ${blockMargin}` : "inline-block align-baseline px-0.5"} ${className}`}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       );
@@ -81,9 +81,134 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
 MathSpan.displayName = 'MathSpan';
 
 /**
- * Parses text strings for $math$ delimiters and returns React nodes.
- * Handles currency escaping (using \$ to differentiate from math delimiters).
- * Uses a left-to-right tokenizer to correctly handle math inside markdown and vice versa.
+ * Single-pass AST tokenizer for parsing mixed text, LaTeX math, currency amounts, and HTML spans.
+ * Completely avoids fragile regex replacements and catastrophic regex backtracking.
+ */
+function parseMathStringToAST(text: string, keyPrefix: string = 'root'): React.ReactNode {
+  if (!text) return null;
+
+  const nodes: React.ReactNode[] = [];
+  let currentText = '';
+  let i = 0;
+  const len = text.length;
+
+  const flushText = () => {
+    if (currentText) {
+      nodes.push(currentText);
+      currentText = '';
+    }
+  };
+
+  while (i < len) {
+    // 1. Escaped Dollar (\$ or \\$)
+    if (text[i] === '\\' && i + 1 < len && text[i + 1] === '$') {
+      currentText += '$';
+      i += 2;
+      continue;
+    }
+
+    // 2. HTML <span className="...">...</span>
+    if (text.startsWith('<span className="', i)) {
+      const quoteStart = i + 17; // length of '<span className="'
+      const quoteEnd = text.indexOf('"', quoteStart);
+      if (quoteEnd !== -1) {
+        const className = text.substring(quoteStart, quoteEnd);
+        const tagClose = text.indexOf('>', quoteEnd);
+        if (tagClose !== -1) {
+          const closingSpan = text.indexOf('</span>', tagClose);
+          if (closingSpan !== -1) {
+            flushText();
+            const innerText = text.substring(tagClose + 1, closingSpan);
+            const key = `${keyPrefix}-span-${i}`;
+            nodes.push(
+              <span key={key} className={className}>
+                {parseMathStringToAST(innerText, key)}
+              </span>
+            );
+            i = closingSpan + 7; // length of '</span>'
+            continue;
+          }
+        }
+      }
+    }
+
+    // 3. Block Math $$...$$
+    if (text.startsWith('$$', i)) {
+      const closingPos = text.indexOf('$$', i + 2);
+      if (closingPos !== -1) {
+        flushText();
+        const tex = text.substring(i + 2, closingPos).trim();
+        const key = `${keyPrefix}-block-${i}`;
+        nodes.push(<MathSpan key={key} tex={tex} block={true} />);
+        i = closingPos + 2;
+        continue;
+      }
+    }
+
+    // 4. Inline Math $...$ or Currency ($100, $2.50)
+    if (text[i] === '$') {
+      const nextChar = text[i + 1] || '';
+      // Currency check: if followed immediately by digit (e.g. $10, $2.50) -> treat as literal dollar
+      const isDigit = nextChar >= '0' && nextChar <= '9';
+
+      if (isDigit) {
+        currentText += '$';
+        i++;
+        continue;
+      }
+
+      // Math check: look for matching unescaped closing $
+      let closingPos = -1;
+      for (let j = i + 1; j < len; j++) {
+        if (text[j] === '$' && text[j - 1] !== '\\') {
+          closingPos = j;
+          break;
+        }
+      }
+
+      if (closingPos !== -1 && closingPos > i + 1) {
+        flushText();
+        const tex = text.substring(i + 1, closingPos).trim();
+        const key = `${keyPrefix}-inline-${i}`;
+        nodes.push(<MathSpan key={key} tex={tex} block={false} />);
+        i = closingPos + 1;
+        continue;
+      } else {
+        // No closing $ found -> literal dollar
+        currentText += '$';
+        i++;
+        continue;
+      }
+    }
+
+    // 5. Default character
+    currentText += text[i];
+    i++;
+  }
+
+  flushText();
+
+  if (nodes.length === 0) return null;
+  if (nodes.length === 1 && typeof nodes[0] === 'string') return nodes[0];
+  return <React.Fragment key={keyPrefix}>{nodes}</React.Fragment>;
+}
+
+/**
+ * React Component for parsing and rendering string blocks containing inline KaTeX formulas.
+ */
+export const MathText: React.FC<{ text: string; className?: string }> = memo(({ text, className = '' }) => {
+  if (!text) return null;
+  const parsed = parseMathStringToAST(text);
+  if (className) {
+    return <span className={className}>{parsed}</span>;
+  }
+  return <>{parsed}</>;
+});
+
+MathText.displayName = 'MathText';
+
+/**
+ * Helper function for parsing text strings for $math$ delimiters and returning React nodes.
  */
 export const processMathText = (text: string): React.ReactNode => {
   if (!text) return null;
@@ -96,62 +221,9 @@ export const processMathText = (text: string): React.ReactNode => {
     (trimmed.startsWith('$') && trimmed.endsWith('$') && trimmed.length > 2 && trimmed.indexOf('$', 1) === trimmed.length - 1)
   ) {
     const rawTex = trimmed.startsWith('$$') ? trimmed.slice(2, -2) : trimmed.slice(1, -1);
-    const cleanTex = rawTex.trim().replace(/\\\\\$/g, '\\$').replace(/\\\$/g, '\\$');
+    const cleanTex = rawTex.trim();
     return <MathSpan tex={cleanTex} block={true} />;
   }
 
-  // Pre-process escaped dollars
-  const escapedText = text.replace(/\\\\\$/g, '___ESC_DOLLAR___').replace(/\\\$/g, '___ESC_DOLLAR___');
-
-  return parseTokens(escapedText, 'root');
-};
-
-const parseTokens = (text: string, keyPrefix: string): React.ReactNode => {
-  if (!text) return null;
-
-  // 1: Block Math, 2: Inline Math, 3: HTML span
-  const lexerRegex = /(\$\$[\s\S]+?\$\$)|(\$[^\$]+\$)|(<span className="[^"]+">.*?<\/span>)/g;
-  
-  const elements: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = lexerRegex.exec(text)) !== null) {
-    // Push preceding normal text
-    if (match.index > lastIndex) {
-      elements.push(text.substring(lastIndex, match.index).replace(/___ESC_DOLLAR___/g, '$'));
-    }
-
-    const token = match[0];
-    const matchKey = `${keyPrefix}-${match.index}`;
-
-    if (match[1]) {
-      // Block Math
-      const tex = token.slice(2, -2).replace(/___ESC_DOLLAR___/g, '\\$');
-      elements.push(<MathSpan key={matchKey} tex={tex} block={true} />);
-    } else if (match[2]) {
-      // Inline Math
-      const tex = token.slice(1, -1).replace(/___ESC_DOLLAR___/g, '\\$');
-      elements.push(<MathSpan key={matchKey} tex={tex} block={false} />);
-    } else if (match[3]) {
-      // HTML span
-      const classMatch = token.match(/className="([^"]+)"/);
-      const className = classMatch ? classMatch[1] : '';
-      const content = token.replace(/<span[^>]*>/, '').replace(/<\/span>/, '');
-      elements.push(
-        <span key={matchKey} className={className}>
-          {parseTokens(content, matchKey)}
-        </span>
-      );
-    }
-
-    lastIndex = lexerRegex.lastIndex;
-  }
-
-  // Push remaining normal text
-  if (lastIndex < text.length) {
-    elements.push(text.substring(lastIndex).replace(/___ESC_DOLLAR___/g, '$'));
-  }
-
-  return <React.Fragment key={keyPrefix}>{elements}</React.Fragment>;
+  return parseMathStringToAST(text);
 };

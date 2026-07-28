@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
+import { MathSpan } from '../lib/math';
 import { 
   Car, 
   Zap, 
@@ -393,7 +394,10 @@ export function AutoLoanLab() {
         /* Single Vehicle Amortization Mode */
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-1">
-            <span className="text-xs font-sans text-slate-500 font-semibold block">Monthly Loan Payment ($PMT$)</span>
+            <span className="text-xs font-sans text-slate-500 font-semibold flex items-center gap-1">
+              <span>Monthly Loan Payment</span>
+              <span>(<MathSpan tex="\text{PMT}" />)</span>
+            </span>
             <span className="text-2xl font-extrabold text-indigo-600 font-sans">${monthlyLoanPayment.toFixed(2)}</span>
             <p className="text-[11px] text-slate-500 pt-1">Principal: ${loanPrincipal.toLocaleString()} @ {apr}% APR for {loanTermMonths} months</p>
           </div>
@@ -447,8 +451,12 @@ export function AutoLoanLab() {
               <tr>
                 <th className="px-4 py-2.5">Timeline</th>
                 <th className="px-4 py-2.5">Monthly Payment</th>
-                <th className="px-4 py-2.5 text-amber-700">Interest Portion ($I$)</th>
-                <th className="px-4 py-2.5 text-indigo-700">Principal Portion ($P_k$)</th>
+                <th className="px-4 py-2.5 text-amber-700 font-sans">
+                  <span>Interest Portion</span> (<MathSpan tex="I" />)
+                </th>
+                <th className="px-4 py-2.5 text-indigo-700 font-sans">
+                  <span>Principal Portion</span> (<MathSpan tex="P_k" />)
+                </th>
                 <th className="px-4 py-2.5">Remaining Balance</th>
               </tr>
             </thead>

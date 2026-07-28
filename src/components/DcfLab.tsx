@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { formatCurrency, formatPercent } from '../utils/mathUtils';
+import { processMathText, MathSpan } from '../lib/math';
 
 export const DcfLab: React.FC = () => {
   const [cf0, setCf0] = useState<number>(10); // $10M
@@ -232,13 +233,16 @@ export const DcfLab: React.FC = () => {
             <h4 className="font-sans font-semibold text-slate-700 text-sm">A High Schooler's Insight</h4>
             <ul className="text-xs text-slate-600 list-disc list-outside pl-4 space-y-2 font-sans">
               <li>
-                <span className="font-semibold text-slate-800">The Power of Exponents:</span> Compound growth grows exponentially using exponents: $A = P(1 + r)^n$. A tiny increase in the rate $r$ creates a massive difference over many years because the growth compounds on top of previous growth!
+                <span className="font-semibold text-slate-800">The Power of Exponents: </span>
+                {processMathText('Compound growth grows exponentially using exponents: $A = P(1 + r)^n$. A tiny increase in the rate $r$ creates a massive difference over many years because the growth compounds on top of previous growth!')}
               </li>
               <li>
-                <span className="font-semibold text-slate-800">Working Backwards (Discounting):</span> Present value ($PV = FV / (1 + r)^n$) is the opposite of future compounding. Since money grew to get here, we divide by the compound factor to see what that future cash is worth to us today.
+                <span className="font-semibold text-slate-800">Working Backwards (Discounting): </span>
+                {processMathText('Present value ($PV = \\frac{FV}{(1 + r)^n}$) is the opposite of future compounding. Since money grew to get here, we divide by the compound factor to see what that future cash is worth to us today.')}
               </li>
               <li>
-                <span className="font-semibold text-slate-800">Stable Company Valuation:</span> We can value a whole company by adding up all its future cash returns today. Under the Gordon Growth model, we do this with a simple division: $P_0 = D_1 / (r - g)$. If growth ($g$) is bigger than rate ($r$), the company has "infinite" value!
+                <span className="font-semibold text-slate-800">Stable Company Valuation: </span>
+                {processMathText('We can value a whole company by adding up all its future cash returns today. Under the Gordon Growth model, we do this with a simple division: $P_0 = \\frac{D_1}{r - g}$. If growth ($g$) is bigger than rate ($r$), the company has "infinite" value!')}
               </li>
             </ul>
           </div>
@@ -334,10 +338,14 @@ export const DcfLab: React.FC = () => {
           <table className="w-full text-sm text-left">
             <thead className="bg-slate-50 text-slate-500 uppercase text-xs font-mono border-b border-slate-200">
               <tr>
-                <th className="px-4 py-3">Year</th>
-                <th className="px-4 py-3 text-right">Cash Flow (CF_t)</th>
-                <th className="px-4 py-3 text-right">Discount Factor</th>
-                <th className="px-4 py-3 text-right">Present Value (PV_t)</th>
+                <th className="px-4 py-3 font-sans font-bold">Year</th>
+                <th className="px-4 py-3 text-right font-sans">
+                  <span>Cash Flow</span> (<MathSpan tex="\text{CF}_t" />)
+                </th>
+                <th className="px-4 py-3 text-right font-sans">Discount Factor</th>
+                <th className="px-4 py-3 text-right font-sans">
+                  <span>Present Value</span> (<MathSpan tex="\text{PV}_t" />)
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 font-mono text-slate-700 text-xs">

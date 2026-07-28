@@ -147,14 +147,16 @@ export const PdfExportButton: React.FC = () => {
             <h3 className="text-indigo-400 font-mono font-bold uppercase tracking-wider text-xs">Course Modules Index</h3>
             <div className="grid grid-cols-1 gap-2 text-slate-300">
               <div>• <strong>Unit 1:</strong> Compounding, Discounting & Time Value of Money</div>
-              <div>• <strong>Unit 1.2:</strong> Selecting the Discount Rate & Cost of Capital</div>
-              <div>• <strong>Unit 1.5:</strong> From Bank Accounts to Stock Ownership</div>
-              <div>• <strong>Unit 2:</strong> Dividend Discount Model & Gordon Growth Formula</div>
-              <div>• <strong>Unit 2.5:</strong> Information Shocks & Random Walk Bridge</div>
-              <div>• <strong>Unit 3:</strong> Stochastic Calculus & Asset Price Paths (GBM)</div>
-              <div>• <strong>Unit 4:</strong> Modern Portfolio Theory & Mean-Variance Optimization</div>
-              <div>• <strong>Unit 5:</strong> Black-Scholes-Merton Option Pricing & The Greeks</div>
-              <div>• <strong>Unit 6:</strong> Behavioral Finance, Market Crowds & Speculative Dynamics</div>
+              <div>• <strong>Unit 2:</strong> Selecting the Discount Rate & Cost of Capital</div>
+              <div>• <strong>Unit 3:</strong> From Bank Accounts to Stock Ownership</div>
+              <div>• <strong>Unit 3.5:</strong> Stock Valuation Without Growth (Zero Growth DDM)</div>
+              <div>• <strong>Unit 4:</strong> Dividend Discount Model & Gordon Growth Formula</div>
+              <div>• <strong>Unit 5:</strong> Information Shocks & Random Walk Bridge</div>
+              <div>• <strong>Unit 6:</strong> Stochastic Calculus & Asset Price Paths (GBM)</div>
+              <div>• <strong>Unit 7:</strong> Modern Portfolio Theory & Mean-Variance Optimization</div>
+              <div>• <strong>Unit 8:</strong> Black-Scholes-Merton Option Pricing & The Greeks</div>
+              <div>• <strong>Unit 9:</strong> Behavioral Finance, Market Crowds & Speculative Dynamics</div>
+              <div>• <strong>Bonus Unit:</strong> Auto Loans & Total Cost of Ownership</div>
             </div>
           </div>
 

@@ -75,10 +75,10 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             </button>
           </div>
 
-          {/* Unit 1.5 */}
+          {/* Unit 2 */}
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 1.5</span>
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 2</span>
               <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Savings & Opportunity Cost</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
@@ -90,17 +90,17 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             <button
               onClick={() => setActiveModule('rateSelection')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-1-5"
+              id="btn-nav-unit-2"
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />
             </button>
           </div>
 
-          {/* Unit 1.75 */}
+          {/* Unit 3 */}
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 1.75</span>
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 3</span>
               <span className="bg-emerald-50 text-emerald-700 text-[10px] font-mono px-2 py-0.5 rounded">Fractional Ownership</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
@@ -112,73 +112,29 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             <button
               onClick={() => setActiveModule('stockBridge')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-1-75"
-            >
-              <span>Open Topic Lab & Challenge</span>
-              <ChevronsRight className="w-3 h-3" />
-            </button>
-          </div>
-
-          {/* Unit 2 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
-            <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 2</span>
-              <span className="bg-amber-50 text-amber-700 text-[10px] font-mono px-2 py-0.5 rounded">Dividend Discount Perpetuities</span>
-            </div>
-            <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Stock Price Valuation & Infinite Growth
-            </h4>
-            <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Explore the algebra of perpetual growing dividends, discover infinite geometric series convergence, and understand the highly sensitive r - g denominator.
-            </p>
-            <button
-              onClick={() => setActiveModule('valuation')}
-              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-2"
-            >
-              <span>Open Topic Lab & Challenge</span>
-              <ChevronsRight className="w-3 h-3" />
-            </button>
-          </div>
-
-          {/* Unit 2.5 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
-            <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 2.5</span>
-              <span className="bg-rose-50 text-rose-700 text-[10px] font-mono px-2 py-0.5 rounded">Information & Catalyst Shocks</span>
-            </div>
-            <h4 className="font-sans font-bold text-slate-800 text-sm">
-              The News Catalyst: Why Stock Prices Wiggle
-            </h4>
-            <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Learn how unexpected news shifts future growth (g) and risk (r) expectations instantly, creating price discovery jumps that turn smooth mathematical formulas into random market paths.
-            </p>
-            <button
-              onClick={() => setActiveModule('newsBridge')}
-              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-2-5"
-            >
-              <span>Open Topic Lab & Challenge</span>
-              <ChevronsRight className="w-3 h-3" />
-            </button>
-          </div>
-
-          {/* Unit 3 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
-            <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 3</span>
-              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Market Randomness</span>
-            </div>
-            <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Stock Prices & Randomness
-            </h4>
-            <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Explore percentage changes, the multiplicative compounding of stock returns, random walks, volatility drag, and simulate coin-flip price paths by hand.
-            </p>
-            <button
-              onClick={() => setActiveModule('stochastic')}
-              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
               id="btn-nav-unit-3"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Unit 3.5 */}
+          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 3.5</span>
+              <span className="bg-sky-50 text-sky-700 text-[10px] font-mono px-2 py-0.5 rounded">Zero-Growth DDM</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Stock Valuation Without Growth (Flat Dividends)
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Master the foundational zero-growth perpetuity formula P_0 = D / r for constant cash dividends, preferred stock, and discount rate inversion before adding growth.
+            </p>
+            <button
+              onClick={() => setActiveModule('flatValuation')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
+              id="btn-nav-unit-3-5"
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />
@@ -189,16 +145,16 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 4</span>
-              <span className="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded">Risk Reduction & Averages</span>
+              <span className="bg-amber-50 text-amber-700 text-[10px] font-mono px-2 py-0.5 rounded">Dividend Discount Perpetuities</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Portfolio Diversification & Risk
+              Stock Price Valuation & Infinite Growth
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Calculate average expected return. Learn how low correlation lowers risk. Explore the Efficient Frontier, Sharpe Ratio, and the market risk scorer Beta.
+              Explore the algebra of perpetual growing dividends, discover infinite geometric series convergence, and understand the highly sensitive r - g denominator.
             </p>
             <button
-              onClick={() => setActiveModule('portfolio')}
+              onClick={() => setActiveModule('valuation')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
               id="btn-nav-unit-4"
             >
@@ -211,16 +167,16 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 5</span>
-              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Inequalities & Insurance</span>
+              <span className="bg-rose-50 text-rose-700 text-[10px] font-mono px-2 py-0.5 rounded">Information & Catalyst Shocks</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Options & The Price of a Guarantee
+              The News Catalyst: Why Stock Prices Wiggle
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Understand Call and Put options and payoff inequalities at expiration. Discover the five pricing inputs, no-arbitrage reasoning, and English "Greeks" limits.
+              Learn how unexpected news shifts future growth (g) and risk (r) expectations instantly, creating price discovery jumps that turn smooth mathematical formulas into random market paths.
             </p>
             <button
-              onClick={() => setActiveModule('options')}
+              onClick={() => setActiveModule('newsBridge')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
               id="btn-nav-unit-5"
             >
@@ -233,6 +189,72 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 6</span>
+              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Market Randomness</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Stock Prices & Randomness
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Explore percentage changes, the multiplicative compounding of stock returns, random walks, volatility drag, and simulate coin-flip price paths by hand.
+            </p>
+            <button
+              onClick={() => setActiveModule('stochastic')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
+              id="btn-nav-unit-6"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Unit 7 */}
+          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 7</span>
+              <span className="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded">Risk Reduction & Averages</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Portfolio Diversification & Risk
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Calculate average expected return. Learn how low correlation lowers risk. Explore the Efficient Frontier, Sharpe Ratio, and the market risk scorer Beta.
+            </p>
+            <button
+              onClick={() => setActiveModule('portfolio')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
+              id="btn-nav-unit-7"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Unit 8 */}
+          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 8</span>
+              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Inequalities & Insurance</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Options & The Price of a Guarantee
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Understand Call and Put options and payoff inequalities at expiration. Discover the five pricing inputs, no-arbitrage reasoning, and English "Greeks" limits.
+            </p>
+            <button
+              onClick={() => setActiveModule('options')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
+              id="btn-nav-unit-8"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Unit 9 */}
+          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 9</span>
               <span className="bg-purple-50 text-purple-700 text-[10px] font-mono px-2 py-0.5 rounded">Retail Behavior & Irrationality</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
@@ -244,7 +266,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             <button
               onClick={() => setActiveModule('behavioral')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-6"
+              id="btn-nav-unit-9"
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />
@@ -280,7 +302,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
         <h3 className="font-sans font-bold text-slate-800 text-base pl-1 flex items-center space-x-1.5">
           <span>Advanced Math Side Quests</span>
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Side Quest 1 */}
           <div className="bg-slate-900 border border-slate-950 text-slate-100 rounded-2xl p-5 space-y-3 relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
@@ -288,13 +310,13 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             </div>
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-indigo-400 block uppercase">Math Quest 1</span>
-              <span className="bg-indigo-950 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-900">Discrete & Infinite Sums</span>
+              <span className="bg-indigo-950 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-900">Discrete Sums</span>
             </div>
             <h4 className="font-sans font-bold text-slate-100 text-sm">
-              Summation Notation (Sigma) & Convergence Proofs
+              Summation Notation (Sigma)
             </h4>
             <p className="text-slate-400 text-xs font-serif leading-relaxed">
-              Deep dive into summation, Carl Friedrich Gauss's arithmetic series derivation, finite/infinite geometric series proofs, and their applications to the dividend discount model.
+              Deep dive into summation, Carl Friedrich Gauss's arithmetic series derivation, and their applications to the dividend discount model.
             </p>
             <button
               onClick={() => setActiveModule('side_quest_sigma')}
@@ -313,18 +335,43 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             </div>
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-indigo-400 block uppercase">Math Quest 2</span>
+              <span className="bg-indigo-950 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-900">Infinite Series</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-100 text-sm">
+              Geometric Series & Convergence
+            </h4>
+            <p className="text-slate-400 text-xs font-serif leading-relaxed">
+              Master the math that proves an infinite sum of cash flows can equal a finite, bounded price using infinite geometric series.
+            </p>
+            <button
+              onClick={() => setActiveModule('side_quest_geometric')}
+              className="text-xs text-indigo-300 font-sans font-bold hover:text-indigo-100 flex items-center space-x-1 border border-indigo-900 hover:border-indigo-800 px-2.5 py-1.5 rounded-lg bg-indigo-950/40 transition-all cursor-pointer"
+              id="btn-nav-side-quest-2"
+            >
+              <span>Launch Math Side Quest</span>
+              <ChevronsRight className="w-3 h-3 text-indigo-400" />
+            </button>
+          </div>
+
+          {/* Side Quest 3 */}
+          <div className="bg-slate-900 border border-slate-950 text-slate-100 rounded-2xl p-5 space-y-3 relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+              <TrendingUp className="w-24 h-24 text-white" />
+            </div>
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-400 block uppercase">Math Quest 3</span>
               <span className="bg-indigo-950 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-900">Geometric Convergences</span>
             </div>
             <h4 className="font-sans font-bold text-slate-100 text-sm">
               The Gordon Growth Formula Derivation
             </h4>
             <p className="text-slate-400 text-xs font-serif leading-relaxed">
-              Study dividend perpetuity equations starting from zero-growth ($g = 0$) up to constant compounding dividend expansion, proving how the $r - g$ convergence works.
+              Study dividend perpetuity equations starting from zero-growth ($g = 0$) up to constant compounding dividend expansion.
             </p>
             <button
               onClick={() => setActiveModule('side_quest_gordon')}
               className="text-xs text-indigo-300 font-sans font-bold hover:text-indigo-100 flex items-center space-x-1 border border-indigo-900 hover:border-indigo-800 px-2.5 py-1.5 rounded-lg bg-indigo-950/40 transition-all cursor-pointer"
-              id="btn-nav-side-quest-2"
+              id="btn-nav-side-quest-3"
             >
               <span>Launch Math Side Quest</span>
               <ChevronsRight className="w-3 h-3 text-indigo-400" />

@@ -16,6 +16,7 @@ import { LemonadeStandLab } from './LemonadeStandLab';
 import { AutoLoanLab } from './AutoLoanLab';
 import { BankLab } from './BankLab';
 import { StockBridgeLab } from './StockBridgeLab';
+import { FlatValuationLab } from './FlatValuationLab';
 import { ValuationLab } from './ValuationLab';
 import { NewsBridgeLab } from './NewsBridgeLab';
 import { StochasticLab } from './StochasticLab';
@@ -42,6 +43,8 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
         return <BankLab />;
       case 'stockBridge':
         return <StockBridgeLab />;
+      case 'flatValuation':
+        return <FlatValuationLab />;
       case 'valuation':
         return <ValuationLab />;
       case 'newsBridge':

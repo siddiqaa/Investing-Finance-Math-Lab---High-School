@@ -161,7 +161,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             </div>
           </div>
           <p className="font-serif text-slate-300 text-sm sm:text-base leading-relaxed">
-            {processMathText('How do we put a exact dollar value on a stock that can pay dividends *forever*? Let\'s discover the algebra behind **simple perpetuities**, and then see how introducing a constant growth rate $g$ reveals the famous **Gordon Growth Formula ($\\frac{D_1}{r-g}$)**.')}
+            {processMathText('How do we put a exact dollar value on a stock that can pay dividends *forever*? Let\'s discover the algebra behind <span className="font-bold text-slate-800">simple perpetuities</span>, and then see how introducing a constant growth rate $g$ reveals the famous <span className="font-bold text-indigo-600">Gordon Growth Formula ($\\frac{D_1}{r-g}$)</span>.')}
           </p>
           <div className="pt-2">
             <button
@@ -169,7 +169,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
               className="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 font-sans font-bold px-4 py-2 rounded-xl border border-slate-700 transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <BookOpen className="w-4 h-4 text-indigo-400" />
-              <span>Link Back to Unit 2 (Stock Price Valuation)</span>
+              <span>Link Back to Unit 4 (Stock Price Valuation)</span>
             </button>
           </div>
         </div>
@@ -188,40 +188,70 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
 
         <div className="font-serif text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
           <p>
-            {processMathText('Imagine a high-quality financial asset that promises to pay you a constant cash dividend $D$ every single year, forever, with **zero growth** ($g=0$). How much is that promise worth to you *today*?')}
+            {processMathText('Imagine a high-quality financial asset that promises to pay you a constant cash dividend $D$ every single year, forever, with <span className="font-bold text-slate-800">zero growth</span> ($g=0$). How much is that promise worth to you *today*?')}
           </p>
           <p>
             {processMathText('To find its fair value ($P_0$), we sum the discounted present values of all future payments from Year 1 to infinity ($\infty$):')}
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
-            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D}{(1+r)^t} = \frac{D}{1+r} + \frac{D}{(1+r)^2} + \frac{D}{(1+r)^3} + \dots" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">Perpetuity Discounted Sum</span>
+              <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
+                Eq. 3.1
+              </span>
+            </div>
+            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D}{(1+r)^t} = \frac{D}{1+r} + \frac{D}{(1+r)^2} + \frac{D}{(1+r)^3} + \dots \tag{3.1}" block />
           </div>
           <p>
             {processMathText('Since the dividend $D$ is constant, we can factor it out of the sum:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-            <MathSpan tex="P_0 = D \cdot \sum_{t=1}^{\infty} \left(\frac{1}{1+r}\right)^t" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">Factoring Constant Dividend</span>
+              <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
+                Eq. 3.2
+              </span>
+            </div>
+            <MathSpan tex="P_0 = D \cdot \sum_{t=1}^{\infty} \left(\frac{1}{1+r}\right)^t \tag{3.2}" block />
           </div>
           <p>
-            {processMathText('The summation term is an **infinite geometric series** with a common ratio of $x = \frac{1}{1+r}$. Because the discount rate $r > 0$, the ratio is strictly less than 1 ($|x| < 1$).')}
+            {processMathText('The summation term is an <span className="font-bold text-slate-800">infinite geometric series</span> with a common ratio of $x = \frac{1}{1+r}$. Because the discount rate $r > 0$, the ratio is strictly less than 1 ($|x| < 1$).')}
           </p>
           <p>
             {processMathText('Using the algebraic formula for the sum of an infinite geometric series, $S = \frac{\text{First Term}}{1 - \text{Ratio}}$:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-            <MathSpan tex="S = \frac{\frac{1}{1+r}}{1 - \frac{1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{1+r-1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{r}{1+r}} = \frac{1}{r}" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">Series Algebraic Reduction</span>
+              <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
+                Eq. 3.3
+              </span>
+            </div>
+            <MathSpan tex="S = \frac{\frac{1}{1+r}}{1 - \frac{1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{1+r-1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{r}{1+r}} = \frac{1}{r} \tag{3.3}" block />
           </div>
           <p>
-            {processMathText('Multiplying this sum by the factored-out dividend $D$ gives us the beautifully simple **Perpetuity Formula**:')}
+            {processMathText('Multiplying this sum by the factored-out dividend $D$ gives us the beautifully simple <span className="font-bold text-indigo-600">Perpetuity Formula</span>:')}
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
-            <MathSpan tex="P_0 = \frac{D}{r}" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">Zero-Growth Perpetuity Formula</span>
+              <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
+                Eq. 3.4
+              </span>
+            </div>
+            <MathSpan tex="P_0 = \frac{D}{r} \tag{3.4}" block />
           </div>
           <p>
-            {processMathText('**Example:** If a preferred share pays a constant annual dividend of $D = \\$2.00$ forever and your required rate of return is $r = 5\\%$ ($0.05$), its value is:')}
+            {processMathText('<span className="font-bold text-slate-800">Example:</span> If a preferred share pays a constant annual dividend of $D = \\$2.00$ forever and your required rate of return is $r = 5\\%$ ($0.05$), its value is:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl font-mono text-center font-bold text-slate-800 text-xs sm:text-sm">
-            {processMathText('$P_0 = \\frac{\\$2.00}{0.05} = \\$40.00$')}
+            <div className="flex justify-between items-center mb-2 font-sans font-normal text-slate-500 text-[10px]">
+              <span className="uppercase font-bold">Preferred Share Example ($D = \$2.00, r = 5\%$)</span>
+              <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
+                Eq. 3.5
+              </span>
+            </div>
+            <MathSpan tex="P_0 = \frac{\$2.00}{0.05} = \$40.00 \tag{3.5}" block />
           </div>
         </div>
       </div>
@@ -239,7 +269,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
 
         <div className="font-serif text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
           <p>
-            {processMathText('In the real world, successful businesses expand, raise prices, and increase their dividends over time. Let\'s suppose dividends grow at a constant compound annual growth rate of **$g$**.')}
+            {processMathText('In the real world, successful businesses expand, raise prices, and increase their dividends over time. Let\'s suppose dividends grow at a constant compound annual growth rate of <span className="font-bold text-slate-800">$g$</span>.')}
           </p>
           <p>
             {processMathText('If the current dividend is $D_0$, then:')}
@@ -253,7 +283,13 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             {processMathText('Let\'s add up the present values of all future growing dividends from Year 1 to infinity:')}
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
-            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D_0(1+g)^t}{(1+r)^t} = D_0 \sum_{t=1}^{\infty} \left(\frac{1+g}{1+r}\right)^t" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">Growing Dividend Series ($g &gt; 0$)</span>
+              <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
+                Eq. 3.6
+              </span>
+            </div>
+            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D_0(1+g)^t}{(1+r)^t} = D_0 \sum_{t=1}^{\infty} \left(\frac{1+g}{1+r}\right)^t \tag{3.6}" block />
           </div>
           <p>
             {processMathText('This is a geometric series with a common ratio of $x = \frac{1+g}{1+r}$. For this infinite sum to converge to a finite number, the ratio must be strictly less than 1:')}
@@ -264,26 +300,44 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
               <span>{processMathText('The Convergence Rule: $g < r$')}</span>
             </p>
             <p className="text-slate-600 font-serif mt-1">
-              {processMathText('For the series to converge, we require $\\frac{1+g}{1+r} < 1$, which algebraically reduces to **$g < r$**. If a company could grow at a rate $g \\ge r$ forever, its dividend growth would outpace the discounting effect, making the stock worth an infinite amount of money!')}
+              {processMathText('For the series to converge, we require $\\frac{1+g}{1+r} < 1$, which algebraically reduces to <span className="font-bold text-amber-900">$g < r$</span>. If a company could grow at a rate $g \\ge r$ forever, its dividend growth would outpace the discounting effect, making the stock worth an infinite amount of money!')}
             </p>
           </div>
           <p>
             {processMathText('Under the assumption that $g < r$, we use the infinite series sum formula where the first term is $a = \frac{1+g}{1+r}$:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-            <MathSpan tex="S = \frac{\frac{1+g}{1+r}}{1 - \frac{1+g}{1+r}} = \frac{\frac{1+g}{1+r}}{\frac{1+r-(1+g)}{1+r}} = \frac{1+g}{r-g}" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">Growing Series Convergence Sum</span>
+              <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
+                Eq. 3.7
+              </span>
+            </div>
+            <MathSpan tex="S = \frac{\frac{1+g}{1+r}}{1 - \frac{1+g}{1+r}} = \frac{\frac{1+g}{1+r}}{\frac{1+r-(1+g)}{1+r}} = \frac{1+g}{r-g} \tag{3.7}" block />
           </div>
           <p>
             {processMathText('Multiplying this converged sum by the factored-out $D_0$ gives us:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-            <MathSpan tex="P_0 = D_0 \cdot \frac{1+g}{r-g} = \frac{D_0(1+g)}{r-g}" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">Valuation with $D_0$</span>
+              <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
+                Eq. 3.8
+              </span>
+            </div>
+            <MathSpan tex="P_0 = D_0 \cdot \frac{1+g}{r-g} = \frac{D_0(1+g)}{r-g} \tag{3.8}" block />
           </div>
           <p>
-            {processMathText('Since the next expected dividend is $D_1 = D_0(1+g)$, we arrive at the famous **Gordon Growth Formula**:')}
+            {processMathText('Since the next expected dividend is $D_1 = D_0(1+g)$, we arrive at the famous <span className="font-bold text-indigo-600">Gordon Growth Formula</span>:')}
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
-            <MathSpan tex="P_0 = \frac{D_1}{r - g}" block />
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">The Gordon Growth Model</span>
+              <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
+                Eq. 3.9
+              </span>
+            </div>
+            <MathSpan tex="P_0 = \frac{D_1}{r - g} \tag{3.9}" block />
           </div>
         </div>
       </div>
@@ -392,7 +446,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                   Divergent Infinite Series! ($g \ge r$)
                 </h3>
                 <p className="font-serif text-slate-600 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                  {processMathText(`Because the dividend growth rate **(${(g * 100).toFixed(1)}%)** is equal to or greater than the discount rate **(${(r * 100).toFixed(1)}%)**, each future discounted cash flow is larger than (or equal to) the previous one. The sum blows up to **infinity** ($\\infty$) and the formula breaks!`)}
+                  {processMathText(`Because the dividend growth rate <span className="font-bold text-rose-700">(${(g * 100).toFixed(1)}%)</span> is equal to or greater than the discount rate <span className="font-bold text-rose-700">(${(r * 100).toFixed(1)}%)</span>, each future discounted cash flow is larger than (or equal to) the previous one. The sum blows up to <span className="font-bold text-rose-800">infinity</span> ($\\infty$) and the formula breaks!`)}
                 </p>
                 <div className="bg-white border border-rose-100 p-3 rounded-xl max-w-sm mx-auto font-mono text-[11px] text-rose-800">
                   {processMathText(`Common Ratio $x = \\frac{1 + g}{1 + r} = \\frac{1 + ${g.toFixed(3)}}{1 + ${r.toFixed(3)}} = ${((1 + g) / (1 + r)).toFixed(3)} \\ge 1.0$`)}
@@ -435,7 +489,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                   </table>
                 </div>
                 <p className="text-[10px] text-slate-400 italic font-serif leading-relaxed">
-                  {processMathText(`Notice that the cumulative sum of the first 5 terms is **$${termsData[4].cumulative.toFixed(2)}**, which is already climbing toward the theoretical infinite sum of **$${theoreticalPrice?.toFixed(2)}**!`)}
+                  {processMathText(`Notice that the cumulative sum of the first 5 terms is <span className="font-bold text-indigo-700">$${termsData[4].cumulative.toFixed(2)}</span>, which is already climbing toward the theoretical infinite sum of <span className="font-bold text-indigo-700">$${theoreticalPrice?.toFixed(2)}</span>!`)}
                 </p>
               </div>
             )}

@@ -164,7 +164,7 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
             </div>
           </div>
           <p className="font-serif text-slate-300 text-sm sm:text-base leading-relaxed">
-            {processMathText('Ever wonder how mathematicians write down extremely long patterns of numbers without filling up the entire chalkboard? Welcome to **Sigma Notation ($\\sum$)**! This elegant shorthand allows us to express large sums of numbers with absolute clarity.')}
+            {processMathText('Ever wonder how mathematicians write down extremely long patterns of numbers without filling up the entire chalkboard? Welcome to <span className="font-bold text-slate-800">Sigma Notation ($\\sum$)</span>! This elegant shorthand allows us to express large sums of numbers with absolute clarity.')}
           </p>
           <div className="pt-2">
             <button
@@ -192,16 +192,21 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
           <div className="xl:col-span-7 font-serif text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
             <p>
-              {processMathText('When we want to add together a list of numbers that follow a specific pattern, we use the Greek uppercase letter **Sigma ($\\sum$)**. Sigma is the mathematical command for "sum up these values."')}
+              {processMathText('When we want to add together a list of numbers that follow a specific pattern, we use the Greek uppercase letter <span className="font-bold text-slate-800">Sigma ($\\sum$)</span>. Sigma is the mathematical command for "sum up these values."')}
             </p>
             <p>
-              {processMathText('Think of Sigma as a specialized, friendly **counting loop** that tells you to run a sequence of additions. Let\'s look at the anatomy of a summation expression:')}
+              {processMathText('Think of Sigma as a specialized, friendly <span className="font-bold text-slate-800">counting loop</span> that tells you to run a sequence of additions. Let\'s look at the anatomy of a summation expression:')}
             </p>
             <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2 font-sans text-xs sm:text-sm text-slate-800">
-              <p className="font-bold text-indigo-950 flex items-center gap-1.5">
-                <Calculator className="w-4 h-4 text-indigo-600" />
-                <span>{processMathText('The Anatomy of: $\\sum_{i=a}^{b} f(i)$')}</span>
-              </p>
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <p className="font-bold text-indigo-950 flex items-center gap-1.5">
+                  <Calculator className="w-4 h-4 text-indigo-600" />
+                  <span>{processMathText('The Anatomy of: $\\sum_{i=a}^{b} f(i)$')}</span>
+                </p>
+                <span className="font-mono text-xs font-bold bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full">
+                  Eq. 1.1
+                </span>
+              </div>
               <ul className="list-disc list-inside space-y-1.5 text-slate-600 pl-1 font-sans text-xs">
                 <li>
                   <strong className="text-slate-800">
@@ -234,12 +239,21 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
                   The mathematical formula applied to each counter value to create the term.
                 </li>
               </ul>
+              <div className="pt-1 border-t border-slate-200/80">
+                <MathSpan tex="\sum_{i=a}^{b} f(i) = f(a) + f(a+1) + \dots + f(b) \tag{1.1}" block />
+              </div>
             </div>
             <p>
               {processMathText('Let\'s trace a simple example! The expression $\\sum_{i=1}^{4} i^2$ translates to: "Start at $i=1$. Square $i$, write it down, then increase $i$ by $1$. Do it again for $i=2$, $i=3$, and stop after $i=4$. Finally, add all those squares together."')}
             </p>
             <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
-              <MathSpan tex="\sum_{i=1}^{4} i^2 = 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30" block />
+              <div className="flex justify-between items-center mb-1">
+                <span className="font-mono text-[10px] uppercase font-bold text-indigo-600 tracking-wider">Example Summation</span>
+                <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
+                  Eq. 1.2
+                </span>
+              </div>
+              <MathSpan tex="\sum_{i=1}^{4} i^2 = 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30 \tag{1.2}" block />
             </div>
           </div>
 
@@ -320,11 +334,16 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
 
               {/* Visualized Math Statement */}
               <div className="bg-slate-900 border border-slate-950 p-3.5 rounded-xl text-center space-y-1.5">
-                <span className="text-[10px] text-slate-400 font-mono block">LIVE MATH EXPRESSION</span>
+                <div className="flex items-center justify-between border-b border-slate-800 pb-1">
+                  <span className="text-[10px] text-slate-400 font-mono block">LIVE MATH EXPRESSION</span>
+                  <span className="font-mono text-[10px] font-bold bg-slate-800 text-indigo-400 px-2 py-0.5 rounded">
+                    Eq. 1.3
+                  </span>
+                </div>
                 <div className="text-white text-sm">
-                  {expanderSummand === 'i' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i`} />}
-                  {expanderSummand === '2i-1' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} (2i - 1)`} />}
-                  {expanderSummand === 'i2' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i^2`} />}
+                  {expanderSummand === 'i' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i \\tag{1.3}`} block />}
+                  {expanderSummand === '2i-1' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} (2i - 1) \\tag{1.3}`} block />}
+                  {expanderSummand === 'i2' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i^2 \\tag{1.3}`} block />}
                 </div>
               </div>
 

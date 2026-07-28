@@ -28,6 +28,7 @@ Please follow these guidelines strictly during any future development, refactori
   - For standalone block equations or custom inline nodes, use the `<MathSpan tex="..." block={true/false} />` component.
   - **Double Escaping in JS/TS Strings:** Inside JavaScript/TypeScript strings (including lessons in `.ts` files), backslashes MUST be double-escaped. Write `\\sum`, `\\frac`, `\\dots`, `\\infty`, `\\approx`, `\\sum_{i=1}^{n}`, `\\%` for percentage signs, and `\\text{...}` for text formatting. Single backslashes like `\sum` will be treated as escape sequences and will fail to render or compile.
   - **Syllabus and Lessons Mapping:** Lesson `fullText` and `introduction` blocks contain text with `$...$` math. Ensure they are mapped using `processMathText(paragraph)` inside `App.tsx` or your custom renderers.
+  - **No Markdown Bolding in Arrays:** Never use standard Markdown bolding (e.g., `**word**`) inside the `.ts` lesson strings (like `fullText` or `introduction`). The custom string parser does not convert Markdown `**` tags to HTML. You **MUST** use literal HTML spans instead: `<span className="text-indigo-600 font-bold">word</span>` (or `text-slate-800` depending on context).
   - **Bullet List Elements:** For bullet lists with bold terms and math, use clean separate nodes (e.g., `<li><strong className="text-slate-800">Term (<MathSpan tex="x" />):</strong> details</li>`) instead of passing complex nested HTML strings to parsing functions.
 - **Modular Layout:** Keep laboratories structurally independent (e.g., `DcfLab`, `StochasticLab`, `PortfolioLab`, `OptionsLab`, `BehavioralLab`).
   - Coordinate these laboratories within `src/App.tsx`.
@@ -46,25 +47,37 @@ Please follow these guidelines strictly during any future development, refactori
 ---
 
 ## 🌌 Architecture & Key Laboratories
-The laboratory is structured into multiple core simulation modules, each targeting a key pillar of quantitative and empirical finance:
+The laboratory is structured into 9 core sequential units plus a bonus practical finance module:
 
-### 1. 🍋 Lemonade Stand & Net Present Value (NPV Lab)
-* **Core Concepts:** Present Value ($PV$), Net Present Value ($NPV$), opportunity cost, and cash flow discounting.
+### Unit 1. 🍋 Compounding, Discounting & Net Present Value (NPV Lab)
+* **Core Concepts:** Present Value ($PV$), Net Present Value ($NPV$), opportunity cost, cash flow discounting, and Time Value of Money ($TVM$).
 
-### 2. 📈 Discounted Cash Flows & Continuous Compounding (DCF Lab)
-* **Note:** This lab contains advanced yield curve modelling and is currently archived for advanced exploration.
+### Unit 2. 🏛️ Selecting the Discount Rate (r) & Cost of Capital (Bank Lab)
+* **Core Concepts:** Risk-free rate benchmarks ($r_{rf}$), High-Yield Savings, CDs, inflation drag, hurdle rates, and opportunity cost of capital.
 
-### 2. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
-* **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification: $dS_t = \mu S_t dt + \sigma S_t dW_t$
+### Unit 3. 💼 Bridging from Bank Accounts to Stock Ownership (Stock Bridge Lab)
+* **Core Concepts:** Fractional equity ownership, growth spread ($r_{\text{stock}} - r_{\text{bank}}$), equity risk premium, and wealth accumulation algebra.
 
-### 3. 🎯 Modern Portfolio Theory (Portfolio Lab)
+### Unit 3.5. 🪙 Zero-Growth Stock Valuation (Flat Valuation Lab)
+* **Core Concepts:** Zero-Growth Dividend Discount Model ($P_0 = \frac{D}{r}$), preferred stock valuation, discount rate inversion, and constant cash flow perpetuities.
+
+### Unit 4. 📈 Stock Price Valuation (Dividend Discount & Gordon Growth Model)
+* **Core Concepts:** Dividend Discount Model ($DDM$), Gordon Growth Formula ($P_0 = \frac{D_1}{r - g}$), perpetuities, and fair value sensitivity.
+
+### Unit 5. ⚡ Catalysts & News Shocks (News Bridge Lab)
+* **Core Concepts:** Efficient market hypothesis, unexpected news shocks ($\Delta g, \Delta r$), price discovery, and transition to stochastic paths.
+
+### Unit 6. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
+* **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification: $dS_t = \mu S_t dt + \sigma S_t dW_t$.
+
+### Unit 7. 🎯 Modern Portfolio Theory (Portfolio Lab)
 * **Core Concepts:** Markowitz Mean-Variance Optimization, the Efficient Frontier, the Sharpe Ratio, and Covariance matrices ($\Sigma$).
 
-### 4. 📊 Black-Scholes-Merton Option Pricing (Options Lab)
+### Unit 8. 📊 Black-Scholes-Merton Option Pricing (Options Lab)
 * **Core Concepts:** Black-Scholes closed-form solutions for European options, the Greek derivatives ($\Delta, \Gamma, \Theta, Vega$), and Implied Volatility ($IV$).
 
-### 5. 🧠 Behavioral Finance & Market Crowds (Behavioral Lab)
+### Unit 9. 🧠 Behavioral Finance & Market Crowds (Behavioral Lab)
 * **Core Concepts:** Momentum anomalies, information cascades (rational herding), loss aversion and the disposition effect, self-feeding asset bubbles, and commodity short squeezes.
 
-### 6. 🚗 Auto Loans & Total Cost of Ownership (Bonus Amortization Lab)
+### Bonus Unit. 🚗 Auto Loans & Total Cost of Ownership (Amortization Lab)
 * **Core Concepts:** Loan Amortization ($PMT = P \cdot \frac{r(1+r)^n}{(1+r)^n - 1}$), interest vs. principal decay schedule, and Total Cost of Ownership (TCO) comparing Internal Combustion Engine (ICE) gas vehicles vs. Electric Vehicles (EV) considering fuel/electricity rates, insurance, and maintenance.

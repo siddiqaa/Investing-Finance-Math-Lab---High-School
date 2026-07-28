@@ -3,6 +3,7 @@ import { compounding } from './lessons/compounding';
 import { amortization } from './lessons/amortization';
 import { rateSelection } from './lessons/rateSelection';
 import { stockBridge } from './lessons/stockBridge';
+import { flatValuation } from './lessons/flatValuation';
 import { valuation } from './lessons/valuation';
 import { newsBridge } from './lessons/newsBridge';
 import { stochastic } from './lessons/stochastic';
@@ -14,6 +15,7 @@ export const LESSONS: Record<string, LessonContent> = {
   compounding,
   rateSelection,
   stockBridge,
+  flatValuation,
   valuation,
   newsBridge,
   stochastic,

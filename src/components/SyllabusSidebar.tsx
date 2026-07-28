@@ -13,7 +13,8 @@ import {
   Landmark, 
   Briefcase, 
   Zap,
-  Car
+  Car,
+  Coins
 } from 'lucide-react';
 
 interface SyllabusSidebarProps {
@@ -60,35 +61,39 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitTitle = 'Compound & NPV';
               stepIcon = <GraduationCap className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'rateSelection') {
-              unitNumber = '1.5';
+              unitNumber = '2';
               unitTitle = 'Selecting the Rate (r)';
               stepIcon = <Landmark className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'stockBridge') {
-              unitNumber = '1.75';
+              unitNumber = '3';
               unitTitle = 'Bridging to Stocks';
               stepIcon = <Briefcase className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'flatValuation') {
+              unitNumber = '3.5';
+              unitTitle = 'Zero-Growth Valuation';
+              stepIcon = <Coins className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'valuation') {
-              unitNumber = '2';
+              unitNumber = '4';
               unitTitle = 'Stock Price Valuation';
               stepIcon = <TrendingUp className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'newsBridge') {
-              unitNumber = '2.5';
+              unitNumber = '5';
               unitTitle = 'Catalysts & News';
               stepIcon = <Zap className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'stochastic') {
-              unitNumber = '3';
+              unitNumber = '6';
               unitTitle = 'Stock Prices & Randomness';
               stepIcon = <Activity className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'portfolio') {
-              unitNumber = '4';
+              unitNumber = '7';
               unitTitle = 'Portfolio Diversification';
               stepIcon = <PieChart className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'options') {
-              unitNumber = '5';
+              unitNumber = '8';
               unitTitle = 'Options & Payoffs';
               stepIcon = <LineChart className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'behavioral') {
-              unitNumber = '6';
+              unitNumber = '9';
               unitTitle = 'Behavioral Market Math';
               stepIcon = <Users className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'amortization') {
@@ -141,6 +146,22 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
           </button>
 
           <button
+            onClick={() => setActiveModule('side_quest_geometric')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
+              activeModule === 'side_quest_geometric'
+                ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+            }`}
+            id="sidebar-nav-side-quest-geometric"
+          >
+            <span className="flex items-center space-x-2.5 min-w-0">
+              <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_geometric' ? 'text-white' : 'text-indigo-600'}`} />
+              <span className="truncate">Quest 2: Geometric Series</span>
+            </span>
+            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_geometric' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+          </button>
+
+          <button
             onClick={() => setActiveModule('side_quest_gordon')}
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_gordon'
@@ -151,7 +172,7 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
           >
             <span className="flex items-center space-x-2.5 min-w-0">
               <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_gordon' ? 'text-white' : 'text-indigo-600'}`} />
-              <span className="truncate">Quest 2: Gordon Growth</span>
+              <span className="truncate">Quest 3: Gordon Growth</span>
             </span>
             <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_gordon' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
           </button>

@@ -416,7 +416,7 @@ export const NewsBridgeLab: React.FC = () => {
         <div className="bg-indigo-50/40 border border-indigo-100 p-4 rounded-xl space-y-2 font-sans">
           <span className="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1">
             <Sparkles className="w-4 h-4 text-indigo-600" />
-            <span>Bridging to Stochastic Calculus (Unit 3):</span>
+            <span>Bridging to Stochastic Calculus (Unit 6):</span>
           </span>
           <p className="text-xs text-slate-600 leading-relaxed">
             {processMathText('Look at the stair-step chart above! By clicking positive and negative news events randomly, you have created a jagged, unpredictable path. This represents **exactly** how stock prices behave in the real world. In the next unit, we will upgrade from discrete "step shocks" to **continuous stochastic processes** where random market forces operate at every single millisecond.')}

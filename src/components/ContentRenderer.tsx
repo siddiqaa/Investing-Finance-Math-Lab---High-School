@@ -31,7 +31,7 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
                     <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-sm font-bold" style={{ backgroundColor: '#e0e7ff', color: '#4338ca' }}>
                       {block.level}
                     </span>
-                    {block.content}
+                    {processMathText(block.content!)}
                   </h2>
                 </div>
               );
@@ -42,7 +42,7 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
                   <span className="flex items-center justify-center bg-indigo-100 text-indigo-700 w-7 h-7 rounded-lg text-sm font-bold flex-shrink-0">
                     {block.level}
                   </span>
-                  {block.content}
+                  {processMathText(block.content!)}
                 </h4>
               </div>
             );

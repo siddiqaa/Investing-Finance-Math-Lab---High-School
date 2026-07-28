@@ -62,67 +62,77 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
 };
 
 /**
- * Converts markdown bolding (*text* or **text**) in standard text into HTML spans.
- */
-const parseMarkdownFormatting = (text: string, keyPrefix: string | number): React.ReactNode => {
-  if (!text) return null;
-
-  // Match **bold** or *bold* where group 1 is ** or * and group 2 is content
-  const regex = /(\*\*|\*)([^*]+)\1/g;
-  const elements: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = regex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      elements.push(text.substring(lastIndex, match.index));
-    }
-    
-    const content = match[2];
-    elements.push(
-      <span key={`${keyPrefix}-${match.index}`} className="font-bold text-slate-900">
-        {content}
-      </span>
-    );
-
-    lastIndex = regex.lastIndex;
-  }
-
-  if (lastIndex === 0) {
-    return text;
-  }
-
-  if (lastIndex < text.length) {
-    elements.push(text.substring(lastIndex));
-  }
-
-  return <React.Fragment key={keyPrefix}>{elements}</React.Fragment>;
-};
-
-/**
  * Parses text strings for $math$ delimiters and returns React nodes.
  * Handles currency escaping (using \$ to differentiate from math delimiters).
+ * Uses a left-to-right tokenizer to correctly handle math inside markdown and vice versa.
  */
 export const processMathText = (text: string): React.ReactNode => {
   if (!text) return null;
 
-  // Use a unique placeholder for escaped dollar signs (currency)
-  const escapedText = text.replace(/\\\\\$/g, '___ESC_DOLLAR___').replace(/\\\$/g, '___ESC_DOLLAR___');
-  const tokens = escapedText.split('$');
+  const trimmed = text.trim();
 
-  return (
-    <>
-      {tokens.map((token, i) => {
-        if (i % 2 === 1) {
-          // Odd indices are the content inside $...$
-          return <MathSpan key={i} tex={token} />;
-        }
-        
-        // Even indices are standard text - restore currency signs
-        const restoredText = token.replace(/___ESC_DOLLAR___/g, '$');
-        
-        return parseMarkdownFormatting(restoredText, i);
-      })}
-    </>
-  );
+  // Check for standalone block math ($$ ... $$ or standalone $ ... $)
+  if (
+    (trimmed.startsWith('$$') && trimmed.endsWith('$$') && trimmed.length >= 4) ||
+    (trimmed.startsWith('$') && trimmed.endsWith('$') && trimmed.length > 2 && trimmed.indexOf('$', 1) === trimmed.length - 1)
+  ) {
+    const rawTex = trimmed.startsWith('$$') ? trimmed.slice(2, -2) : trimmed.slice(1, -1);
+    const cleanTex = rawTex.trim().replace(/\\\\\$/g, '\\$').replace(/\\\$/g, '\\$');
+    return <MathSpan tex={cleanTex} block={true} />;
+  }
+
+  // Pre-process escaped dollars
+  const escapedText = text.replace(/\\\\\$/g, '___ESC_DOLLAR___').replace(/\\\$/g, '___ESC_DOLLAR___');
+
+  return parseTokens(escapedText, 'root');
+};
+
+const parseTokens = (text: string, keyPrefix: string): React.ReactNode => {
+  if (!text) return null;
+
+  // 1: Block Math, 2: Inline Math, 3: HTML span
+  const lexerRegex = /(\$\$[\s\S]+?\$\$)|(\$[^\$]+\$)|(<span className="[^"]+">.*?<\/span>)/g;
+  
+  const elements: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = lexerRegex.exec(text)) !== null) {
+    // Push preceding normal text
+    if (match.index > lastIndex) {
+      elements.push(text.substring(lastIndex, match.index).replace(/___ESC_DOLLAR___/g, '$'));
+    }
+
+    const token = match[0];
+    const matchKey = `${keyPrefix}-${match.index}`;
+
+    if (match[1]) {
+      // Block Math
+      const tex = token.slice(2, -2).replace(/___ESC_DOLLAR___/g, '\\$');
+      elements.push(<MathSpan key={matchKey} tex={tex} block={true} />);
+    } else if (match[2]) {
+      // Inline Math
+      const tex = token.slice(1, -1).replace(/___ESC_DOLLAR___/g, '\\$');
+      elements.push(<MathSpan key={matchKey} tex={tex} block={false} />);
+    } else if (match[3]) {
+      // HTML span
+      const classMatch = token.match(/className="([^"]+)"/);
+      const className = classMatch ? classMatch[1] : '';
+      const content = token.replace(/<span[^>]*>/, '').replace(/<\/span>/, '');
+      elements.push(
+        <span key={matchKey} className={className}>
+          {parseTokens(content, matchKey)}
+        </span>
+      );
+    }
+
+    lastIndex = lexerRegex.lastIndex;
+  }
+
+  // Push remaining normal text
+  if (lastIndex < text.length) {
+    elements.push(text.substring(lastIndex).replace(/___ESC_DOLLAR___/g, '$'));
+  }
+
+  return <React.Fragment key={keyPrefix}>{elements}</React.Fragment>;
 };

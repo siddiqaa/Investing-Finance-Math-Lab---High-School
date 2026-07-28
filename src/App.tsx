@@ -3,6 +3,7 @@ import { LESSONS } from './data/lessons';
 import { motion, AnimatePresence } from 'motion/react';
 import { SigmaSideQuest } from './components/SigmaSideQuest';
 import { GordonGrowthQuest } from './components/GordonGrowthQuest';
+import { GeometricSeriesQuest } from './components/GeometricSeriesQuest';
 import { Header } from './components/Header';
 import { SyllabusSidebar } from './components/SyllabusSidebar';
 import { SyllabusHome } from './components/SyllabusHome';
@@ -16,7 +17,7 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [activeModule]);
 
-  const currentLesson = activeModule !== 'syllabus' && activeModule !== 'side_quest_sigma' && activeModule !== 'side_quest_gordon' ? LESSONS[activeModule] : null;
+  const currentLesson = activeModule !== 'syllabus' && activeModule !== 'side_quest_sigma' && activeModule !== 'side_quest_gordon' && activeModule !== 'side_quest_geometric' ? LESSONS[activeModule] : null;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
@@ -57,6 +58,19 @@ export default function App() {
                 <GordonGrowthQuest
                   onBackToSyllabus={() => setActiveModule('syllabus')}
                   onLinkToUnit2={() => setActiveModule('valuation')}
+                />
+              </motion.div>
+            ) : activeModule === 'side_quest_geometric' ? (
+              <motion.div
+                key="side-quest-geometric"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.2 }}
+              >
+                <GeometricSeriesQuest
+                  onBackToSyllabus={() => setActiveModule('syllabus')}
+                  onLinkToUnit3_5={() => setActiveModule('flatValuation')}
                 />
               </motion.div>
             ) : (

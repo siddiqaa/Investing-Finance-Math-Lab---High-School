@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ChevronsRight, Sigma, TrendingUp } from 'lucide-react';
+import { ChevronsRight, Sigma, TrendingUp, Sparkles, Zap, GraduationCap } from 'lucide-react';
 import { PdfExportButton } from './PdfExportButton';
 
 interface SyllabusHomeProps {
@@ -44,6 +44,34 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
         <div className="absolute right-0 bottom-0 opacity-15 pointer-events-none transform translate-y-12 translate-x-12 select-none font-mono text-[92px] leading-none font-bold select-all">
           A=P(1+r)ⁿ
         </div>
+      </div>
+
+      {/* Featured Daily Morning Refresh Banner */}
+      <div className="p-5 bg-gradient-to-r from-amber-500/10 via-indigo-50/50 to-slate-50 border border-amber-200/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+        <div className="space-y-1">
+          <div className="flex items-center space-x-2">
+            <span className="bg-amber-100 text-amber-900 border border-amber-300/80 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md flex items-center gap-1">
+              <Zap className="w-3 h-3 text-amber-600" />
+              <span>Daily Morning Refresh</span>
+            </span>
+            <span className="text-xs font-mono text-slate-500 font-semibold">38 Collated Exercises</span>
+          </div>
+          <h3 className="font-sans font-bold text-slate-900 text-base">
+            Comprehensive Review Quiz Unit
+          </h3>
+          <p className="font-sans text-xs text-slate-600 max-w-xl">
+            Collate and review exercises from every single unit (Units 1–9, Auto Loans, and Side Quests). Practice daily retrieval with randomized warm-up sets and direct links back to unit lessons.
+          </p>
+        </div>
+
+        <button
+          onClick={() => setActiveModule('comprehensiveQuiz')}
+          className="px-4 py-2.5 bg-slate-950 hover:bg-slate-800 text-amber-300 font-mono text-xs font-bold rounded-xl transition-all flex items-center space-x-2 shadow-sm cursor-pointer whitespace-nowrap self-stretch sm:self-auto justify-center"
+          id="btn-nav-comprehensive-quiz-home"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <span>Launch Comprehensive Quiz →</span>
+        </button>
       </div>
 
       {/* Core Syllabus Chapters overview */}

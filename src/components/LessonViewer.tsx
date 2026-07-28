@@ -1,28 +1,28 @@
+import React, { Suspense, lazy } from 'react';
 import { motion } from 'motion/react';
 import { 
   BookOpen, 
-  HeartHandshake, 
-  Sparkles, 
-  Sigma, 
-  ChevronsRight 
+  HeartHandshake
 } from 'lucide-react';
 import { LessonContent } from '../types';
 import { MathSpan, processMathText } from '../lib/math';
 
 import { ContentRenderer } from './ContentRenderer';
+import { LabSkeletonLoader } from './ui/LabSkeletonLoader';
 
-// Import Labs
-import { LemonadeStandLab } from './LemonadeStandLab';
-import { AutoLoanLab } from './AutoLoanLab';
-import { BankLab } from './BankLab';
-import { StockBridgeLab } from './StockBridgeLab';
-import { FlatValuationLab } from './FlatValuationLab';
-import { ValuationLab } from './ValuationLab';
-import { NewsBridgeLab } from './NewsBridgeLab';
-import { StochasticLab } from './StochasticLab';
-import { PortfolioLab } from './PortfolioLab';
-import { OptionsLab } from './OptionsLab';
-import { BehavioralLab } from './BehavioralLab';
+// Lazy load heavy simulation laboratories
+const LemonadeStandLab = lazy(() => import('./LemonadeStandLab').then(m => ({ default: m.LemonadeStandLab })));
+const AutoLoanLab = lazy(() => import('./AutoLoanLab').then(m => ({ default: m.AutoLoanLab })));
+const BankLab = lazy(() => import('./BankLab').then(m => ({ default: m.BankLab })));
+const StockBridgeLab = lazy(() => import('./StockBridgeLab').then(m => ({ default: m.StockBridgeLab })));
+const FlatValuationLab = lazy(() => import('./FlatValuationLab').then(m => ({ default: m.FlatValuationLab })));
+const ValuationLab = lazy(() => import('./ValuationLab').then(m => ({ default: m.ValuationLab })));
+const NewsBridgeLab = lazy(() => import('./NewsBridgeLab').then(m => ({ default: m.NewsBridgeLab })));
+const StochasticLab = lazy(() => import('./StochasticLab').then(m => ({ default: m.StochasticLab })));
+const PortfolioLab = lazy(() => import('./PortfolioLab').then(m => ({ default: m.PortfolioLab })));
+const OptionsLab = lazy(() => import('./OptionsLab').then(m => ({ default: m.OptionsLab })));
+const BehavioralLab = lazy(() => import('./BehavioralLab').then(m => ({ default: m.BehavioralLab })));
+const ComprehensiveQuizLab = lazy(() => import('./ComprehensiveQuizLab').then(m => ({ default: m.ComprehensiveQuizLab })));
 
 // Quiz Section
 import { QuizSection } from './QuizSection';
@@ -33,6 +33,22 @@ interface LessonViewerProps {
 }
 
 export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerProps) {
+  if (currentLesson.id === 'comprehensiveQuiz') {
+    return (
+      <motion.div
+        key="comprehensiveQuiz"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -12 }}
+        transition={{ duration: 0.2 }}
+      >
+        <Suspense fallback={<LabSkeletonLoader label="Loading Review Hub..." />}>
+          <ComprehensiveQuizLab setActiveModule={setActiveModule} />
+        </Suspense>
+      </motion.div>
+    );
+  }
+
   const renderLabWidget = (moduleId: string) => {
     switch (moduleId) {
       case 'compounding':
@@ -153,11 +169,13 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
           </p>
         </div>
 
-        {renderLabWidget(currentLesson.id)}
+        <Suspense fallback={<LabSkeletonLoader />}>
+          {renderLabWidget(currentLesson.id)}
+        </Suspense>
       </div>
 
       {/* Multiple-Choice Derivation Quiz segment */}
-      <QuizSection quizzes={currentLesson.quizzes} moduleName={currentLesson.title} />
+      <QuizSection quizzes={currentLesson.quizzes} moduleName={currentLesson.title} unitId={currentLesson.id} />
     </motion.div>
   );
 }

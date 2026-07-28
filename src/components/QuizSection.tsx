@@ -1,17 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QuizQuestion } from '../types';
-import { CheckCircle, AlertCircle, HelpCircle, RefreshCw } from 'lucide-react';
+import { CheckCircle, AlertCircle, HelpCircle, RefreshCw, Award, Sparkles } from 'lucide-react';
 import { processMathText } from '../lib/math';
+import { useMastery } from '../context/MasteryContext';
 
 interface QuizSectionProps {
   quizzes: QuizQuestion[];
   moduleName: string;
+  unitId?: string;
 }
 
-export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName }) => {
+export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName, unitId }) => {
+  const { progress, masteredUnits, submitAnswer, resetQuestion } = useMastery();
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
   const [submittedAnswers, setSubmittedAnswers] = useState<Record<string, boolean>>({});
   const [showHints, setShowHints] = useState<Record<string, boolean>>({});
+
+  // Sync saved state from context progress on mount or when progress changes
+  useEffect(() => {
+    const selMap: Record<string, number> = {};
+    const subMap: Record<string, boolean> = {};
+
+    quizzes.forEach(q => {
+      if (progress[q.id]) {
+        selMap[q.id] = progress[q.id].userIndex;
+        subMap[q.id] = true;
+      }
+    });
+
+    setSelectedAnswers(selMap);
+    setSubmittedAnswers(subMap);
+  }, [quizzes, progress]);
+
+  const isMastered = unitId 
+    ? !!masteredUnits[unitId] 
+    : (quizzes.length > 0 && quizzes.every(q => progress[q.id]?.isCorrect === true));
 
   const handleOptionSelect = (quizId: string, idx: number) => {
     if (submittedAnswers[quizId]) return; // locked after checking
@@ -19,11 +42,19 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName })
   };
 
   const handleCheckAnswer = (quizId: string) => {
-    if (selectedAnswers[quizId] === undefined) return;
+    const userSelIdx = selectedAnswers[quizId];
+    if (userSelIdx === undefined) return;
+
+    const quiz = quizzes.find(q => q.id === quizId);
+    if (!quiz) return;
+
     setSubmittedAnswers(prev => ({ ...prev, [quizId]: true }));
+    submitAnswer(quizId, userSelIdx, quiz.correctIndex, unitId);
   };
 
   const handleResetQuiz = (quizId: string) => {
+    resetQuestion(quizId, unitId);
+
     setSelectedAnswers(prev => {
       const copy = { ...prev };
       delete copy[quizId];
@@ -43,14 +74,51 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName })
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-        <h4 className="font-sans font-bold text-slate-800 text-base">
-          {moduleName} — Mathematical Challenges
-        </h4>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+        <div className="space-y-1">
+          <div className="flex items-center space-x-2">
+            <h4 className="font-sans font-bold text-slate-800 text-base">
+              {moduleName} — Mathematical Challenges
+            </h4>
+            {isMastered && (
+              <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                <Award className="w-3.5 h-3.5 text-emerald-600" />
+                <span>🏆 Unit Mastered</span>
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-slate-500 font-sans">
+            Solve all exercises correctly to mark this unit as Mastered in your curriculum profile.
+          </p>
+        </div>
+
         <p className="text-xs text-slate-500 font-mono">
           {quizzes.length} Exercises available
         </p>
       </div>
+
+      {/* Unit Mastered Banner */}
+      {isMastered && (
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 text-white border border-emerald-500/40 shadow-sm flex items-center justify-between gap-4 animate-fadeIn">
+          <div className="flex items-center space-x-3">
+            <div className="p-2.5 bg-emerald-500/20 border border-emerald-500/40 rounded-xl text-emerald-400">
+              <Award className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-wider font-extrabold block">
+                Local Storage Achievement Unlocked
+              </span>
+              <h5 className="font-sans font-bold text-sm text-white">
+                Unit Mastery Complete! 🏆
+              </h5>
+              <p className="font-sans text-xs text-emerald-200/80">
+                You have answered all exercises in this unit correctly. This unit is saved as Mastered in your browser!
+              </p>
+            </div>
+          </div>
+          <Sparkles className="w-5 h-5 text-amber-300 hidden sm:block flex-shrink-0" />
+        </div>
+      )}
 
       <div className="space-y-6">
         {quizzes.map((quiz, qIdx) => {

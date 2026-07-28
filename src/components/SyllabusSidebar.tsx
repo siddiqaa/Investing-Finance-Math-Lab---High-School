@@ -1,3 +1,4 @@
+import React from 'react';
 import { LESSONS } from '../data/lessons';
 import { 
   BookOpen, 
@@ -14,8 +15,10 @@ import {
   Briefcase, 
   Zap,
   Car,
-  Coins
+  Coins,
+  Sparkles
 } from 'lucide-react';
+import { useMastery } from '../context/MasteryContext';
 
 interface SyllabusSidebarProps {
   activeModule: string;
@@ -23,6 +26,8 @@ interface SyllabusSidebarProps {
 }
 
 export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSidebarProps) {
+  const { masteredUnits } = useMastery();
+
   return (
     <aside className="lg:col-span-3 space-y-4 mb-6 lg:mb-0">
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3.5">
@@ -100,7 +105,13 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitNumber = 'Bonus';
               unitTitle = 'Auto Loans & TCO';
               stepIcon = <Car className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'comprehensiveQuiz') {
+              unitNumber = 'Review';
+              unitTitle = 'Comprehensive Quiz';
+              stepIcon = <Sparkles className="w-4 h-4 flex-shrink-0 text-amber-500" />;
             }
+
+            const isUnitMastered = les.id !== 'comprehensiveQuiz' && masteredUnits[les.id] === true;
 
             return (
               <button
@@ -109,15 +120,30 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
                 className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
                   isSelected
                     ? 'bg-slate-950 text-white border-transparent'
+                    : les.id === 'comprehensiveQuiz'
+                    ? 'bg-amber-50/60 text-amber-950 border border-amber-200/80 hover:bg-amber-100/80'
+                    : isUnitMastered
+                    ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
                     : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
                 }`}
                 id={`sidebar-nav-${les.id}`}
               >
                 <span className="flex items-center space-x-2.5 min-w-0">
                   <span className={isSelected ? 'text-indigo-400' : 'text-slate-400'}>{stepIcon}</span>
-                  <span className="truncate font-sans font-bold">{les.id === 'amortization' ? 'Bonus Unit' : `Unit ${unitNumber}`}: <span className="font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">{unitTitle}</span></span>
+                  <span className="truncate font-sans font-bold">
+                    {les.id === 'amortization'
+                      ? 'Bonus Unit'
+                      : les.id === 'comprehensiveQuiz'
+                      ? 'Daily Review'
+                      : `Unit ${unitNumber}`}
+                    : <span className={`font-semibold transition-colors ${isSelected ? 'text-indigo-200' : 'text-slate-500 group-hover:text-slate-800'}`}>{unitTitle}</span>
+                  </span>
                 </span>
-                <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+                {isUnitMastered ? (
+                  <span className="text-xs" title="Unit Mastered">🏆</span>
+                ) : (
+                  <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+                )}
               </button>
             );
           })}
@@ -134,6 +160,8 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_sigma'
                 ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                : masteredUnits['side_quest_sigma']
+                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-sigma"
@@ -142,7 +170,11 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               <Sigma className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_sigma' ? 'text-white' : 'text-indigo-600'}`} />
               <span className="truncate">Quest 1: Sigma Sums</span>
             </span>
-            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_sigma' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            {masteredUnits['side_quest_sigma'] ? (
+              <span className="text-xs" title="Quest Mastered">🏆</span>
+            ) : (
+              <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_sigma' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            )}
           </button>
 
           <button
@@ -150,6 +182,8 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_geometric'
                 ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                : masteredUnits['side_quest_geometric']
+                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-geometric"
@@ -158,7 +192,11 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_geometric' ? 'text-white' : 'text-indigo-600'}`} />
               <span className="truncate">Quest 2: Geometric Series</span>
             </span>
-            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_geometric' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            {masteredUnits['side_quest_geometric'] ? (
+              <span className="text-xs" title="Quest Mastered">🏆</span>
+            ) : (
+              <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_geometric' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            )}
           </button>
 
           <button
@@ -166,6 +204,8 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_gordon'
                 ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                : masteredUnits['side_quest_gordon']
+                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-gordon"
@@ -174,7 +214,11 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_gordon' ? 'text-white' : 'text-indigo-600'}`} />
               <span className="truncate">Quest 3: Gordon Growth</span>
             </span>
-            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_gordon' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            {masteredUnits['side_quest_gordon'] ? (
+              <span className="text-xs" title="Quest Mastered">🏆</span>
+            ) : (
+              <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_gordon' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            )}
           </button>
         </nav>
       </div>

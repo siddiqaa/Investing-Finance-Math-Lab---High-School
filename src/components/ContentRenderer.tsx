@@ -3,13 +3,6 @@ import { Sparkles, Sigma, ChevronsRight } from 'lucide-react';
 import { MathSpan, processMathText } from '../lib/math';
 import { ContentBlock, parseLessonBlocks } from '../lib/contentParser';
 
-// Import Knowledge Checks (we can import them or pass them as a render prop/map, but let's import them directly for simplicity if this is for the web)
-import { TvmKnowledgeCheck } from './TvmKnowledgeCheck';
-import { DiscountKnowledgeCheck } from './DiscountKnowledgeCheck';
-import { NpvKnowledgeCheck } from './NpvKnowledgeCheck';
-import { ValuationKnowledgeCheck } from './ValuationKnowledgeCheck';
-import { NewsBridgeKnowledgeCheck } from './NewsBridgeKnowledgeCheck';
-
 interface ContentRendererProps {
   fullText: string[];
   setActiveModule?: (module: string) => void;
@@ -114,24 +107,11 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
             );
 
           case 'knowledge_check_tvm':
-            if (isPdfExport) return null;
-            return <TvmKnowledgeCheck key={idx} initialValue={5000} annualRate={0.06} />;
-            
           case 'knowledge_check_discount':
-            if (isPdfExport) return null;
-            return <DiscountKnowledgeCheck key={idx} />;
-
           case 'knowledge_check_npv':
-            if (isPdfExport) return null;
-            return <NpvKnowledgeCheck key={idx} />;
-
           case 'knowledge_check_valuation':
-            if (isPdfExport) return null;
-            return <ValuationKnowledgeCheck key={idx} />;
-
           case 'knowledge_check_news':
-            if (isPdfExport) return null;
-            return <NewsBridgeKnowledgeCheck key={idx} />;
+            return null;
 
           case 'table':
             if (isPdfExport) return null;

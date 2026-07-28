@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 /**
  * Global interface for KaTeX from CDN
@@ -8,6 +8,11 @@ declare global {
     katex: any;
   }
 }
+
+/**
+ * KaTeX rendering String Cache to avoid expensive re-parsing during re-renders
+ */
+const katexCache = new Map<string, string>();
 
 /**
  * Standardizes LaTeX expressions to ensure KaTeX compatibility.
@@ -21,9 +26,9 @@ const cleanLaTeX = (latex: string): string => {
 };
 
 /**
- * Safely renders LaTeX using KaTeX CDN.
+ * Safely renders LaTeX using KaTeX CDN with memoization.
  */
-export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: string }> = ({ 
+export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: string }> = memo(({ 
   tex, 
   block = false, 
   className = "" 
@@ -32,12 +37,24 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
   
   if (isKatexLoaded) {
     try {
-      const html = window.katex.renderToString(cleanLaTeX(tex), {
-        displayMode: block,
-        throwOnError: false,
-        trust: true,
-        strict: false
-      });
+      const cacheKey = `${block ? 'block' : 'inline'}:${tex}`;
+      let html = katexCache.get(cacheKey);
+
+      if (!html) {
+        html = window.katex.renderToString(cleanLaTeX(tex), {
+          displayMode: block,
+          throwOnError: false,
+          trust: true,
+          strict: false
+        });
+
+        // Limit cache size to 1500 compiled LaTeX string entries
+        if (katexCache.size > 1500) {
+          const firstKey = katexCache.keys().next().value;
+          if (firstKey) katexCache.delete(firstKey);
+        }
+        katexCache.set(cacheKey, html);
+      }
       
       const hasMarginY = className.includes('my-') || className.includes('py-');
       const blockMargin = block ? (hasMarginY ? "" : "my-4") : "";
@@ -59,7 +76,9 @@ export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: stri
       {block ? `$$${tex}$$` : `$${tex}$`}
     </code>
   );
-};
+});
+
+MathSpan.displayName = 'MathSpan';
 
 /**
  * Parses text strings for $math$ delimiters and returns React nodes.

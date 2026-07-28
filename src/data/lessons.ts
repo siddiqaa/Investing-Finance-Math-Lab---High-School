@@ -10,6 +10,7 @@ import { stochastic } from './lessons/stochastic';
 import { portfolio } from './lessons/portfolio';
 import { options } from './lessons/options';
 import { behavioral } from './lessons/behavioral';
+import { comprehensiveQuiz } from './lessons/comprehensiveQuiz';
 
 export const LESSONS: Record<string, LessonContent> = {
   compounding,
@@ -23,4 +24,5 @@ export const LESSONS: Record<string, LessonContent> = {
   options,
   behavioral,
   amortization,
+  comprehensiveQuiz,
 };

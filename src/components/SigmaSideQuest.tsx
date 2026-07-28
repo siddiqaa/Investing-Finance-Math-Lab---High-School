@@ -240,7 +240,7 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
                 </li>
               </ul>
               <div className="pt-1 border-t border-slate-200/80">
-                <MathSpan tex="\sum_{i=a}^{b} f(i) = f(a) + f(a+1) + \dots + f(b) \tag{1.1}" block />
+                <MathSpan tex="\sum_{i=a}^{b} f(i) = f(a) + f(a+1) + \dots + f(b)" block />
               </div>
             </div>
             <p>
@@ -253,7 +253,7 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
                   Eq. 1.2
                 </span>
               </div>
-              <MathSpan tex="\sum_{i=1}^{4} i^2 = 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30 \tag{1.2}" block />
+              <MathSpan tex="\sum_{i=1}^{4} i^2 = 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30" block />
             </div>
           </div>
 
@@ -341,9 +341,9 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
                   </span>
                 </div>
                 <div className="text-white text-sm">
-                  {expanderSummand === 'i' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i \\tag{1.3}`} block />}
-                  {expanderSummand === '2i-1' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} (2i - 1) \\tag{1.3}`} block />}
-                  {expanderSummand === 'i2' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i^2 \\tag{1.3}`} block />}
+                  {expanderSummand === 'i' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i`} block />}
+                  {expanderSummand === '2i-1' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} (2i - 1)`} block />}
+                  {expanderSummand === 'i2' && <MathSpan tex={`\\sum_{i=${expanderStart}}^{${expanderEnd}} i^2`} block />}
                 </div>
               </div>
 

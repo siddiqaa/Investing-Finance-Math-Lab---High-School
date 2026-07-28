@@ -200,7 +200,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.1
               </span>
             </div>
-            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D}{(1+r)^t} = \frac{D}{1+r} + \frac{D}{(1+r)^2} + \frac{D}{(1+r)^3} + \dots \tag{3.1}" block />
+            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D}{(1+r)^t} = \frac{D}{1+r} + \frac{D}{(1+r)^2} + \frac{D}{(1+r)^3} + \dots" block />
           </div>
           <p>
             {processMathText('Since the dividend $D$ is constant, we can factor it out of the sum:')}
@@ -212,7 +212,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.2
               </span>
             </div>
-            <MathSpan tex="P_0 = D \cdot \sum_{t=1}^{\infty} \left(\frac{1}{1+r}\right)^t \tag{3.2}" block />
+            <MathSpan tex="P_0 = D \cdot \sum_{t=1}^{\infty} \left(\frac{1}{1+r}\right)^t" block />
           </div>
           <p>
             {processMathText('The summation term is an <span className="font-bold text-slate-800">infinite geometric series</span> with a common ratio of $x = \frac{1}{1+r}$. Because the discount rate $r > 0$, the ratio is strictly less than 1 ($|x| < 1$).')}
@@ -227,7 +227,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.3
               </span>
             </div>
-            <MathSpan tex="S = \frac{\frac{1}{1+r}}{1 - \frac{1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{1+r-1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{r}{1+r}} = \frac{1}{r} \tag{3.3}" block />
+            <MathSpan tex="S = \frac{\frac{1}{1+r}}{1 - \frac{1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{1+r-1}{1+r}} = \frac{\frac{1}{1+r}}{\frac{r}{1+r}} = \frac{1}{r}" block />
           </div>
           <p>
             {processMathText('Multiplying this sum by the factored-out dividend $D$ gives us the beautifully simple <span className="font-bold text-indigo-600">Perpetuity Formula</span>:')}
@@ -239,7 +239,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.4
               </span>
             </div>
-            <MathSpan tex="P_0 = \frac{D}{r} \tag{3.4}" block />
+            <MathSpan tex="P_0 = \frac{D}{r}" block />
           </div>
           <p>
             {processMathText('<span className="font-bold text-slate-800">Example:</span> If a preferred share pays a constant annual dividend of $D = \\$2.00$ forever and your required rate of return is $r = 5\\%$ ($0.05$), its value is:')}
@@ -251,7 +251,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.5
               </span>
             </div>
-            <MathSpan tex="P_0 = \frac{\$2.00}{0.05} = \$40.00 \tag{3.5}" block />
+            <MathSpan tex="P_0 = \frac{\$2.00}{0.05} = \$40.00" block />
           </div>
         </div>
       </div>
@@ -289,7 +289,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.6
               </span>
             </div>
-            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D_0(1+g)^t}{(1+r)^t} = D_0 \sum_{t=1}^{\infty} \left(\frac{1+g}{1+r}\right)^t \tag{3.6}" block />
+            <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D_0(1+g)^t}{(1+r)^t} = D_0 \sum_{t=1}^{\infty} \left(\frac{1+g}{1+r}\right)^t" block />
           </div>
           <p>
             {processMathText('This is a geometric series with a common ratio of $x = \frac{1+g}{1+r}$. For this infinite sum to converge to a finite number, the ratio must be strictly less than 1:')}
@@ -313,7 +313,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.7
               </span>
             </div>
-            <MathSpan tex="S = \frac{\frac{1+g}{1+r}}{1 - \frac{1+g}{1+r}} = \frac{\frac{1+g}{1+r}}{\frac{1+r-(1+g)}{1+r}} = \frac{1+g}{r-g} \tag{3.7}" block />
+            <MathSpan tex="S = \frac{\frac{1+g}{1+r}}{1 - \frac{1+g}{1+r}} = \frac{\frac{1+g}{1+r}}{\frac{1+r-(1+g)}{1+r}} = \frac{1+g}{r-g}" block />
           </div>
           <p>
             {processMathText('Multiplying this converged sum by the factored-out $D_0$ gives us:')}
@@ -325,7 +325,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.8
               </span>
             </div>
-            <MathSpan tex="P_0 = D_0 \cdot \frac{1+g}{r-g} = \frac{D_0(1+g)}{r-g} \tag{3.8}" block />
+            <MathSpan tex="P_0 = D_0 \cdot \frac{1+g}{r-g} = \frac{D_0(1+g)}{r-g}" block />
           </div>
           <p>
             {processMathText('Since the next expected dividend is $D_1 = D_0(1+g)$, we arrive at the famous <span className="font-bold text-indigo-600">Gordon Growth Formula</span>:')}
@@ -337,7 +337,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
                 Eq. 3.9
               </span>
             </div>
-            <MathSpan tex="P_0 = \frac{D_1}{r - g} \tag{3.9}" block />
+            <MathSpan tex="P_0 = \frac{D_1}{r - g}" block />
           </div>
         </div>
       </div>

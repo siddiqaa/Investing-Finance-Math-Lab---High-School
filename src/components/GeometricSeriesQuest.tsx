@@ -38,7 +38,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
       badge: 'x = 3 (> 1)',
       badgeClass: 'bg-rose-100 text-rose-800 border-rose-200',
       eqTag: 'Eq. 2.1a',
-      tex: '2 + 6 + 18 + 54 + 162 + \\dots \\tag{2.1a}',
+      tex: '2 + 6 + 18 + 54 + 162 + \\dots',
       steps: [
         'Term 1: a = 2',
         'Term 2: 2 \\times 3 = 6',
@@ -57,7 +57,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
       badge: 'x = 0.5 (< 1)',
       badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200',
       eqTag: 'Eq. 2.1b',
-      tex: '100 + 50 + 25 + 12.5 + 6.25 + \\dots \\tag{2.1b}',
+      tex: '100 + 50 + 25 + 12.5 + 6.25 + \\dots',
       steps: [
         'Term 1: a = 100',
         'Term 2: 100 \\times 0.5 = 50',
@@ -76,7 +76,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
       badge: 'x = -0.5 (-1 < x < 0)',
       badgeClass: 'bg-indigo-100 text-indigo-800 border-indigo-200',
       eqTag: 'Eq. 2.1c',
-      tex: '10 - 5 + 2.5 - 1.25 + 0.625 - \\dots \\tag{2.1c}',
+      tex: '10 - 5 + 2.5 - 1.25 + 0.625 - \\dots',
       steps: [
         'Term 1: a = 10',
         'Term 2: 10 \\times (-0.5) = -5',
@@ -95,7 +95,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
       badge: 'Discounting (x = 0.90)',
       badgeClass: 'bg-amber-100 text-amber-800 border-amber-200',
       eqTag: 'Eq. 2.1d',
-      tex: '\\$1,000 + \\$900 + \\$810 + \\$729 + \\$656.10 + \\dots \\tag{2.1d}',
+      tex: '\\$1,000 + \\$900 + \\$810 + \\$729 + \\$656.10 + \\dots',
       steps: [
         'Year 1: a = \\$1,000',
         'Year 2: \\$1,000 \\times 0.9 = \\$900',
@@ -221,7 +221,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
       </div>
 
       {/* CORE THEORY GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -325,7 +325,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
                   Eq. 2.2
                 </span>
               </div>
-              <MathSpan tex="S = \frac{\text{first term}}{1 - \text{ratio}} = \frac{a}{1 - x} \tag{2.2}" block={true} />
+              <MathSpan tex="S = \frac{\text{first term}}{1 - \text{ratio}} = \frac{a}{1 - x}" block={true} />
             </div>
 
             <p className="font-serif text-xs sm:text-sm text-indigo-200 leading-relaxed">
@@ -367,9 +367,9 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
           <h2 className="font-sans font-bold text-white text-lg">Interactive Series Explorer</h2>
         </div>
         
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-4 space-y-6">
-            <div className="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-100">
+        <div className="p-6 flex flex-col gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
               <h3 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4" />
                 Parameters
@@ -427,7 +427,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
               </div>
             </div>
 
-            <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5 space-y-4">
+            <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5 space-y-4 flex flex-col justify-between">
               <div className="flex justify-between items-center border-b border-indigo-100 pb-2">
                 <h3 className="text-xs font-mono font-bold text-indigo-800 uppercase tracking-wider">
                   Infinite Sum Limit
@@ -438,7 +438,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
               </div>
               
               <div className="bg-white/90 border border-indigo-100 rounded-xl p-4 shadow-sm space-y-3">
-                <MathSpan tex="\sum_{i=0}^{\infty} a(x)^i = \frac{a}{1-x} \tag{2.3}" block={true} />
+                <MathSpan tex="\sum_{i=0}^{\infty} a(x)^i = \frac{a}{1-x}" block={true} />
                 <div className="flex items-center justify-between pt-2 border-t border-indigo-100/80 font-mono">
                   <span className="text-xs text-indigo-800 font-bold uppercase tracking-wider">Infinite Sum (S):</span>
                   <span className={`text-2xl font-extrabold tracking-tight ${isConvergent ? 'text-indigo-600' : 'text-rose-600'}`}>
@@ -456,7 +456,7 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
             </div>
           </div>
 
-          <div className="lg:col-span-8 bg-slate-950 rounded-xl p-4 overflow-hidden flex flex-col">
+          <div className="w-full bg-slate-950 rounded-xl p-4 overflow-hidden flex flex-col">
             <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-4 px-2">
               Step-by-Step Visualization
             </h3>

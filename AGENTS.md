@@ -29,8 +29,16 @@ Please follow these guidelines strictly during any future development, refactori
   - You **MUST** wrap any paragraph, heading, badge, or list item containing inline formulas in the `{processMathText('My formula is $r = 0.05$.')}` helper from `src/lib/math.tsx` or use `<MathText text="..." />`.
   - For standalone block equations or custom inline nodes, use the `<MathSpan tex="..." block={true/false} />` component.
   - **KaTeX String Cache & Memoization:** `MathSpan` and `MathText` are wrapped in `React.memo` and backed by `katexCache` string memoization to eliminate re-parsing overhead during interactive slider updates.
-  - **Deterministic Single-Pass Tokenizer:** `src/lib/math.tsx` uses a single-pass state-machine tokenizer (`parseMathStringToAST`) without regex tokenizers or regex replacements to parse text, KaTeX formulas, currency amounts (e.g., `$10`, `$2,500.00`), and HTML spans deterministically. When writing explicit LaTeX string literals in TypeScript, continue double-escaping backslashes (`\\sum`, `\\frac`, `\\%`).
-  - **No Markdown Bolding in Arrays:** Never use standard Markdown bolding (e.g., `**word**`) inside the `.ts` lesson strings (like `fullText` or `introduction`). The custom string parser does not convert Markdown `**` tags to HTML. You **MUST** use literal HTML spans instead: `<span className="text-indigo-600 font-bold">word</span>` (or `text-slate-800` depending on context).
+  - **Deterministic Single-Pass Tokenizer:** `src/lib/math.tsx` uses a single-pass state-machine tokenizer (`parseMathStringToAST`) to parse text, KaTeX formulas, currency amounts, and HTML spans deterministically.
+  - **Disambiguating Currency vs. Math Delimiters:**
+    - **Never wrap plain percentages in dollar signs:** Write `10%` or `5%` as plain text in narrative prose. Only use `$` for explicit algebraic variables (e.g., `$r = 10\%$`).
+    - **Currency vs. Math Pairs:** In prose, escape currency dollar signs (`\$20,000` or `\$1.05`) so they aren't confused with inline math openers. If currency is inside a LaTeX equation, use explicit `\text{\$1.00}` syntax (e.g. `$D_0 = \text{\$1.00}$`).
+    - **No Over-Engineered Regex Heuristics:** Do not introduce fragile regex filters (such as `isMathTexValid` or word-count rules) into `parseMathStringToAST`. Rely on single-pass index tokenization and clean escaping.
+    - **Multiline Bullet Items:** When a bullet item contains a display equation (e.g., `• Year 1...:\n$$\\text{PV}_1 = ...$$`), `parseLessonBlocks` automatically groups continuation lines into the same bullet container, preventing unwanted extra bullet icons.
+  - **STRICT RULE: NO MARKDOWN BOLDING IN `processMathText` OR LESSON STRINGS:**
+    - **NEVER use Markdown `**bold**` syntax** (e.g., `**word**`) in JSX components, lesson TS strings, or ANY string passed to `processMathText(...)`.
+    - The custom string tokenizer does NOT process Markdown `**` tags to HTML elements. Passing `**word**` results in literal raw asterisks displayed on screen (e.g., `**finite**` or `**$65.00**`).
+    - **You MUST use explicit HTML spans instead:** `<span className="font-bold text-slate-800">word</span>` or `<span className="font-bold text-indigo-600">word</span>`.
   - **Bullet List Elements:** For bullet lists with bold terms and math, use clean separate nodes (e.g., `<li><strong className="text-slate-800">Term (<MathSpan tex="x" />):</strong> details</li>`) instead of passing complex nested HTML strings to parsing functions.
 - **Modular Layout:** Keep laboratories structurally independent (e.g., `DcfLab`, `StochasticLab`, `PortfolioLab`, `OptionsLab`, `BehavioralLab`).
   - Coordinate these laboratories within `src/App.tsx` and `src/components/LessonViewer.tsx`.

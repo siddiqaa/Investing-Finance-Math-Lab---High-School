@@ -161,7 +161,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             </div>
           </div>
           <p className="font-serif text-slate-300 text-sm sm:text-base leading-relaxed">
-            {processMathText('How do we put a exact dollar value on a stock that can pay dividends *forever*? Let\'s discover the algebra behind <span className="font-bold text-slate-800">simple perpetuities</span>, and then see how introducing a constant growth rate $g$ reveals the famous <span className="font-bold text-indigo-600">Gordon Growth Formula ($\\frac{D_1}{r-g}$)</span>.')}
+            {processMathText('How do we put a exact dollar value on a stock that can pay dividends <span className="font-bold text-slate-200">forever</span>? Let\'s discover the algebra behind <span className="font-bold text-slate-200">simple perpetuities</span>, and then see how introducing a constant growth rate $g$ reveals the famous <span className="font-bold text-indigo-400">Gordon Growth Formula ($\\frac{D_1}{r-g}$)</span>.')}
           </p>
           <div className="pt-2">
             <button
@@ -188,10 +188,10 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
 
         <div className="font-serif text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
           <p>
-            {processMathText('Imagine a high-quality financial asset that promises to pay you a constant cash dividend $D$ every single year, forever, with <span className="font-bold text-slate-800">zero growth</span> ($g=0$). How much is that promise worth to you *today*?')}
+            {processMathText('Imagine a high-quality financial asset that promises to pay you a constant cash dividend $D$ every single year, forever, with <span className="font-bold text-slate-800">zero growth</span> ($g=0$). How much is that promise worth to you <span className="font-bold text-slate-800">today</span>?')}
           </p>
           <p>
-            {processMathText('To find its fair value ($P_0$), we sum the discounted present values of all future payments from Year 1 to infinity ($\infty$):')}
+            {processMathText('To find its fair value ($P_0$), we sum the discounted present values of all future payments from Year 1 to infinity ($\\infty$):')}
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
             <div className="flex justify-between items-center mb-1">
@@ -215,10 +215,10 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             <MathSpan tex="P_0 = D \cdot \sum_{t=1}^{\infty} \left(\frac{1}{1+r}\right)^t" block />
           </div>
           <p>
-            {processMathText('The summation term is an <span className="font-bold text-slate-800">infinite geometric series</span> with a common ratio of $x = \frac{1}{1+r}$. Because the discount rate $r > 0$, the ratio is strictly less than 1 ($|x| < 1$).')}
+            {processMathText('The summation term is an <span className="font-bold text-slate-800">infinite geometric series</span> with a common ratio of $x = \\frac{1}{1+r}$. Because the discount rate $r > 0$, the ratio is strictly less than 1 ($|x| < 1$).')}
           </p>
           <p>
-            {processMathText('Using the algebraic formula for the sum of an infinite geometric series, $S = \frac{\text{First Term}}{1 - \text{Ratio}}$:')}
+            {processMathText('Using the algebraic formula for the sum of an infinite geometric series, $S = \\frac{\\text{First Term}}{1 - \\text{Ratio}}$:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
             <div className="flex justify-between items-center mb-1">
@@ -292,7 +292,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             <MathSpan tex="P_0 = \sum_{t=1}^{\infty} \frac{D_0(1+g)^t}{(1+r)^t} = D_0 \sum_{t=1}^{\infty} \left(\frac{1+g}{1+r}\right)^t" block />
           </div>
           <p>
-            {processMathText('This is a geometric series with a common ratio of $x = \frac{1+g}{1+r}$. For this infinite sum to converge to a finite number, the ratio must be strictly less than 1:')}
+            {processMathText('This is a geometric series with a common ratio of $x = \\frac{1+g}{1+r}$. For this infinite sum to converge to a finite number, the ratio must be strictly less than 1:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl font-sans text-xs sm:text-sm">
             <p className="font-bold text-red-950 flex items-center gap-1.5">
@@ -304,7 +304,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
             </p>
           </div>
           <p>
-            {processMathText('Under the assumption that $g < r$, we use the infinite series sum formula where the first term is $a = \frac{1+g}{1+r}$:')}
+            {processMathText('Under the assumption that $g < r$, we use the infinite series sum formula where the first term is $a = \\frac{1+g}{1+r}$:')}
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
             <div className="flex justify-between items-center mb-1">

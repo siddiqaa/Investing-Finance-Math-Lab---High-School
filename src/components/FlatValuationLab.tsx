@@ -32,10 +32,10 @@ export const FlatValuationLab: React.FC = () => {
     <div className="space-y-6" id="flat-valuation-lab">
       {/* Parameter Sliders Panel */}
       <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm space-y-6">
-        <h3 className="font-sans font-semibold text-slate-800 text-lg flex items-center justify-between">
+        <h3 className="font-sans font-semibold text-slate-800 text-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <span>Zero-Growth Stock Valuation Lab</span>
-          <span className="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded border border-slate-200 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+          <span className="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded border border-slate-200 inline-flex items-center gap-1.5 shrink-0 w-fit">
+            <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full shrink-0" />
             <span>Zero-Growth Dividend Discount Model (DDM) Engine (<MathSpan tex="g = 0" />)</span>
           </span>
         </h3>
@@ -101,7 +101,7 @@ export const FlatValuationLab: React.FC = () => {
           <div className="text-xs font-mono text-indigo-300 font-semibold uppercase tracking-wider flex items-center justify-between">
             <span className="flex items-center gap-1">
               <span>Fair Stock Price</span>
-              <span>(<MathSpan tex="P_0" />)</span>
+              <span className="normal-case font-normal">(<MathSpan tex="P_0" />)</span>
             </span>
             <Sparkles className="w-4 h-4 text-indigo-300" />
           </div>
@@ -117,7 +117,7 @@ export const FlatValuationLab: React.FC = () => {
         <div className="p-5 bg-slate-900 text-white rounded-2xl shadow-md border border-slate-800 space-y-2">
           <div className="text-xs font-mono text-slate-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
             <span>Dividend Yield</span>
-            <span>(<MathSpan tex="\frac{D}{P_0}" />)</span>
+            <span className="normal-case font-normal">(<MathSpan tex="\frac{D}{P_0}" />)</span>
           </div>
           <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-emerald-400" id="flat-div-yield">
             {formatPercent(divYield)}

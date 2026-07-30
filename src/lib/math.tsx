@@ -1,13 +1,5 @@
 import React, { memo } from 'react';
-
-/**
- * Global interface for KaTeX from CDN
- */
-declare global {
-  interface Window {
-    katex: any;
-  }
-}
+import katex from 'katex';
 
 /**
  * KaTeX rendering String Cache to avoid expensive re-parsing during re-renders
@@ -26,63 +18,57 @@ const cleanLaTeX = (latex: string): string => {
 };
 
 /**
- * Safely renders LaTeX using KaTeX CDN with memoization.
+ * Safely renders LaTeX using bundled KaTeX with memoization.
  */
 export const MathSpan: React.FC<{ tex: string; block?: boolean; className?: string }> = memo(({ 
   tex, 
   block = false, 
   className = "" 
 }) => {
-  const isKatexLoaded = typeof window !== 'undefined' && !!window.katex;
-  
-  if (isKatexLoaded) {
-    try {
-      const cacheKey = `${block ? 'block' : 'inline'}:${tex}`;
-      let html = katexCache.get(cacheKey);
+  try {
+    const cacheKey = `${block ? 'block' : 'inline'}:${tex}`;
+    let html = katexCache.get(cacheKey);
 
-      if (!html) {
-        html = window.katex.renderToString(cleanLaTeX(tex), {
-          displayMode: block,
-          throwOnError: false,
-          trust: true,
-          strict: false
-        });
+    if (!html) {
+      html = katex.renderToString(cleanLaTeX(tex), {
+        displayMode: block,
+        throwOnError: false,
+        trust: true,
+        strict: false
+      });
 
-        // Limit cache size to 1500 compiled LaTeX string entries
-        if (katexCache.size > 1500) {
-          const firstKey = katexCache.keys().next().value;
-          if (firstKey) katexCache.delete(firstKey);
-        }
-        katexCache.set(cacheKey, html);
+      // Limit cache size to 1500 compiled LaTeX string entries
+      if (katexCache.size > 1500) {
+        const firstKey = katexCache.keys().next().value;
+        if (firstKey) katexCache.delete(firstKey);
       }
-      
-      const hasMarginY = className.includes('my-') || className.includes('py-');
-      const blockMargin = block ? (hasMarginY ? "" : "my-4") : "";
-
-      return (
-        <span
-          className={`${block ? `block text-center overflow-x-auto ${blockMargin}` : "inline-block align-baseline px-0.5"} ${className}`}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      );
-    } catch (err) {
-      console.error("KaTeX render error:", err);
+      katexCache.set(cacheKey, html);
     }
-  }
+    
+    const hasMarginY = className.includes('my-') || className.includes('py-');
+    const blockMargin = block ? (hasMarginY ? "" : "my-4") : "";
 
-  // Raw text fallback if CDN fails
-  return (
-    <code className={`bg-slate-100 px-1 rounded text-slate-800 ${className}`}>
-      {block ? `$$${tex}$$` : `$${tex}$`}
-    </code>
-  );
+    return (
+      <span
+        className={`${block ? `block text-center overflow-x-auto ${blockMargin}` : "inline-block align-baseline px-0.5"} ${className}`}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    );
+  } catch (err) {
+    console.error("KaTeX render error:", err);
+    return (
+      <span className={`font-mono px-1 rounded text-slate-800 ${className}`}>
+        {block ? `$$${tex}$$` : `$${tex}$`}
+      </span>
+    );
+  }
 });
 
 MathSpan.displayName = 'MathSpan';
 
 /**
  * Single-pass AST tokenizer for parsing mixed text, LaTeX math, currency amounts, and HTML spans.
- * Completely avoids fragile regex replacements and catastrophic regex backtracking.
+ * Completely avoids regex parsing. Uses deterministic string indices and HTML spans.
  */
 function parseMathStringToAST(text: string, keyPrefix: string = 'root'): React.ReactNode {
   if (!text) return null;
@@ -100,7 +86,7 @@ function parseMathStringToAST(text: string, keyPrefix: string = 'root'): React.R
   };
 
   while (i < len) {
-    // 1. Escaped Dollar (\$ or \\$)
+    // 1. Escaped Dollar (\$ or \\$) -> literal currency dollar sign
     if (text[i] === '\\' && i + 1 < len && text[i + 1] === '$') {
       currentText += '$';
       i += 2;
@@ -145,40 +131,58 @@ function parseMathStringToAST(text: string, keyPrefix: string = 'root'): React.R
       }
     }
 
-    // 4. Inline Math $...$ or Currency ($100, $2.50)
+    // 4. Inline Math $...$
     if (text[i] === '$') {
-      const nextChar = text[i + 1] || '';
-      // Currency check: if followed immediately by digit (e.g. $10, $2.50) -> treat as literal dollar
-      const isDigit = nextChar >= '0' && nextChar <= '9';
+      let lineEnd = text.indexOf('\n', i);
+      if (lineEnd === -1) lineEnd = len;
 
-      if (isDigit) {
-        currentText += '$';
-        i++;
-        continue;
-      }
+      let foundClosing = -1;
 
-      // Math check: look for matching unescaped closing $
-      let closingPos = -1;
-      for (let j = i + 1; j < len; j++) {
+      for (let j = i + 1; j < lineEnd; j++) {
         if (text[j] === '$' && text[j - 1] !== '\\') {
-          closingPos = j;
+          // A closing $ cannot be immediately followed by a digit (e.g. $100 is currency opener)
+          const charAfter = text[j + 1] || '';
+          if (charAfter >= '0' && charAfter <= '9') {
+            continue;
+          }
+
+          const candidateTex = text.substring(i + 1, j);
+
+          // Candidate math content cannot contain unescaped $ inside it
+          let hasUnescapedDollar = false;
+          for (let k = 0; k < candidateTex.length; k++) {
+            if (candidateTex[k] === '$' && (k === 0 || candidateTex[k - 1] !== '\\')) {
+              hasUnescapedDollar = true;
+              break;
+            }
+          }
+          if (hasUnescapedDollar) {
+            continue;
+          }
+
+          // Candidate math content cannot be empty
+          if (candidateTex.trim().length === 0) {
+            continue;
+          }
+
+          foundClosing = j;
           break;
         }
       }
 
-      if (closingPos !== -1 && closingPos > i + 1) {
+      if (foundClosing !== -1) {
         flushText();
-        const tex = text.substring(i + 1, closingPos).trim();
+        const tex = text.substring(i + 1, foundClosing).trim();
         const key = `${keyPrefix}-inline-${i}`;
         nodes.push(<MathSpan key={key} tex={tex} block={false} />);
-        i = closingPos + 1;
-        continue;
-      } else {
-        // No closing $ found -> literal dollar
-        currentText += '$';
-        i++;
+        i = foundClosing + 1;
         continue;
       }
+
+      // No valid math pair found -> treat $ as literal dollar sign
+      currentText += '$';
+      i++;
+      continue;
     }
 
     // 5. Default character

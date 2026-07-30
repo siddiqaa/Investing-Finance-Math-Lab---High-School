@@ -130,13 +130,33 @@ export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
     }
     
     // Bullet Lists
-    if (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- '))) {
-      const listLines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      blocks.push({
-        type: 'bullet_list',
-        items: listLines.map(line => line.replace(/^[•\-]\s*/, ''))
-      });
-      return;
+    if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- ')))) {
+      const rawLines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      const items: string[] = [];
+      let currentItem = '';
+
+      for (const line of rawLines) {
+        if (line.startsWith('• ') || line.startsWith('- ') || line.startsWith('- Option')) {
+          if (currentItem) {
+            items.push(currentItem);
+          }
+          currentItem = line.replace(/^[•\-]\s*/, '').replace(/^- Option\s*/, 'Option ');
+        } else {
+          if (currentItem) {
+            currentItem += '\n' + line;
+          } else {
+            currentItem = line;
+          }
+        }
+      }
+      if (currentItem) {
+        items.push(currentItem);
+      }
+
+      if (items.length > 0) {
+        blocks.push({ type: 'bullet_list', items });
+        return;
+      }
     }
     
     // Paragraph

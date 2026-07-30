@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Download, BrainCircuit, CheckCircle2, HelpCircle } from 'lucide-react';
+import { Download, CheckCircle2, HelpCircle } from 'lucide-react';
 import { LESSONS } from '../data/lessons';
 import { MathSpan, processMathText } from '../lib/math';
 import { ContentRenderer } from './ContentRenderer';
@@ -132,9 +132,7 @@ export const PdfExportButton: React.FC = () => {
       <div className="fixed -left-[10000px] top-0 opacity-0 pointer-events-none" ref={containerRef}>
         {/* Cover Page */}
         <div id="pdf-lesson-cover" className="w-[800px] p-16 flex flex-col justify-center items-center text-center mb-16 rounded-2xl" style={{ backgroundColor: '#0f172a', color: '#ffffff' }}>
-          <div className="w-20 h-20 rounded-2xl mb-6 flex items-center justify-center" style={{ backgroundColor: '#4f46e5' }}>
-            <BrainCircuit className="w-12 h-12 text-white" />
-          </div>
+          <img src="/favicon.svg" alt="Investing & Finance Math Lab Logo" className="w-20 h-20 rounded-2xl mb-6 object-contain shadow-md" />
           <h1 className="text-4xl font-extrabold mb-3 font-sans tracking-tight">Investing & Finance Math Lab</h1>
           <p className="text-lg font-mono tracking-widest uppercase mb-8" style={{ color: '#a5b4fc' }}>Complete Course Syllabus & Study Guide</p>
           <div className="w-24 h-1 mb-8" style={{ backgroundColor: '#6366f1' }}></div>

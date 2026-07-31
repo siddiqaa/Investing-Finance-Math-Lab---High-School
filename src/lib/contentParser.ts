@@ -36,13 +36,17 @@ export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
     const trimmed = p.trim();
     
     // Header
-    const headerMatch = trimmed.match(/^(\d+)\.\s+\*\*([^*]+)\*\*/);
-    if (headerMatch) {
+    const headerMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+    if (headerMatch && !trimmed.startsWith('SIDE_QUEST') && !trimmed.startsWith('DIAGRAM') && !trimmed.startsWith('KNOWLEDGE_CHECK')) {
       const parts = trimmed.split('\n');
+      let headerContent = parts[0].replace(/^(\d+)\.\s+/, '').trim();
+      if (headerContent.startsWith('**') && headerContent.endsWith('**')) {
+        headerContent = headerContent.slice(2, -2).trim();
+      }
       blocks.push({
         type: 'header',
         level: parseInt(headerMatch[1], 10),
-        content: headerMatch[2]
+        content: headerContent
       });
       
       const remaining = parts.slice(1).join('\n').trim();

@@ -564,3 +564,5 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
     </div>
   );
 };
+
+export default SigmaSideQuest;

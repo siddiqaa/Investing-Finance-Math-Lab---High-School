@@ -12,6 +12,7 @@ import { behavioral } from './lessons/behavioral';
 import { options } from './lessons/options';
 import { amortization } from './lessons/amortization';
 import { mortgage } from './lessons/mortgage';
+import { glossary } from './lessons/glossary';
 import { comprehensiveQuiz } from './lessons/comprehensiveQuiz';
 
 export const LESSONS: Record<string, LessonContent> = {
@@ -28,5 +29,6 @@ export const LESSONS: Record<string, LessonContent> = {
   options,
   amortization,
   mortgage,
+  glossary,
   comprehensiveQuiz,
 };

@@ -17,7 +17,8 @@ import {
   Car,
   Home,
   Coins,
-  Sparkles
+  Sparkles,
+  BookMarked
 } from 'lucide-react';
 import { useMastery } from '../context/MasteryContext';
 
@@ -29,10 +30,15 @@ interface SyllabusSidebarProps {
 export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSidebarProps) {
   const { masteredUnits } = useMastery();
 
+  const syllabusLessons = Object.values(LESSONS).filter(
+    (les) => les.id !== 'glossary' && les.id !== 'comprehensiveQuiz'
+  );
+
   return (
     <aside className="lg:col-span-3 space-y-4 mb-6 lg:mb-0">
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3.5">
-        <h2 className="font-sans font-bold text-xs uppercase text-slate-400 tracking-wider pl-1">
+      {/* Panel 1: Study Syllabus Hub */}
+      <div className="bg-white border border-purple-200 rounded-2xl p-4 shadow-sm space-y-3.5">
+        <h2 className="font-sans font-bold text-xs uppercase text-purple-700 tracking-wider pl-1">
           Study Syllabus Hub
         </h2>
 
@@ -42,21 +48,21 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'syllabus'
                 ? 'bg-indigo-600 text-white'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
             }`}
             id="sidebar-nav-syllabus"
           >
             <span className="flex items-center space-x-2.5">
-              <BookOpen className="w-4 h-4 flex-shrink-0" />
+              <BookOpen className="w-4 h-4 flex-shrink-0 text-purple-600" />
               <span>Syllabus Home</span>
             </span>
             <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'syllabus' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
           </button>
 
-          <div className="h-px bg-slate-100 my-2" />
+          <div className="h-px bg-purple-200/80 my-2" />
 
           {/* Module Items */}
-          {Object.values(LESSONS).map((les) => {
+          {syllabusLessons.map((les) => {
             const isSelected = activeModule === les.id;
             let stepIcon = <Clock className="w-4 h-4 flex-shrink-0" />;
             let unitNumber = 'Unknown';
@@ -114,13 +120,9 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitNumber = 'C';
               unitTitle = 'Mortgages & Homeownership';
               stepIcon = <Home className="w-4 h-4 flex-shrink-0" />;
-            } else if (les.id === 'comprehensiveQuiz') {
-              unitNumber = 'Review';
-              unitTitle = 'Comprehensive Quiz';
-              stepIcon = <Sparkles className="w-4 h-4 flex-shrink-0 text-amber-500" />;
             }
 
-            const isUnitMastered = les.id !== 'comprehensiveQuiz' && masteredUnits[les.id] === true;
+            const isUnitMastered = masteredUnits[les.id] === true;
 
             return (
               <button
@@ -128,24 +130,20 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
                 onClick={() => setActiveModule(les.id)}
                 className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
                   isSelected
-                    ? 'bg-slate-950 text-white border-transparent'
-                    : les.id === 'comprehensiveQuiz'
-                    ? 'bg-amber-50/60 text-amber-950 border border-amber-200/80 hover:bg-amber-100/80'
+                    ? 'bg-purple-950 text-white border-transparent shadow-xs'
                     : isUnitMastered
-                    ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                    ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                    : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
                 }`}
                 id={`sidebar-nav-${les.id}`}
               >
                 <span className="flex items-center space-x-2.5 min-w-0">
-                  <span className={isSelected ? 'text-indigo-400' : 'text-slate-400'}>{stepIcon}</span>
+                  <span className={isSelected ? 'text-purple-300' : 'text-purple-600'}>{stepIcon}</span>
                   <span className="truncate font-sans font-bold">
                     {les.id === 'options' || les.id === 'amortization' || les.id === 'mortgage'
                       ? `Bonus Unit ${unitNumber}`
-                      : les.id === 'comprehensiveQuiz'
-                      ? 'Daily Review'
                       : `Unit ${unitNumber}`}
-                    : <span className={`font-semibold transition-colors ${isSelected ? 'text-indigo-200' : 'text-slate-500 group-hover:text-slate-800'}`}>{unitTitle}</span>
+                    : <span className={`font-semibold transition-colors ${isSelected ? 'text-purple-200' : 'text-slate-600 group-hover:text-purple-900'}`}>{unitTitle}</span>
                   </span>
                 </span>
                 {isUnitMastered ? (
@@ -159,8 +157,49 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
         </nav>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
-        <h2 className="font-sans font-bold text-xs uppercase text-slate-400 tracking-wider pl-1">
+      {/* Panel 2: Reference and Review */}
+      <div className="bg-white border border-purple-200 rounded-2xl p-4 shadow-sm space-y-3">
+        <h2 className="font-sans font-bold text-xs uppercase text-purple-700 tracking-wider pl-1">
+          Reference and Review
+        </h2>
+        <nav className="space-y-1">
+          <button
+            onClick={() => setActiveModule('glossary')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
+              activeModule === 'glossary'
+                ? 'bg-purple-950 text-white border-transparent shadow-xs'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
+            }`}
+            id="sidebar-nav-glossary"
+          >
+            <span className="flex items-center space-x-2.5 min-w-0">
+              <BookMarked className={`w-4 h-4 flex-shrink-0 ${activeModule === 'glossary' ? 'text-purple-300' : 'text-purple-600'}`} />
+              <span className="truncate font-sans font-bold">Glossary</span>
+            </span>
+            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'glossary' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+          </button>
+
+          <button
+            onClick={() => setActiveModule('comprehensiveQuiz')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
+              activeModule === 'comprehensiveQuiz'
+                ? 'bg-amber-500 text-slate-950 shadow-xs font-bold'
+                : 'bg-amber-50/80 text-amber-950 border border-amber-300/80 hover:bg-amber-100/90'
+            }`}
+            id="sidebar-nav-comprehensiveQuiz"
+          >
+            <span className="flex items-center space-x-2.5 min-w-0">
+              <Sparkles className={`w-4 h-4 flex-shrink-0 ${activeModule === 'comprehensiveQuiz' ? 'text-slate-950' : 'text-amber-600'}`} />
+              <span className="truncate font-sans font-bold">Daily Review</span>
+            </span>
+            <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'comprehensiveQuiz' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+          </button>
+        </nav>
+      </div>
+
+      {/* Panel 3: Advanced Math Quests */}
+      <div className="bg-white border border-purple-200 rounded-2xl p-4 shadow-sm space-y-3">
+        <h2 className="font-sans font-bold text-xs uppercase text-purple-700 tracking-wider pl-1">
           Advanced Math Quests
         </h2>
         <nav className="space-y-1">
@@ -168,15 +207,15 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             onClick={() => setActiveModule('side_quest_sigma')}
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_sigma'
-                ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                ? 'bg-purple-950 text-white shadow-xs'
                 : masteredUnits['side_quest_sigma']
-                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-sigma"
           >
             <span className="flex items-center space-x-2.5 min-w-0">
-              <Sigma className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_sigma' ? 'text-white' : 'text-indigo-600'}`} />
+              <Sigma className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_sigma' ? 'text-purple-300' : 'text-purple-600'}`} />
               <span className="truncate">Quest 1: Sigma Sums</span>
             </span>
             {masteredUnits['side_quest_sigma'] ? (
@@ -190,15 +229,15 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             onClick={() => setActiveModule('side_quest_geometric')}
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_geometric'
-                ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                ? 'bg-purple-950 text-white shadow-xs'
                 : masteredUnits['side_quest_geometric']
-                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-geometric"
           >
             <span className="flex items-center space-x-2.5 min-w-0">
-              <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_geometric' ? 'text-white' : 'text-indigo-600'}`} />
+              <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_geometric' ? 'text-purple-300' : 'text-purple-600'}`} />
               <span className="truncate">Quest 2: Geometric Series</span>
             </span>
             {masteredUnits['side_quest_geometric'] ? (
@@ -212,15 +251,15 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
             onClick={() => setActiveModule('side_quest_gordon')}
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_gordon'
-                ? 'bg-indigo-600 text-white shadow shadow-indigo-100'
+                ? 'bg-purple-950 text-white shadow-xs'
                 : masteredUnits['side_quest_gordon']
-                ? 'bg-emerald-50/60 text-emerald-950 border border-emerald-200/60 hover:bg-emerald-100/60'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
             }`}
             id="sidebar-nav-side-quest-gordon"
           >
             <span className="flex items-center space-x-2.5 min-w-0">
-              <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_gordon' ? 'text-white' : 'text-indigo-600'}`} />
+              <TrendingUp className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_gordon' ? 'text-purple-300' : 'text-purple-600'}`} />
               <span className="truncate">Quest 3: Gordon Growth</span>
             </span>
             {masteredUnits['side_quest_gordon'] ? (

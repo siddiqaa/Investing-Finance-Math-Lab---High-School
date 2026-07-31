@@ -673,3 +673,5 @@ export const GeometricSeriesQuest: React.FC<GeometricSeriesQuestProps> = ({ onBa
     </div>
   );
 };
+
+export default GeometricSeriesQuest;

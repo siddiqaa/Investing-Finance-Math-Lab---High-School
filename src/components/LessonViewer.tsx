@@ -23,6 +23,7 @@ const StochasticLab = lazy(() => import('./StochasticLab').then(m => ({ default:
 const PortfolioLab = lazy(() => import('./PortfolioLab').then(m => ({ default: m.PortfolioLab })));
 const OptionsLab = lazy(() => import('./OptionsLab').then(m => ({ default: m.OptionsLab })));
 const BehavioralLab = lazy(() => import('./BehavioralLab').then(m => ({ default: m.BehavioralLab })));
+const GlossaryLab = lazy(() => import('./GlossaryLab').then(m => ({ default: m.GlossaryLab })));
 const ComprehensiveQuizLab = lazy(() => import('./ComprehensiveQuizLab').then(m => ({ default: m.ComprehensiveQuizLab })));
 
 // Quiz Section
@@ -45,6 +46,22 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
       >
         <Suspense fallback={<LabSkeletonLoader label="Loading Review Hub..." />}>
           <ComprehensiveQuizLab setActiveModule={setActiveModule} />
+        </Suspense>
+      </motion.div>
+    );
+  }
+
+  if (currentLesson.id === 'glossary') {
+    return (
+      <motion.div
+        key="glossary"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -12 }}
+        transition={{ duration: 0.2 }}
+      >
+        <Suspense fallback={<LabSkeletonLoader label="Loading Financial Dictionary..." />}>
+          <GlossaryLab onNavigateToUnit={(unitId) => setActiveModule(unitId)} />
         </Suspense>
       </motion.div>
     );
@@ -76,10 +93,14 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
         return <OptionsLab />;
       case 'behavioral':
         return <BehavioralLab />;
+      case 'glossary':
+        return <GlossaryLab onNavigateToUnit={(unitId) => setActiveModule(unitId)} />;
       default:
         return null;
     }
   };
+
+  const labWidget = renderLabWidget(currentLesson.id);
 
   return (
     <motion.div
@@ -92,11 +113,6 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
     >
       {/* Lesson Heading Banner */}
       <div className="space-y-2">
-        <div className="flex items-center space-x-2 text-xs font-mono font-medium uppercase text-slate-400">
-          <span className="text-indigo-600 font-bold">Academic Unit</span>
-          <span>•</span>
-          <span>{currentLesson.mathTopic}</span>
-        </div>
         <h2 className="font-sans font-extrabold text-2xl sm:text-3xl text-slate-800 tracking-tight leading-tight" id="lesson-module-title">
           {currentLesson.title}
         </h2>
@@ -110,14 +126,14 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white border-l-4 border-l-indigo-600 border-y border-r border-slate-200 rounded-r-3xl rounded-l-lg p-8 sm:p-10 shadow-sm space-y-6 relative overflow-hidden"
+          className="bg-white border-l-4 border-l-purple-600 border-y border-r border-purple-200 rounded-r-3xl rounded-l-lg p-8 sm:p-10 shadow-sm space-y-6 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-            <BookOpen className="w-32 h-32 text-indigo-900" />
+            <BookOpen className="w-32 h-32 text-purple-900" />
           </div>
           <div className="relative z-10">
             <h3 className="font-sans font-bold text-slate-900 text-lg sm:text-xl flex items-center gap-2 mb-4">
-              <HeartHandshake className="w-5 h-5 text-indigo-600" />
+              <HeartHandshake className="w-5 h-5 text-purple-600" />
               The Big Picture
             </h3>
             <div className="font-serif text-slate-700 text-base sm:text-lg leading-relaxed space-y-4 max-w-4xl prose prose-slate prose-indigo">
@@ -125,27 +141,27 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
                 <p key={pIdx}>{processMathText(paragraph)}</p>
               ))}
             </div>
-            <div className="pt-6 border-t border-slate-100 flex items-center gap-3">
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">End of Narrative Hook — Transitioning to Mathematical Models</span>
-              <div className="flex-1 h-px bg-slate-100" />
+            <div className="pt-6 border-t border-purple-200/80 flex items-center gap-3">
+              <span className="text-xs font-mono text-purple-800 font-bold uppercase tracking-widest">End of Narrative Hook — Transitioning to Mathematical Models</span>
+              <div className="flex-1 h-px bg-purple-200/80" />
             </div>
           </div>
         </motion.div>
       )}
 
       {/* Math Derivation Text section */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm space-y-6">
-        <h3 className="font-sans font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-slate-100 pb-2">
+      <div className="bg-white border border-purple-200 rounded-3xl p-6 sm:p-7 shadow-sm space-y-6">
+        <h3 className="font-sans font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-purple-200/80 pb-2">
           {currentLesson.id === 'behavioral' ? 'Core Concept Overview' : 'Mathematical Background & Formula Derivation'}
         </h3>
 
         {/* Core Formula Reference block - Full container width above explanation text */}
         {currentLesson.equations && currentLesson.equations.length > 0 && (
-          <div className="w-full p-3.5 sm:p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
-            <span className="text-slate-500 font-mono text-[10px] sm:text-xs block uppercase tracking-wider font-semibold">
+          <div className="w-full p-3.5 sm:p-4 bg-purple-50/50 border border-purple-200 rounded-2xl space-y-2">
+            <span className="text-purple-900 font-mono text-[10px] sm:text-xs block uppercase tracking-wider font-extrabold">
               Core Formula Reference
             </span>
-            <div className="space-y-1.5 divide-y divide-slate-200/60 pt-0.5">
+            <div className="space-y-1.5 divide-y divide-purple-200/80 pt-0.5">
               {currentLesson.equations.map((eq, eqIdx) => (
                 <div key={eqIdx} className="pt-1.5 first:pt-0 overflow-x-auto">
                   <MathSpan tex={eq} block className="my-0.5 [&_.katex-display]:my-0" />
@@ -172,16 +188,17 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
           </p>
         </div>
 
-        {renderLabWidget(currentLesson.id) ? (
+        {labWidget ? (
           <Suspense fallback={<LabSkeletonLoader />}>
-            {renderLabWidget(currentLesson.id)}
+            {labWidget}
           </Suspense>
         ) : (
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 font-sans text-sm italic">
+          <div className="bg-purple-50/50 border border-purple-200 rounded-2xl p-6 text-center text-purple-900 font-sans text-sm italic font-medium">
             Not applicable for this unit
           </div>
         )}
       </div>
+
 
       {/* Multiple-Choice Derivation Quiz segment */}
       <QuizSection quizzes={currentLesson.quizzes} moduleName={currentLesson.title} unitId={currentLesson.id} />

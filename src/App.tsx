@@ -93,7 +93,7 @@ export default function App() {
         </div>
 
         {/* Quantitative Footer */}
-        <footer className="bg-slate-900 border-t border-slate-950 text-slate-400 py-6 px-6 mt-12 text-center text-xs font-mono">
+        <footer className="bg-slate-900 border-t-2 border-purple-600/80 text-slate-400 py-6 px-6 mt-12 text-center text-xs font-mono">
           <div className="max-w-7xl mx-auto space-y-2">
             <p>© 2026 Investing & Finance Math Lab. Created for families studying high-level economics together.</p>
             <p className="text-[10px] text-slate-600">

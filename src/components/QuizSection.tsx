@@ -225,7 +225,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ quizzes, moduleName, u
                             : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                         }`}
                       >
-                        Submit Analytical Answer
+                        Submit Answer
                       </button>
                     ) : (
                       <button

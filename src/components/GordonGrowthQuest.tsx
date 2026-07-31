@@ -710,3 +710,5 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
     </div>
   );
 };
+
+export default GordonGrowthQuest;

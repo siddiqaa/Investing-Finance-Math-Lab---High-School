@@ -116,20 +116,20 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
           case 'table':
             if (isPdfExport) return null;
             return (
-              <div className="my-4 overflow-x-auto border border-slate-200 rounded-xl overflow-hidden shadow-xs" key={idx}>
-                <table className="min-w-full divide-y divide-slate-200 text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-50 font-sans font-bold text-slate-700">
+              <div className="my-4 overflow-x-auto border border-purple-200 rounded-xl overflow-hidden shadow-xs" key={idx}>
+                <table className="min-w-full divide-y divide-purple-200 text-left text-xs sm:text-sm">
+                  <thead className="bg-purple-50/80 font-sans font-bold text-purple-950">
                     <tr>
                       {block.headers!.map((h, hIdx) => (
-                        <th key={hIdx} className="px-4 py-2 hover:bg-slate-100/50 transition-colors font-semibold">
+                        <th key={hIdx} className="px-4 py-2 hover:bg-purple-100/50 transition-colors font-bold">
                           {processMathText(h)}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 bg-white font-serif text-slate-600">
+                  <tbody className="divide-y divide-purple-100 bg-white font-serif text-slate-700">
                     {block.rows!.map((row, rIdx) => (
-                      <tr key={rIdx} className="hover:bg-slate-50/50 transition-colors">
+                      <tr key={rIdx} className="hover:bg-purple-50/30 transition-colors">
                         {row.map((cell, cIdx) => (
                           <td key={cIdx} className="px-4 py-2">
                             {processMathText(cell)}
@@ -180,7 +180,7 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
             // Check for "TWO MARKETS, ONE TICKER PRICE" diagram
             if (cleanDiagram.includes('TWO MARKETS, ONE TICKER PRICE')) {
               return (
-                <div key={idx} className="my-6 p-6 bg-slate-50 border border-slate-200 rounded-3xl space-y-6 shadow-xs max-w-2xl mx-auto" id="graphic-two-markets-one-price">
+                <div key={idx} className="my-6 p-6 bg-purple-50/40 border border-purple-200 rounded-3xl space-y-6 shadow-xs max-w-2xl mx-auto" id="graphic-two-markets-one-price">
                   <div className="text-center font-sans">
                     <span className="font-mono text-xs uppercase text-indigo-600 font-extrabold tracking-widest bg-indigo-50 px-2.5 py-1 rounded-full">DIAGRAM SUMMARY</span>
                     <h4 className="font-extrabold text-base md:text-lg text-slate-900 mt-2">TWO MARKETS, ONE TICKER PRICE</h4>
@@ -279,7 +279,7 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
             // Check for "THE POSITIVE FEEDBACK LOOP OF A BUBBLE" diagram
             if (cleanDiagram.includes('THE POSITIVE FEEDBACK LOOP OF A BUBBLE')) {
               return (
-                <div key={idx} className="my-6 p-6 bg-slate-50 border border-slate-200 rounded-3xl space-y-6 shadow-xs max-w-2xl mx-auto" id="graphic-positive-feedback-loop">
+                <div key={idx} className="my-6 p-6 bg-purple-50/40 border border-purple-200 rounded-3xl space-y-6 shadow-xs max-w-2xl mx-auto" id="graphic-positive-feedback-loop">
                   <div className="text-center font-sans">
                     <span className="font-mono text-xs uppercase text-amber-600 font-extrabold tracking-widest bg-amber-50 px-2.5 py-1 rounded-full">SPECULATIVE ENGINE</span>
                     <h4 className="font-extrabold text-base md:text-lg text-slate-950 mt-2">THE POSITIVE FEEDBACK LOOP OF A BUBBLE</h4>
@@ -324,8 +324,8 @@ export function ContentRenderer({ fullText, setActiveModule, isPdfExport = false
             }
             
             return (
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 my-4 overflow-x-auto shadow-xs" key={idx}>
-                <pre className="font-mono text-xs sm:text-sm text-slate-600">
+              <div className="bg-purple-50/40 border border-purple-200 rounded-xl p-4 my-4 overflow-x-auto shadow-xs" key={idx}>
+                <pre className="font-mono text-xs sm:text-sm text-purple-950 font-semibold">
                   {cleanDiagram}
                 </pre>
               </div>

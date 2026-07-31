@@ -82,10 +82,10 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Unit 1 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 1</span>
-              <span className="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded">Exponents & Percentages</span>
+              <span className="bg-purple-50 text-purple-800 text-[10px] font-mono px-2 py-0.5 rounded font-semibold">Exponents & Percentages</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
               Time Value of Money & Compound Growth
@@ -104,7 +104,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 2 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 2</span>
               <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Savings & Opportunity Cost</span>
@@ -126,7 +126,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 3 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 3</span>
               <span className="bg-emerald-50 text-emerald-700 text-[10px] font-mono px-2 py-0.5 rounded">Fractional Ownership</span>
@@ -148,7 +148,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 3.5 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 3.5</span>
               <span className="bg-sky-50 text-sky-700 text-[10px] font-mono px-2 py-0.5 rounded">Zero-Growth DDM</span>
@@ -170,7 +170,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 4 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 4</span>
               <span className="bg-amber-50 text-amber-700 text-[10px] font-mono px-2 py-0.5 rounded">Dividend Discount Perpetuities</span>
@@ -192,7 +192,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 5 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 5</span>
               <span className="bg-rose-50 text-rose-700 text-[10px] font-mono px-2 py-0.5 rounded">Information & Catalyst Shocks</span>
@@ -214,7 +214,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 5R */}
-          <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white border border-indigo-800/80 rounded-2xl p-5 space-y-3 shadow-sm md:col-span-2">
+          <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white border border-purple-700/80 rounded-2xl p-5 space-y-3 shadow-sm md:col-span-2">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-indigo-300 block uppercase">Unit 5R • Topic Review Unit</span>
               <span className="bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 text-[10px] font-mono px-2 py-0.5 rounded">Units 1–5 Test Prep</span>
@@ -236,7 +236,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 6 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 6</span>
               <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Market Randomness</span>
@@ -258,10 +258,10 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 7 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 7</span>
-              <span className="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded">Risk Reduction & Averages</span>
+              <span className="bg-purple-50 text-purple-800 text-[10px] font-mono px-2 py-0.5 rounded font-semibold">Risk Reduction & Averages</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
               Portfolio Diversification & Risk
@@ -280,7 +280,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           </div>
 
           {/* Unit 8 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
+          <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 8</span>
               <span className="bg-purple-50 text-purple-700 text-[10px] font-mono px-2 py-0.5 rounded">Retail Behavior & Irrationality</span>
@@ -364,6 +364,28 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Reference Module: Financial Math Glossary */}
+          <div className="bg-white border border-indigo-300 hover:border-indigo-400 transition-colors rounded-2xl p-5 space-y-3 bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-700 block uppercase">Reference Unit</span>
+              <span className="bg-indigo-100 text-indigo-900 text-[10px] font-mono px-2 py-0.5 rounded font-bold">Dictionary & Sandbox</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-900 text-sm">
+              Financial Math Glossary & Formula Compendium
+            </h4>
+            <p className="text-slate-600 text-xs font-sans leading-relaxed">
+              Searchable dictionary of financial variables, equations, real-world analogies, and interactive micro-calculators across all 9 curriculum units.
+            </p>
+            <button
+              onClick={() => setActiveModule('glossary')}
+              className="text-xs text-indigo-700 font-sans font-bold hover:text-indigo-900 flex items-center space-x-1 border border-indigo-300 hover:border-indigo-400 px-2.5 py-1.5 rounded-lg bg-indigo-100/60 transition-all cursor-pointer"
+              id="btn-nav-glossary"
+            >
+              <span>Open Financial Dictionary</span>
+              <ChevronsRight className="w-3 h-3 text-indigo-700" />
             </button>
           </div>
         </div>

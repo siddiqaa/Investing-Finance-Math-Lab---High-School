@@ -649,7 +649,7 @@ export const ComprehensiveQuizLab: React.FC<ComprehensiveQuizLabProps> = ({ setA
                             : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                         }`}
                       >
-                        Submit Analytical Answer
+                        Submit Answer
                       </button>
                     ) : (
                       <button
@@ -711,3 +711,5 @@ export const ComprehensiveQuizLab: React.FC<ComprehensiveQuizLabProps> = ({ setA
     </div>
   );
 };
+
+export default ComprehensiveQuizLab;

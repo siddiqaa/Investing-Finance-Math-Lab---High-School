@@ -29,38 +29,89 @@ export interface ContentBlock {
   items?: string[];
 }
 
+export function isListItemLine(line: string): boolean {
+  const trimmed = line.trim();
+  if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || trimmed.startsWith('•') || trimmed.startsWith('- Option')) {
+    return true;
+  }
+  if (/^(<span[^>]*>)?\s*[•\-]/i.test(trimmed)) {
+    return true;
+  }
+  if (/^(\d+)[\.\)]\s+/.test(trimmed) || /^(<span[^>]*>)?\s*(\d+)[\.\)]\s+/i.test(trimmed)) {
+    return true;
+  }
+  return false;
+}
+
+export function cleanListItemLine(line: string): string {
+  let cleaned = line.trim();
+  if (cleaned.startsWith('- Option')) {
+    cleaned = cleaned.replace(/^- Option\s*/, 'Option ');
+  }
+  cleaned = cleaned
+    .replace(/^[•\-]\s*/, '')
+    .replace(/^(\d+)[\.\)]\s*/, '')
+    .replace(/^(<span[^>]*>)\s*([•\-]|(\d+)[\.\)])\s*/i, '$1');
+
+  return cleaned;
+}
+
+export function parseTextAndLists(text: string, blocks: ContentBlock[]): void {
+  const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  if (lines.length === 0) return;
+
+  let currentParagraphLines: string[] = [];
+  let currentListItems: string[] = [];
+  let currentListItem = '';
+
+  const flushParagraph = () => {
+    if (currentParagraphLines.length > 0) {
+      blocks.push({ type: 'paragraph', content: currentParagraphLines.join('\n') });
+      currentParagraphLines = [];
+    }
+  };
+
+  const flushList = () => {
+    if (currentListItem) {
+      currentListItems.push(currentListItem);
+      currentListItem = '';
+    }
+    if (currentListItems.length > 0) {
+      blocks.push({ type: 'bullet_list', items: [...currentListItems] });
+      currentListItems = [];
+    }
+  };
+
+  for (const line of lines) {
+    if (isListItemLine(line)) {
+      flushParagraph();
+      if (currentListItem) {
+        currentListItems.push(currentListItem);
+      }
+      currentListItem = cleanListItemLine(line);
+    } else {
+      if (currentListItem || currentListItems.length > 0) {
+        if (currentListItem) {
+          currentListItem += '\n' + line;
+        } else {
+          currentListItem = line;
+        }
+      } else {
+        currentParagraphLines.push(line);
+      }
+    }
+  }
+
+  flushParagraph();
+  flushList();
+}
+
 export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
   const blocks: ContentBlock[] = [];
   
   fullText.forEach(p => {
     const trimmed = p.trim();
-    
-    // Header
-    const headerMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
-    if (headerMatch && !trimmed.startsWith('SIDE_QUEST') && !trimmed.startsWith('DIAGRAM') && !trimmed.startsWith('KNOWLEDGE_CHECK')) {
-      const parts = trimmed.split('\n');
-      let headerContent = parts[0].replace(/^(\d+)\.\s+/, '').trim();
-      if (headerContent.startsWith('**') && headerContent.endsWith('**')) {
-        headerContent = headerContent.slice(2, -2).trim();
-      }
-      blocks.push({
-        type: 'header',
-        level: parseInt(headerMatch[1], 10),
-        content: headerContent
-      });
-      
-      const remaining = parts.slice(1).join('\n').trim();
-      if (remaining) {
-        blocks.push({ type: 'paragraph', content: remaining });
-      }
-      return;
-    }
-    
-    // Title
-    if (trimmed.startsWith('**') && trimmed.endsWith('**') && !trimmed.includes('\n')) {
-      blocks.push({ type: 'title', content: trimmed.slice(2, -2) });
-      return;
-    }
+    if (!trimmed) return;
     
     // Side Quest
     if (trimmed.startsWith('SIDE_QUEST_CALLOUT|')) {
@@ -105,7 +156,7 @@ export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
     if (trimmed.includes('|') && !trimmed.startsWith('⚠️') && !trimmed.startsWith('🧪') && !trimmed.startsWith('🔍')) {
       const tableContent = trimmed.replace(/^[A-Z0-9_]+_TABLE\|/, '');
       const lines = tableContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      if (lines.length > 0) {
+      if (lines.length > 0 && lines[0].includes('|')) {
         const headers = lines[0].split('|').map(h => h.trim());
         const rows = lines.slice(1).map(line => line.split('|').map(cell => cell.trim()));
         blocks.push({ type: 'table', headers, rows });
@@ -133,38 +184,37 @@ export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
       return;
     }
     
-    // Bullet Lists
-    if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- ') || trimmed.includes('•')))) {
-      const rawLines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      const items: string[] = [];
-      let currentItem = '';
+    // Title
+    if (trimmed.startsWith('**') && trimmed.endsWith('**') && !trimmed.includes('\n')) {
+      blocks.push({ type: 'title', content: trimmed.slice(2, -2) });
+      return;
+    }
 
-      for (const line of rawLines) {
-        if (line.startsWith('• ') || line.startsWith('- ') || line.startsWith('- Option') || line.startsWith('•') || /^<span[^>]*>[•\-]/i.test(line)) {
-          if (currentItem) {
-            items.push(currentItem);
-          }
-          currentItem = line.replace(/^[•\-]\s*/, '').replace(/^- Option\s*/, 'Option ').replace(/^(<span[^>]*>)\s*[•\-]\s*/i, '$1');
-        } else {
-          if (currentItem) {
-            currentItem += '\n' + line;
-          } else {
-            currentItem = line;
-          }
-        }
+    // Header check
+    const headerMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+    const rawLines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const isNumberedList = rawLines.length > 1 && rawLines.some((l, idx) => idx > 0 && isListItemLine(l));
+    
+    if (headerMatch && !isNumberedList) {
+      let headerContent = rawLines[0].replace(/^(\d+)\.\s+/, '').trim();
+      if (headerContent.startsWith('**') && headerContent.endsWith('**')) {
+        headerContent = headerContent.slice(2, -2).trim();
       }
-      if (currentItem) {
-        items.push(currentItem);
+      blocks.push({
+        type: 'header',
+        level: parseInt(headerMatch[1], 10),
+        content: headerContent
+      });
+      
+      const remaining = rawLines.slice(1).join('\n').trim();
+      if (remaining) {
+        parseTextAndLists(remaining, blocks);
       }
-
-      if (items.length > 0) {
-        blocks.push({ type: 'bullet_list', items });
-        return;
-      }
+      return;
     }
     
-    // Paragraph
-    blocks.push({ type: 'paragraph', content: p });
+    // Parse text & lists for standard paragraphs / list blocks
+    parseTextAndLists(trimmed, blocks);
   });
   
   return blocks;

@@ -1,15 +1,17 @@
 import { LessonContent } from '../types';
 import { compounding } from './lessons/compounding';
-import { amortization } from './lessons/amortization';
 import { rateSelection } from './lessons/rateSelection';
 import { stockBridge } from './lessons/stockBridge';
 import { flatValuation } from './lessons/flatValuation';
 import { valuation } from './lessons/valuation';
 import { newsBridge } from './lessons/newsBridge';
+import { unit5R } from './lessons/unit5R';
 import { stochastic } from './lessons/stochastic';
 import { portfolio } from './lessons/portfolio';
-import { options } from './lessons/options';
 import { behavioral } from './lessons/behavioral';
+import { options } from './lessons/options';
+import { amortization } from './lessons/amortization';
+import { mortgage } from './lessons/mortgage';
 import { comprehensiveQuiz } from './lessons/comprehensiveQuiz';
 
 export const LESSONS: Record<string, LessonContent> = {
@@ -19,10 +21,12 @@ export const LESSONS: Record<string, LessonContent> = {
   flatValuation,
   valuation,
   newsBridge,
+  unit5R,
   stochastic,
   portfolio,
-  options,
   behavioral,
+  options,
   amortization,
+  mortgage,
   comprehensiveQuiz,
 };

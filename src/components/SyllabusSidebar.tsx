@@ -15,6 +15,7 @@ import {
   Briefcase, 
   Zap,
   Car,
+  Home,
   Coins,
   Sparkles
 } from 'lucide-react';
@@ -85,6 +86,10 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitNumber = '5';
               unitTitle = 'Catalysts & News';
               stepIcon = <Zap className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'unit5R') {
+              unitNumber = '5R';
+              unitTitle = 'Units 1–5 Topic Review';
+              stepIcon = <GraduationCap className="w-4 h-4 flex-shrink-0 text-indigo-500" />;
             } else if (les.id === 'stochastic') {
               unitNumber = '6';
               unitTitle = 'Stock Prices & Randomness';
@@ -93,18 +98,22 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               unitNumber = '7';
               unitTitle = 'Portfolio Diversification';
               stepIcon = <PieChart className="w-4 h-4 flex-shrink-0" />;
-            } else if (les.id === 'options') {
-              unitNumber = '8';
-              unitTitle = 'Options & Payoffs';
-              stepIcon = <LineChart className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'behavioral') {
-              unitNumber = '9';
+              unitNumber = '8';
               unitTitle = 'Behavioral Market Math';
               stepIcon = <Users className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'options') {
+              unitNumber = 'A';
+              unitTitle = 'Options & Payoffs';
+              stepIcon = <LineChart className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'amortization') {
-              unitNumber = 'Bonus';
+              unitNumber = 'B';
               unitTitle = 'Auto Loans & TCO';
               stepIcon = <Car className="w-4 h-4 flex-shrink-0" />;
+            } else if (les.id === 'mortgage') {
+              unitNumber = 'C';
+              unitTitle = 'Mortgages & Homeownership';
+              stepIcon = <Home className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'comprehensiveQuiz') {
               unitNumber = 'Review';
               unitTitle = 'Comprehensive Quiz';
@@ -131,8 +140,8 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
                 <span className="flex items-center space-x-2.5 min-w-0">
                   <span className={isSelected ? 'text-indigo-400' : 'text-slate-400'}>{stepIcon}</span>
                   <span className="truncate font-sans font-bold">
-                    {les.id === 'amortization'
-                      ? 'Bonus Unit'
+                    {les.id === 'options' || les.id === 'amortization' || les.id === 'mortgage'
+                      ? `Bonus Unit ${unitNumber}`
                       : les.id === 'comprehensiveQuiz'
                       ? 'Daily Review'
                       : `Unit ${unitNumber}`}

@@ -64,9 +64,10 @@ export const ComprehensiveQuizLab: React.FC<ComprehensiveQuizLabProps> = ({ setA
     { id: 'newsBridge', label: 'Unit 5: News Shocks', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'newsBridge').length },
     { id: 'stochastic', label: 'Unit 6: Stochastic Math', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'stochastic').length },
     { id: 'portfolio', label: 'Unit 7: Portfolio Theory', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'portfolio').length },
-    { id: 'options', label: 'Unit 8: Options & Payoffs', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'options').length },
-    { id: 'behavioral', label: 'Unit 9: Behavioral Finance', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'behavioral').length },
-    { id: 'amortization', label: 'Bonus Unit: Auto Loans', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'amortization').length },
+    { id: 'behavioral', label: 'Unit 8: Behavioral Finance', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'behavioral').length },
+    { id: 'options', label: 'Bonus Unit A: Options & Payoffs', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'options').length },
+    { id: 'amortization', label: 'Bonus Unit B: Auto Loans', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'amortization').length },
+    { id: 'mortgage', label: 'Bonus Unit C: Mortgages & Equity', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'mortgage').length },
     { id: 'side_quest_sigma', label: 'Quest 1: Sigma Notation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_sigma').length },
     { id: 'side_quest_geometric', label: 'Quest 2: Geometric Series', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_geometric').length },
     { id: 'side_quest_gordon', label: 'Quest 3: Gordon Derivation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_gordon').length }

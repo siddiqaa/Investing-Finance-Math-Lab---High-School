@@ -6,9 +6,10 @@ import { valuation } from './lessons/valuation';
 import { newsBridge } from './lessons/newsBridge';
 import { stochastic } from './lessons/stochastic';
 import { portfolio } from './lessons/portfolio';
-import { options } from './lessons/options';
 import { behavioral } from './lessons/behavioral';
+import { options } from './lessons/options';
 import { amortization } from './lessons/amortization';
+import { mortgage } from './lessons/mortgage';
 import { QuizQuestion } from '../types';
 
 export interface CollatedQuizQuestion extends QuizQuestion {
@@ -231,26 +232,33 @@ export const ALL_COLLATED_QUIZZES: CollatedQuizQuestion[] = [
     unitBadge: 'Efficient Frontier & Beta',
     unitNumber: '7'
   })),
-  ...options.quizzes.map(q => ({
-    ...q,
-    unitId: 'options',
-    unitName: 'Unit 8: Options & The Price of a Guarantee',
-    unitBadge: 'Black-Scholes & Payoffs',
-    unitNumber: '8'
-  })),
   ...behavioral.quizzes.map(q => ({
     ...q,
     unitId: 'behavioral',
-    unitName: 'Unit 9: Behavioral Finance & Market Crowds',
+    unitName: 'Unit 8: Behavioral Finance & Market Crowds',
     unitBadge: 'Irrationality & Cascades',
-    unitNumber: '9'
+    unitNumber: '8'
+  })),
+  ...options.quizzes.map(q => ({
+    ...q,
+    unitId: 'options',
+    unitName: 'Bonus Unit A: Options & Black-Scholes Pricing',
+    unitBadge: 'Options & Payoffs',
+    unitNumber: 'Bonus A'
   })),
   ...amortization.quizzes.map(q => ({
     ...q,
     unitId: 'amortization',
-    unitName: 'Bonus Unit: Auto Loans & TCO',
-    unitBadge: 'Loan Amortization',
-    unitNumber: 'Bonus'
+    unitName: 'Bonus Unit B: Auto Loans & TCO',
+    unitBadge: 'Auto Amortization',
+    unitNumber: 'Bonus B'
+  })),
+  ...mortgage.quizzes.map(q => ({
+    ...q,
+    unitId: 'mortgage',
+    unitName: 'Bonus Unit C: Mortgages & Homeownership',
+    unitBadge: 'Mortgage Math & Equity',
+    unitNumber: 'Bonus C'
   })),
   ...SIGMA_QUEST_QUIZZES,
   ...GEOMETRIC_QUEST_QUIZZES,

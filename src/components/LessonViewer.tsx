@@ -13,6 +13,7 @@ import { LabSkeletonLoader } from './ui/LabSkeletonLoader';
 // Lazy load heavy simulation laboratories
 const LemonadeStandLab = lazy(() => import('./LemonadeStandLab').then(m => ({ default: m.LemonadeStandLab })));
 const AutoLoanLab = lazy(() => import('./AutoLoanLab').then(m => ({ default: m.AutoLoanLab })));
+const MortgageLab = lazy(() => import('./MortgageLab').then(m => ({ default: m.MortgageLab })));
 const BankLab = lazy(() => import('./BankLab').then(m => ({ default: m.BankLab })));
 const StockBridgeLab = lazy(() => import('./StockBridgeLab').then(m => ({ default: m.StockBridgeLab })));
 const FlatValuationLab = lazy(() => import('./FlatValuationLab').then(m => ({ default: m.FlatValuationLab })));
@@ -55,6 +56,8 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
         return <LemonadeStandLab />;
       case 'amortization':
         return <AutoLoanLab />;
+      case 'mortgage':
+        return <MortgageLab />;
       case 'rateSelection':
         return <BankLab />;
       case 'stockBridge':
@@ -169,9 +172,15 @@ export function LessonViewer({ currentLesson, setActiveModule }: LessonViewerPro
           </p>
         </div>
 
-        <Suspense fallback={<LabSkeletonLoader />}>
-          {renderLabWidget(currentLesson.id)}
-        </Suspense>
+        {renderLabWidget(currentLesson.id) ? (
+          <Suspense fallback={<LabSkeletonLoader />}>
+            {renderLabWidget(currentLesson.id)}
+          </Suspense>
+        ) : (
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-slate-500 font-sans text-sm italic">
+            Not applicable for this unit
+          </div>
+        )}
       </div>
 
       {/* Multiple-Choice Derivation Quiz segment */}

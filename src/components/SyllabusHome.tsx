@@ -60,7 +60,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             Comprehensive Review Quiz Unit
           </h3>
           <p className="font-sans text-xs text-slate-600 max-w-xl">
-            Collate and review exercises from every single unit (Units 1–9, Auto Loans, and Side Quests). Practice daily retrieval with randomized warm-up sets and direct links back to unit lessons.
+            Collate and review exercises from every single unit (Units 1–8, Bonus Units A–C, and Side Quests). Practice daily retrieval with randomized warm-up sets and direct links back to unit lessons.
           </p>
         </div>
 
@@ -213,6 +213,28 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             </button>
           </div>
 
+          {/* Unit 5R */}
+          <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white border border-indigo-800/80 rounded-2xl p-5 space-y-3 shadow-sm md:col-span-2">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-300 block uppercase">Unit 5R • Topic Review Unit</span>
+              <span className="bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 text-[10px] font-mono px-2 py-0.5 rounded">Units 1–5 Test Prep</span>
+            </div>
+            <h4 className="font-sans font-bold text-white text-base">
+              Gordon Growth Model Foundation Review (Units 1–5 Summary)
+            </h4>
+            <p className="text-indigo-100/80 text-xs font-sans leading-relaxed">
+              A comprehensive study guide summarizing the mathematical progression from basic TVM (PV, NPV), discount rates (r), equity bridging, zero-growth perpetuities (P₀ = D/r), Gordon Growth (P₀ = D₁ / (r - g)), and expectation news shocks (Δg, Δr).
+            </p>
+            <button
+              onClick={() => setActiveModule('unit5R')}
+              className="text-xs text-indigo-200 font-sans font-bold hover:text-white flex items-center space-x-1 border border-indigo-400/40 hover:border-indigo-300 px-3 py-1.5 rounded-lg bg-indigo-600/30 transition-all cursor-pointer"
+              id="btn-nav-unit-5r"
+            >
+              <span>Open Unit 5R Test Prep Review</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
           {/* Unit 6 */}
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
@@ -261,28 +283,6 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 8</span>
-              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Inequalities & Insurance</span>
-            </div>
-            <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Options & The Price of a Guarantee
-            </h4>
-            <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Understand Call and Put options and payoff inequalities at expiration. Discover the five pricing inputs, no-arbitrage reasoning, and English "Greeks" limits.
-            </p>
-            <button
-              onClick={() => setActiveModule('options')}
-              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-8"
-            >
-              <span>Open Topic Lab & Challenge</span>
-              <ChevronsRight className="w-3 h-3" />
-            </button>
-          </div>
-
-          {/* Unit 9 */}
-          <div className="bg-white border border-slate-200 hover:border-slate-300 transition-colors rounded-2xl p-5 space-y-3">
-            <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 9</span>
               <span className="bg-purple-50 text-purple-700 text-[10px] font-mono px-2 py-0.5 rounded">Retail Behavior & Irrationality</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
@@ -294,17 +294,39 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             <button
               onClick={() => setActiveModule('behavioral')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
-              id="btn-nav-unit-9"
+              id="btn-nav-unit-8"
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />
             </button>
           </div>
 
-          {/* Bonus Unit - Auto Loans & Ownership */}
+          {/* Bonus Unit A */}
           <div className="bg-white border border-indigo-200 hover:border-indigo-300 transition-colors rounded-2xl p-5 space-y-3 bg-gradient-to-br from-white to-indigo-50/20">
             <div className="flex justify-between items-start">
-              <span className="font-mono text-xs font-bold text-indigo-600 block uppercase">Bonus Unit</span>
+              <span className="font-mono text-xs font-bold text-indigo-600 block uppercase">Bonus Unit A</span>
+              <span className="bg-indigo-100 text-indigo-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">Options & Payoffs</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Options & The Price of a Guarantee
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Understand Call and Put options and payoff inequalities at expiration. Discover the five pricing inputs, no-arbitrage reasoning, and English "Greeks" limits.
+            </p>
+            <button
+              onClick={() => setActiveModule('options')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-200 hover:border-indigo-300 px-2.5 py-1.5 rounded-lg bg-indigo-50 transition-all cursor-pointer"
+              id="btn-nav-bonus-unit-a"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Bonus Unit B */}
+          <div className="bg-white border border-indigo-200 hover:border-indigo-300 transition-colors rounded-2xl p-5 space-y-3 bg-gradient-to-br from-white to-indigo-50/20">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-600 block uppercase">Bonus Unit B</span>
               <span className="bg-indigo-100 text-indigo-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">Amortization & Car Ownership</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
@@ -316,7 +338,29 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             <button
               onClick={() => setActiveModule('amortization')}
               className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-200 hover:border-indigo-300 px-2.5 py-1.5 rounded-lg bg-indigo-50 transition-all cursor-pointer"
-              id="btn-nav-unit-bonus"
+              id="btn-nav-bonus-unit-b"
+            >
+              <span>Open Topic Lab & Challenge</span>
+              <ChevronsRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Bonus Unit C */}
+          <div className="bg-white border border-indigo-200 hover:border-indigo-300 transition-colors rounded-2xl p-5 space-y-3 bg-gradient-to-br from-white to-indigo-50/20">
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-600 block uppercase">Bonus Unit C</span>
+              <span className="bg-indigo-100 text-indigo-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">Mortgage Math & Equity</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-800 text-sm">
+              Mortgages & Total Cost of Homeownership
+            </h4>
+            <p className="text-slate-500 text-xs font-sans leading-relaxed">
+              Master 15-year and 30-year home mortgage math, Loan-to-Value (LTV) ratios, Private Mortgage Insurance (PMI), equity accumulation over time, property taxes, home insurance, and total PITI monthly housing expenses.
+            </p>
+            <button
+              onClick={() => setActiveModule('mortgage')}
+              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-200 hover:border-indigo-300 px-2.5 py-1.5 rounded-lg bg-indigo-50 transition-all cursor-pointer"
+              id="btn-nav-bonus-unit-c"
             >
               <span>Open Topic Lab & Challenge</span>
               <ChevronsRight className="w-3 h-3" />

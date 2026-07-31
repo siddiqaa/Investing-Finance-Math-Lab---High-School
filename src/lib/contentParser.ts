@@ -134,17 +134,17 @@ export function parseLessonBlocks(fullText: string[]): ContentBlock[] {
     }
     
     // Bullet Lists
-    if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- ')))) {
+    if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || (trimmed.includes('\n') && (trimmed.includes('• ') || trimmed.includes('- Option') || trimmed.includes('- ') || trimmed.includes('•')))) {
       const rawLines = trimmed.split('\n').map(l => l.trim()).filter(l => l.length > 0);
       const items: string[] = [];
       let currentItem = '';
 
       for (const line of rawLines) {
-        if (line.startsWith('• ') || line.startsWith('- ') || line.startsWith('- Option')) {
+        if (line.startsWith('• ') || line.startsWith('- ') || line.startsWith('- Option') || line.startsWith('•') || /^<span[^>]*>[•\-]/i.test(line)) {
           if (currentItem) {
             items.push(currentItem);
           }
-          currentItem = line.replace(/^[•\-]\s*/, '').replace(/^- Option\s*/, 'Option ');
+          currentItem = line.replace(/^[•\-]\s*/, '').replace(/^- Option\s*/, 'Option ').replace(/^(<span[^>]*>)\s*[•\-]\s*/i, '$1');
         } else {
           if (currentItem) {
             currentItem += '\n' + line;

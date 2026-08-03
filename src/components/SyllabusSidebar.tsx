@@ -98,7 +98,7 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               stepIcon = <GraduationCap className="w-4 h-4 flex-shrink-0 text-indigo-500" />;
             } else if (les.id === 'stochastic') {
               unitNumber = '6';
-              unitTitle = 'Stock Prices & Randomness';
+              unitTitle = 'Stock Prices & Random Walks';
               stepIcon = <Activity className="w-4 h-4 flex-shrink-0" />;
             } else if (les.id === 'portfolio') {
               unitNumber = '7';

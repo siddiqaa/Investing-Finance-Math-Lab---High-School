@@ -77,8 +77,8 @@ The laboratory is structured into 9 core sequential units plus a bonus practical
 ### Unit 5. ⚡ Catalysts & News Shocks (News Bridge Lab)
 * **Core Concepts:** Efficient market hypothesis, unexpected news shocks ($\Delta g, \Delta r$), price discovery, and transition to stochastic paths.
 
-### Unit 6. 🎲 Stochastic Calculus & Asset Paths (Stochastic Lab)
-* **Core Concepts:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma verification: $dS_t = \mu S_t dt + \sigma S_t dW_t$.
+### Unit 6. 🎲 Stock Prices & Random Walks (Stochastic Lab)
+* **Core Concepts:** Daily multiplicative compounding ($S_t = S_{t-1}(1+r_t)$), percentage loss asymmetry ($(1+x)(1-x) = 1-x^2$), drift ($\mu$), volatility ($\sigma$), and volatility drag.
 
 ### Unit 7. 🎯 Modern Portfolio Theory (Portfolio Lab)
 * **Core Concepts:** Markowitz Mean-Variance Optimization, the Efficient Frontier, the Sharpe Ratio, and Covariance matrices ($\Sigma$).

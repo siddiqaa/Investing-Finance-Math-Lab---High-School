@@ -239,17 +239,17 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
           <div className="bg-white border border-purple-200 hover:border-purple-300 transition-colors rounded-2xl p-5 space-y-3">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs font-bold text-slate-400 block uppercase">Unit 6</span>
-              <span className="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-0.5 rounded">Market Randomness</span>
+              <span className="bg-purple-50 text-purple-800 text-[10px] font-mono px-2 py-0.5 rounded font-semibold">Daily Compounding & Random Walks</span>
             </div>
             <h4 className="font-sans font-bold text-slate-800 text-sm">
-              Stock Prices & Randomness
+              Stock Prices & Random Walks
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Explore percentage changes, the multiplicative compounding of stock returns, random walks, volatility drag, and simulate coin-flip price paths by hand.
+              Bridge Unit 1 compounding and Unit 5 news shocks into daily market math. Master percentage loss asymmetry $(1+x)(1-x) = 1-x^2$, random walks, and volatility drag.
             </p>
             <button
               onClick={() => setActiveModule('stochastic')}
-              className="text-xs text-indigo-600 font-sans font-bold hover:text-indigo-800 flex items-center space-x-1 border border-indigo-100 hover:border-indigo-200 px-2.5 py-1.5 rounded-lg bg-indigo-50/20 transition-all cursor-pointer"
+              className="text-xs text-purple-700 font-sans font-bold hover:text-purple-900 flex items-center space-x-1 border border-purple-200 hover:border-purple-300 px-2.5 py-1.5 rounded-lg bg-purple-50/50 transition-all cursor-pointer"
               id="btn-nav-unit-6"
             >
               <span>Open Topic Lab & Challenge</span>

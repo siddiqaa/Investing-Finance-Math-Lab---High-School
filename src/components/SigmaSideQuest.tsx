@@ -266,7 +266,7 @@ export const SigmaSideQuest: React.FC<SigmaSideQuestProps> = ({ onBackToSyllabus
 
             <div className="space-y-3 font-sans text-xs sm:text-sm">
               <div className="space-y-1">
-                <label className="text-slate-500 block font-semibold">Choose Summand Formula ($f(i)$):</label>
+                <label className="text-slate-500 block font-semibold">{processMathText('Choose Summand Formula ($f(i)$):')}</label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     onClick={() => setExpanderSummand('i')}

@@ -416,7 +416,7 @@ export const VarianceCovarianceQuest: React.FC<VarianceCovarianceQuestProps> = (
             <div className="space-y-3">
               <h4 className="font-sans font-bold text-slate-800 text-sm">Moving from 1 Variable to 2 Variables</h4>
               <p className="text-sm sm:text-base text-slate-700">
-                Variance measures how <em>one</em> stock fluctuates relative to its own mean. But building a resilient investment portfolio is about combining <em>two or more</em> stocks ($X$ and $Y$). To measure whether two assets move in the same direction or opposite directions, we introduce <span className="font-bold text-amber-700">Covariance</span> (<MathSpan tex="\text{Cov}(X,Y)" />).
+                {processMathText('Variance measures how <em>one</em> stock fluctuates relative to its own mean. But building a resilient investment portfolio is about combining <em>two or more</em> stocks ($X$ and $Y$). To measure whether two assets move in the same direction or opposite directions, we introduce <span className="font-bold text-amber-700">Covariance</span> (<MathSpan tex="\\text{Cov}(X,Y)" />).')}
               </p>
               <p className="text-sm text-slate-700">
                 Instead of squaring one variable's deviation <MathSpan tex="(x_i - \bar{x})^2" />, covariance multiplies the deviation of Stock X by the deviation of Stock Y for each observation:
@@ -447,7 +447,7 @@ export const VarianceCovarianceQuest: React.FC<VarianceCovarianceQuestProps> = (
             <div className="bg-amber-50/70 border border-amber-200 p-4 rounded-lg space-y-3">
               <h4 className="font-sans font-bold text-amber-950 text-xs uppercase tracking-wider">Real-World High School Analogy: Ice Cream & Rain Umbrellas</h4>
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                Imagine operating an Ice Cream Stand ($X$) and an Umbrella Shop ($Y$) in the same town:
+                {processMathText('Imagine operating an Ice Cream Stand ($X$) and an Umbrella Shop ($Y$) in the same town:')}
               </p>
               <ul className="text-xs sm:text-sm text-slate-700 space-y-1 list-disc pl-5 font-sans">
                 <li><span className="font-bold text-amber-900">Hot Sunny Days:</span> Ice cream sales spike (<MathSpan tex="x_i - \bar{x} > 0" />), while umbrella sales fall (<MathSpan tex="y_i - \bar{y} < 0" />). Deviation product = <span className="font-bold text-rose-700">NEGATIVE</span>.</li>

@@ -246,7 +246,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl font-mono text-center font-bold text-slate-800 text-xs sm:text-sm">
             <div className="flex justify-between items-center mb-2 font-sans font-normal text-slate-500 text-[10px]">
-              <span className="uppercase font-bold">Preferred Share Example ($D = \$2.00, r = 5\%$)</span>
+              <span className="uppercase font-bold">{processMathText('Preferred Share Example ($D = \\$2.00, r = 5\\%)')}</span>
               <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
                 Eq. 3.5
               </span>
@@ -284,7 +284,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
           </p>
           <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">Growing Dividend Series ($g &gt; 0$)</span>
+              <span className="font-mono text-[10px] font-bold uppercase text-indigo-700">{processMathText('Growing Dividend Series ($g > 0$)')}</span>
               <span className="font-mono text-xs font-bold bg-indigo-200/80 text-indigo-900 px-2.5 py-0.5 rounded-full">
                 Eq. 3.6
               </span>
@@ -320,7 +320,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
           </p>
           <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">Valuation with $D_0$</span>
+              <span className="font-mono text-[10px] font-bold uppercase text-slate-500">{processMathText('Valuation with $D_0$')}</span>
               <span className="font-mono text-xs font-bold bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full">
                 Eq. 3.8
               </span>
@@ -529,7 +529,7 @@ export const GordonGrowthQuest: React.FC<GordonGrowthQuestProps> = ({ onBackToSy
               Gordon Growth Practice Quiz
             </h4>
             <p className="font-serif text-slate-300 text-sm max-w-2xl">
-              Solve algebraic cash flow problems, analyze perpetuity variables, and master the $r - g$ denominator.
+              {processMathText('Solve algebraic cash flow problems, analyze perpetuity variables, and master the $r - g$ denominator.')}
             </p>
           </div>
 

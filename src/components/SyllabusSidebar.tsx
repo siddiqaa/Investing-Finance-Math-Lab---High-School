@@ -270,6 +270,28 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
           </button>
 
           <button
+            onClick={() => setActiveModule('side_quest_pi')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
+              activeModule === 'side_quest_pi'
+                ? 'bg-purple-950 text-white shadow-xs'
+                : masteredUnits['side_quest_pi']
+                ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
+            }`}
+            id="sidebar-nav-side-quest-pi"
+          >
+            <span className="flex items-center space-x-2.5 min-w-0">
+              <span className={`w-4 h-4 flex-shrink-0 font-mono font-bold text-xs flex items-center justify-center ${activeModule === 'side_quest_pi' ? 'text-purple-300' : 'text-purple-600'}`}>∏</span>
+              <span className="truncate">Quest 3.5: Capital Pi (∏)</span>
+            </span>
+            {masteredUnits['side_quest_pi'] ? (
+              <span className="text-xs" title="Quest Mastered">🏆</span>
+            ) : (
+              <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_pi' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            )}
+          </button>
+
+          <button
             onClick={() => setActiveModule('side_quest_variance')}
             className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
               activeModule === 'side_quest_variance'

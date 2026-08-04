@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ChevronsRight, Sigma, TrendingUp, Sparkles, Zap, GraduationCap, Activity } from 'lucide-react';
 import { PdfExportButton } from './PdfExportButton';
+import { MathSpan, processMathText } from '../lib/math';
 
 interface SyllabusHomeProps {
   setActiveModule: (module: string) => void;
@@ -245,7 +246,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               Stock Prices & Random Walks
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Bridge Unit 1 compounding and Unit 5 news shocks into daily market math. Master percentage loss asymmetry $(1+x)(1-x) = 1-x^2$, random walks, and geometric vs. arithmetic means.
+              {processMathText('Bridge Unit 1 compounding and Unit 5 news shocks into daily market math. Master percentage loss asymmetry $(1+x)(1-x) = 1-x^2$, random walks, and geometric vs. arithmetic means.')}
             </p>
             <button
               onClick={() => setActiveModule('stochastic')}
@@ -460,7 +461,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               The Gordon Growth Formula Derivation
             </h4>
             <p className="text-slate-400 text-xs font-serif leading-relaxed">
-              Study dividend perpetuity equations starting from zero-growth ($g = 0$) up to constant compounding dividend expansion.
+              {processMathText('Study dividend perpetuity equations starting from zero-growth ($g = 0$) up to constant compounding dividend expansion.')}
             </p>
             <button
               onClick={() => setActiveModule('side_quest_gordon')}
@@ -469,6 +470,31 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
             >
               <span>Launch Math Side Quest</span>
               <ChevronsRight className="w-3 h-3 text-indigo-400" />
+            </button>
+          </div>
+
+          {/* Side Quest 3.5 */}
+          <div className="bg-slate-900 border border-slate-950 text-slate-100 rounded-2xl p-5 space-y-3 relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+              <span className="font-mono text-7xl font-bold text-white">∏</span>
+            </div>
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-purple-400 block uppercase">Math Quest 3.5</span>
+              <span className="bg-purple-950 text-purple-300 text-[10px] font-mono px-2 py-0.5 rounded border border-purple-900">Multiplicative Series</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-100 text-sm">
+              Capital Pi (<MathSpan tex="\prod" />) & Product Notation
+            </h4>
+            <div className="text-slate-400 text-xs font-serif leading-relaxed">
+              {processMathText('Master $S_t = S_0 \\prod_{k=1}^t (1+r_k)$, comparing products to sums and geometric series, plus log-return transformations.')}
+            </div>
+            <button
+              onClick={() => setActiveModule('side_quest_pi')}
+              className="text-xs text-purple-300 font-sans font-bold hover:text-purple-100 flex items-center space-x-1 border border-purple-900 hover:border-purple-800 px-2.5 py-1.5 rounded-lg bg-purple-950/40 transition-all cursor-pointer"
+              id="btn-nav-side-quest-pi"
+            >
+              <span>Launch Math Side Quest</span>
+              <ChevronsRight className="w-3 h-3 text-purple-400" />
             </button>
           </div>
 

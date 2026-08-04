@@ -175,6 +175,43 @@ export const GORDON_QUEST_QUIZZES: CollatedQuizQuestion[] = [
   }
 ];
 
+export const PRODUCT_QUEST_QUIZZES: CollatedQuizQuestion[] = [
+  {
+    id: 'quest_pi_1',
+    unitId: 'side_quest_pi',
+    unitName: 'Quest 3.5: Capital Pi (∏) & Multiplicative Product Series',
+    unitBadge: 'Multiplicative Series',
+    unitNumber: 'Quest 3.5',
+    question: 'What does the Capital Pi symbol ($\\prod_{k=1}^t$) denote in the stock price equation $S_t = S_0 \\prod_{k=1}^t (1+r_k)$?',
+    options: [
+      'The sum of all daily return percentages $r_1 + r_2 + \\dots + r_t$',
+      'The product of all consecutive daily growth factors $(1+r_1)(1+r_2)\\dots(1+r_t)$',
+      'The geometric series sum of future discounted dividend cash flows',
+      'The variance of daily stock price fluctuations around the mean'
+    ],
+    correctIndex: 1,
+    explanation: 'Capital Pi ($\\prod$) represents sequential multiplication of growth factors $(1+r_k)$ across periods.',
+    hint: 'Pi stands for Product (multiplication), just as Sigma stands for Sum (addition).'
+  },
+  {
+    id: 'quest_pi_2',
+    unitId: 'side_quest_pi',
+    unitName: 'Quest 3.5: Capital Pi (∏) & Multiplicative Product Series',
+    unitBadge: 'Multiplicative Series',
+    unitNumber: 'Quest 3.5',
+    question: 'How do financial economists transform a Capital Pi product ($\\prod$) into a simple Capital Sigma sum ($\\sum$)?',
+    options: [
+      'By multiplying all returns by 100',
+      'By taking the natural logarithm ($\\ln$) of both sides of the equation',
+      'By taking the square root of all return percentages',
+      'By dividing by total elapsed years'
+    ],
+    correctIndex: 1,
+    explanation: 'Since $\\ln(a \\cdot b) = \\ln(a) + \\ln(b)$, taking natural logarithms transforms $\\ln(S_t) = \\ln(S_0) + \\sum_{k=1}^t \\ln(1+r_k)$, converting multiplication into addition of log-returns.',
+    hint: 'Recall the algebraic identity for $\\ln(a \\cdot b)$.'
+  }
+];
+
 export const VARIANCE_QUEST_QUIZZES: CollatedQuizQuestion[] = [
   {
     id: 'quest_var_1',
@@ -334,5 +371,6 @@ export const ALL_COLLATED_QUIZZES: CollatedQuizQuestion[] = [
   ...SIGMA_QUEST_QUIZZES,
   ...GEOMETRIC_QUEST_QUIZZES,
   ...GORDON_QUEST_QUIZZES,
+  ...PRODUCT_QUEST_QUIZZES,
   ...VARIANCE_QUEST_QUIZZES
 ];

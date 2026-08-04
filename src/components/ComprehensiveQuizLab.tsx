@@ -71,6 +71,7 @@ export const ComprehensiveQuizLab: React.FC<ComprehensiveQuizLabProps> = ({ setA
     { id: 'side_quest_sigma', label: 'Quest 1: Sigma Notation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_sigma').length },
     { id: 'side_quest_geometric', label: 'Quest 2: Geometric Series', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_geometric').length },
     { id: 'side_quest_gordon', label: 'Quest 3: Gordon Derivation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_gordon').length },
+    { id: 'side_quest_pi', label: 'Quest 3.5: Capital Pi (∏)', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_pi').length },
     { id: 'side_quest_variance', label: 'Quest 4: Variance & Covariance', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_variance').length }
   ];
 

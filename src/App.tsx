@@ -11,6 +11,7 @@ import { LabSkeletonLoader } from './components/ui/LabSkeletonLoader';
 const SigmaSideQuest = lazy(() => import('./components/SigmaSideQuest').then(m => ({ default: m.SigmaSideQuest })));
 const GordonGrowthQuest = lazy(() => import('./components/GordonGrowthQuest').then(m => ({ default: m.GordonGrowthQuest })));
 const GeometricSeriesQuest = lazy(() => import('./components/GeometricSeriesQuest').then(m => ({ default: m.GeometricSeriesQuest })));
+const VarianceCovarianceQuest = lazy(() => import('./components/VarianceCovarianceQuest').then(m => ({ default: m.VarianceCovarianceQuest })));
 
 export default function App() {
   const [activeModule, setActiveModule] = useState<string>('syllabus');
@@ -20,7 +21,7 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [activeModule]);
 
-  const currentLesson = activeModule !== 'syllabus' && activeModule !== 'side_quest_sigma' && activeModule !== 'side_quest_gordon' && activeModule !== 'side_quest_geometric' ? LESSONS[activeModule] : null;
+  const currentLesson = activeModule !== 'syllabus' && activeModule !== 'side_quest_sigma' && activeModule !== 'side_quest_gordon' && activeModule !== 'side_quest_geometric' && activeModule !== 'side_quest_variance' ? LESSONS[activeModule] : null;
 
   return (
     <MasteryProvider>
@@ -80,6 +81,21 @@ export default function App() {
                     <GeometricSeriesQuest
                       onBackToSyllabus={() => setActiveModule('syllabus')}
                       onLinkToUnit3_5={() => setActiveModule('flatValuation')}
+                    />
+                  </Suspense>
+                </motion.div>
+              ) : activeModule === 'side_quest_variance' ? (
+                <motion.div
+                  key="side-quest-variance"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Suspense fallback={<LabSkeletonLoader label="Loading Quest 4..." />}>
+                    <VarianceCovarianceQuest
+                      onBackToSyllabus={() => setActiveModule('syllabus')}
+                      onLinkToPortfolio={() => setActiveModule('portfolio')}
                     />
                   </Suspense>
                 </motion.div>

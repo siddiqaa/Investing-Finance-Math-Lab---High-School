@@ -12,68 +12,89 @@ The lab is fully self-contained and offers real-time visualization engines, inte
 
 ## 📚 Course Curriculum & Academic Units
 
-The platform is structured into 9 comprehensive units, guiding students from fundamental exponents to advanced stochastic calculus and option pricing.
+The platform is structured into sequential core units, review modules, bonus real-world finance units, and advanced math side quests:
 
-### 1. 📈 Unit 1: Time Value of Money & Compound Growth (`compounding`)
-* **Math Focus:** Exponents, interest rates, and compounding frequencies.
-* **Core Formula:** $A = P(1 + r)^n$ and the limit as compounding approaches infinity: $\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$.
-* **Interactive Sandbox (Lemonade Stand Lab):** An intuitive business simulation where students "buy" a stand and calculate Net Present Value ($NPV$) based on projected cash flows and opportunity costs.
-* **Knowledge Check:** `TvmKnowledgeCheck` for immediate calculation verification.
+### 1. 🍋 Unit 1: Time Value of Money & Compound Growth (`compounding`)
+* **Math Focus:** Exponents, interest rates, compounding frequencies, Present Value ($PV$), and Net Present Value ($NPV$).
+* **Core Formula:** $A = P(1 + r)^n$ and continuous compounding $\lim_{m \to \infty} P(1 + \frac{r}{m})^{mt} = Pe^{rt}$.
+* **Interactive Sandbox (Lemonade Stand Lab / NPV Lab):** An intuitive business simulation where students "buy" a stand and calculate $NPV$ based on projected cash flows and opportunity costs.
 
-### 2. 🏦 Unit 1.5: Selecting the Rate ($r$) in Practice (`rateSelection`)
-* **Math Focus:** Opportunity cost and compounding periods.
-* **Interactive Sandbox (Bank Lab):** Visualizing bank savings, high-yield accounts, and locked Certificate of Deposit (CD) strategies side-by-side with compound curves.
-* **Knowledge Check:** `DiscountKnowledgeCheck` for opportunity-cost math validation.
+### 2. 🏛️ Unit 2: Selecting the Rate ($r$) in Practice (`rateSelection`)
+* **Math Focus:** Risk-free baseline rates ($r_{rf}$), High-Yield Savings, CDs, inflation drag, hurdle rates, and opportunity cost of capital.
+* **Interactive Sandbox (Bank Lab):** Visualizing bank savings, high-yield accounts, and locked Certificates of Deposit (CDs) side-by-side with compound curves.
 
-### 3. 🌉 Unit 1.75: Corporate Growth & The Stock Market Bridge (`stockBridge`)
-* **Math Focus:** Discounted cash flows applied to dividend growth modelers.
+### 3. 💼 Unit 3: Bridging to Stocks: Why Own Businesses? (`stockBridge`)
+* **Math Focus:** Fractional equity ownership, growth spread ($r_{\text{stock}} - r_{\text{bank}}$), equity risk premium, and earnings per share.
 * **Interactive Sandbox (Stock Bridge Lab):** Interactive dividend growth modelers where students see how earnings per share map to stock valuations.
-* **Knowledge Check:** `NpvKnowledgeCheck` for Net Present Value validations.
 
-### 4. 🏢 Unit 2: Valuation of Enterprises & Multiples (`valuation`)
-* **Math Focus:** Geometric series summation and constant ratio multiples.
-* **Interactive Sandbox (Valuation Lab):** Comparative valuation multiplier matrices, Enterprise Value ($EV$) to EBITDA, and discounted growth forecasts.
-* **Knowledge Check:** `ValuationKnowledgeCheck` for enterprise valuation concepts.
+### 4. 🪙 Unit 3.5: Stock Valuation Without Growth (`flatValuation`)
+* **Math Focus:** Zero-Growth Dividend Discount Model ($P_0 = \frac{D}{r}$), preferred stock valuation, discount rate inversion, and constant cash flow perpetuities.
+* **Interactive Sandbox (Flat Valuation Lab):** Adjust dividend payouts and required rates to observe constant cash flow stock pricing.
 
-### 5. 📰 Unit 2.5: News Events, Earnings, & Information Channels (`newsBridge`)
-* **Math Focus:** Instantaneous valuation adjustments and discounting news updates.
+### 5. 📈 Unit 4: Stock Price Valuation & Infinite Growth (`valuation`)
+* **Math Focus:** Dividend Discount Model ($DDM$), Gordon Growth Formula ($P_0 = \frac{D_1}{r - g}$), infinite geometric series convergence, and sensitivity analysis.
+* **Interactive Sandbox (Gordon Growth DDM Lab):** Sensitivity charts mapping stock prices against growth rates ($g$) and discount rates ($r$).
+
+### 6. ⚡ Unit 5: The News Catalyst: Why Stock Prices Wiggle (`newsBridge`)
+* **Math Focus:** Efficient market hypothesis, unexpected news shocks ($\Delta g, \Delta r$), price discovery, and transition to stochastic paths.
 * **Interactive Sandbox (News Bridge Lab):** Live-streamed news events matching market sentiment modifiers, letting students witness real-time stock valuation repricings.
-* **Knowledge Check:** `NewsBridgeKnowledgeCheck` for event-driven pricing mechanisms.
 
-### 6. 🎲 Unit 3: Stochastic Calculus & Asset Paths (`stochastic`)
-* **Math Focus:** Geometric Brownian Motion ($GBM$), Wiener processes ($dW_t$), drift ($\mu$), diffusion volatility ($\sigma$), and Ito's Lemma.
-* **Core Formula:** $dS_t = \mu S_t dt + \sigma S_t dW_t$
-* **Interactive Sandbox (Stochastic Lab):** Real-time multi-path Monte Carlo asset generators with normal distribution histograms.
+### 7. 📘 Unit 5R: Gordon Growth Model Foundation Review (`unit5R`)
+* **Focus:** Comprehensive study guide and test prep summary covering the progression from basic TVM (Units 1–5).
 
-### 7. 🎯 Unit 4: Modern Portfolio Theory (`portfolio`)
-* **Math Focus:** Covariance matrices ($\Sigma$), weighted averages, standard deviation, and variance.
-* **Interactive Sandbox (Portfolio Lab):** A three-asset weight optimizer generating the Markowitz Efficient Frontier (the "Markowitz Bullet") and identifying the maximum Sharpe Ratio portfolio.
+### 8. 🎲 Unit 6: Stock Prices & Random Walks (`stochastic`)
+* **Math Focus:** Monthly/daily multiplicative compounding ($S_t = S_{t-1}(1+r_t)$), percentage loss asymmetry ($(1+x)(1-x) = 1-x^2$), drift ($\mu$), volatility ($\sigma$), and volatility drag.
+* **Interactive Sandbox (Stochastic Lab):** Real-time 25-path Monte Carlo random walk simulation over 1–60 months with $S_0 = \$100$ baseline, dual vertical axes, and profit/loss color pathways.
 
-### 8. 📊 Unit 5: Black-Scholes-Merton Option Pricing (`options`)
-* **Math Focus:** Cumulative normal distributions, continuous rates, and partial derivatives (The Option Greeks: $\Delta, \Gamma, \Theta, Vega$).
-* **Interactive Sandbox (Options Lab):** Interactive Option Greek visualizer graphs and a real-time iterative Implied Volatility ($IV$) solver.
+### 9. 🎯 Unit 7: Portfolio Diversification & Risk (`portfolio`)
+* **Math Focus:** Covariance, weighted averages, correlation coefficient ($\rho$), Markowitz Mean-Variance Optimization, the Efficient Frontier, Sharpe Ratio, and Beta.
+* **Interactive Sandbox (Portfolio Lab):** A multi-asset weight optimizer generating the Markowitz Efficient Frontier and identifying the maximum Sharpe Ratio portfolio.
 
-### 9. 🧠 Unit 6: Behavioral Finance & Market Crowds (`behavioral`)
-* **Math Focus:** Non-linear feedback loops and information cascades.
-* **Interactive Sandbox (Behavioral Lab):** Multi-agent crowd behavior models tracking speculative bubble expansions, commodity short squeezes, and irrational panics.
+### 10. 🧠 Unit 8: Behavioral Finance & Market Crowds (`behavioral`)
+* **Math Focus:** Non-linear feedback loops, momentum anomalies, information cascades (rational herding), loss aversion, disposition effect, and commodity short squeezes.
+* **Interactive Sandbox (Behavioral Lab):** Multi-agent crowd behavior models tracking speculative bubble expansions and market panics.
 
 ---
 
-## 🗺️ Interactive Side Quests & Quizzes
+## 🚗 Bonus Units: Real-World Finance & Applied Math
 
-To provide immersive mathematical validation, the application includes two dedicated math quests:
+### 🏎️ Bonus Unit A: Options & The Price of a Guarantee (`options`)
+* **Math Focus:** Call and Put options, payoff inequalities at expiration, Black-Scholes pricing inputs, no-arbitrage reasoning, and the Option Greeks ($\Delta, \Gamma, \Theta, Vega$).
+* **Interactive Sandbox (Options Lab):** Interactive Option Greek visualizer graphs and a real-time iterative Implied Volatility ($IV$) solver.
 
-* **🔢 Sigma Notation Quest (`side_quest_sigma`):** An interactive puzzle sandbox introducing students to summation notation ($\sum$), variable ranges, and structural algebra indexing.
-* **📈 Gordon Growth Quest (`side_quest_gordon`):** An algebraic derivation puzzle illustrating how infinite geometric series sum to form the Gordon constant dividend growth model ($P = \frac{D_1}{r - g}$).
-* **✍️ Chapter-End Derivation Quizzes:** At the end of every unit, an interactive multiple-choice quiz evaluates conceptual and calculation comprehension.
+### 🚘 Bonus Unit B: Auto Loans & Total Cost of Ownership (`amortization`)
+* **Math Focus:** Loan Amortization ($PMT = P \cdot \frac{r(1+r)^n}{(1+r)^n - 1}$), interest vs. principal decay schedule, and Total Cost of Ownership (TCO) comparing Internal Combustion Engine (ICE) gas vehicles vs. Electric Vehicles (EV).
+* **Interactive Sandbox (Amortization Lab):** Interactive loan schedule calculator and 5-year TCO gas vs. EV comparator.
+
+### 🏡 Bonus Unit C: Mortgages & Total Cost of Homeownership (`mortgage`)
+* **Math Focus:** 15-year and 30-year home mortgages, Loan-to-Value (LTV) ratios, Private Mortgage Insurance (PMI), equity accumulation over time, property taxes, home insurance, and total PITI monthly housing expenses.
+* **Interactive Sandbox (Mortgage Lab):** Amortization schedules, down payment equity sliders, and total PITI breakdown visualizer.
+
+---
+
+## 📖 Reference & Practice Tools
+
+* **📖 Financial Math Glossary & Formula Compendium (`glossary`):** Searchable dictionary of financial variables, equations, real-world analogies, and interactive micro-calculators across all curriculum units.
+* **⚡ Comprehensive Review Quiz Unit (`comprehensiveQuiz`):** Collated 38+ review exercises across Units 1–8, Bonus Units, and Side Quests for daily retrieval practice with randomized warm-up sets.
+
+---
+
+## 🗺️ Interactive Math Side Quests
+
+To provide immersive mathematical derivations, the application includes three dedicated math side quests:
+
+* **🔢 Math Quest 1: Summation Notation (Sigma) (`side_quest_sigma`):** An interactive puzzle sandbox introducing students to summation notation ($\sum$), variable ranges, Carl Friedrich Gauss's arithmetic series derivation, and structural algebra indexing.
+* **📈 Math Quest 2: Geometric Series & Convergence (`side_quest_geometric`):** An algebraic derivation puzzle illustrating how infinite geometric series sum to form a bounded finite value.
+* **📊 Math Quest 3: Gordon Growth Formula Derivation (`side_quest_gordon`):** Algebraic proof connecting zero-growth perpetuities ($g = 0$) to constant dividend expansion ($P = \frac{D_1}{r - g}$).
 
 ---
 
 ## 🛠️ Advanced Platform Capabilities
 
 - **🖨️ PDF Study Guide Export:** Students and parents can export a beautifully formatted, comprehensive mathematical study guide summarizing every unit, core equation, and finance rule for offline revision.
-- **🔢 KaTeX-powered LaTeX Renderer:** The system integrates a robust mathematical parsing helper (`src/lib/math.tsx`) to render textbook-quality inline and block equations beautifully on any browser.
-- **🎭 Buttery-Smooth Framer Motion Transitions:** Navigation, modal popups, sandbox alterations, and side quests are animated cleanly using `motion` from `motion/react` for an incredibly polished feel.
+- **🔢 KaTeX-powered LaTeX Renderer:** The system integrates a robust mathematical parsing helper (`src/lib/math.tsx`) backed by string memoization (`katexCache`) to render textbook-quality inline and block equations on any browser.
+- **🎭 Buttery-Smooth Framer Motion Transitions:** Navigation, modal popups, sandbox alterations, and side quests are animated cleanly using `motion` from `motion/react` for an exceptionally polished experience.
+- **🏆 Centralized Mastery Engine:** Real-time state tracking (`MasteryContext.tsx`) persists student progress, quiz completion, and mastery badges seamlessly across sessions.
 
 ---
 
@@ -84,7 +105,7 @@ To provide immersive mathematical validation, the application includes two dedic
 * **Styling:** Tailwind CSS (Minimalist, slate/indigo high-contrast look)
 * **Animations:** Framer Motion (`motion` from `motion/react`)
 * **Icons:** Lucide React
-* **Math Formatting:** Fully dynamic custom inline and block LaTeX processing engine
+* **Math Formatting:** KaTeX with deterministic single-pass state-machine parser (`src/lib/math.tsx`)
 
 ---
 

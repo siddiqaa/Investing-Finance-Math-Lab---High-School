@@ -175,6 +175,77 @@ export const GORDON_QUEST_QUIZZES: CollatedQuizQuestion[] = [
   }
 ];
 
+export const VARIANCE_QUEST_QUIZZES: CollatedQuizQuestion[] = [
+  {
+    id: 'quest_var_1',
+    unitId: 'side_quest_variance',
+    unitName: 'Quest 4: Variance & Covariance Algebra',
+    unitBadge: 'Algebra II Statistics',
+    unitNumber: 'Quest 4',
+    question: 'Suppose a dataset of 3 stock returns is $x = [4\\%, 7\\%, 10\\%]$. What is the mean return $\\bar{x}$ and population variance $\\text{Var}(X)$?',
+    options: [
+      'Mean = 7%, Variance = 6%²',
+      'Mean = 7%, Variance = 9%²',
+      'Mean = 6%, Variance = 8%²',
+      'Mean = 8%, Variance = 12%²'
+    ],
+    correctIndex: 0,
+    explanation: '1. Mean $\\bar{x} = \\frac{4 + 7 + 10}{3} = \\frac{21}{3} = 7\\%$.\n2. Deviations $(x_i - \\bar{x})$: $(4-7) = -3$, $(7-7) = 0$, $(10-7) = +3$.\n3. Squared Deviations: $(-3)^2 = 9$, $0^2 = 0$, $3^2 = 9$.\n4. Sum of Squared Deviations $= 9 + 0 + 9 = 18$.\n5. Variance $\\text{Var}(X) = \\frac{18}{3} = 6\\%^2$.',
+    hint: 'Calculate the average first, subtract the average from each number, square those differences, and take their average.'
+  },
+  {
+    id: 'quest_var_2',
+    unitId: 'side_quest_variance',
+    unitName: 'Quest 4: Variance & Covariance Algebra',
+    unitBadge: 'Algebra II Statistics',
+    unitNumber: 'Quest 4',
+    question: 'Two assets $X$ and $Y$ have returns over 3 years: $X = [12\\%, 8\\%, 4\\%]$ (mean = $8\\%$) and $Y = [2\\%, 6\\%, 10\\%]$ (mean = $6\\%$). What is the population covariance $\\text{Cov}(X, Y)$?',
+    options: [
+      '$-10.67\\%^2$',
+      '$-16.00\\%^2$',
+      '$+8.00\\%^2$',
+      '$0.00\\%^2$'
+    ],
+    correctIndex: 0,
+    explanation: '1. Deviations for $X$: $(12-8) = +4$, $(8-8) = 0$, $(4-8) = -4$.\n2. Deviations for $Y$: $(2-6) = -4$, $(6-6) = 0$, $(10-6) = +4$.\n3. Products of Deviations: $(+4)(-4) = -16$, $(0)(0) = 0$, $(-4)(+4) = -16$.\n4. Sum of Products $= -16 + 0 - 16 = -32$.\n5. Population Covariance $\\text{Cov}(X,Y) = \\frac{-32}{3} = -10.67\\%^2$.',
+    hint: 'Multiply the deviation of $X$ by the deviation of $Y$ for each year, add them together, and divide by 3.'
+  },
+  {
+    id: 'quest_var_3',
+    unitId: 'side_quest_variance',
+    unitName: 'Quest 4: Variance & Covariance Algebra',
+    unitBadge: 'Algebra II Statistics',
+    unitNumber: 'Quest 4',
+    question: 'If covariance $\\text{Cov}(X,Y) = -12.0$, standard deviation $\\sigma_X = 4.0$, and standard deviation $\\sigma_Y = 3.0$, what is the correlation coefficient $\\rho_{X,Y}$?',
+    options: [
+      '$-1.0$',
+      '$-0.5$',
+      '$+0.8$',
+      '$0.0$'
+    ],
+    correctIndex: 0,
+    explanation: 'Using the correlation formula $\\rho_{X,Y} = \\frac{\\text{Cov}(X,Y)}{\\sigma_X \\cdot \\sigma_Y}$:\n$$\\rho_{X,Y} = \\frac{-12.0}{4.0 \\times 3.0} = \\frac{-12.0}{12.0} = -1.0$$\nThe two assets have perfect negative linear correlation.',
+    hint: 'Divide covariance by the product of the two standard deviations: $\\sigma_X \\times \\sigma_Y$.'
+  },
+  {
+    id: 'quest_var_4',
+    unitId: 'side_quest_variance',
+    unitName: 'Quest 4: Variance & Covariance Algebra',
+    unitBadge: 'Algebra II Statistics',
+    unitNumber: 'Quest 4',
+    question: 'Why is the covariance $\\text{Cov}(X,Y)$ negative when asset $X$ is consistently above its mean while asset $Y$ is below its mean?',
+    options: [
+      'Because the product of a positive deviation $(x_i - \\bar{x}) > 0$ and a negative deviation $(y_i - \\bar{y}) < 0$ is always mathematically negative',
+      'Because negative numbers are always larger than positive numbers in portfolio theory',
+      'Because interest rates drop whenever covariance is calculated',
+      'Because standard deviation forces covariance to switch signs automatically'
+    ],
+    correctIndex: 0,
+    explanation: 'By basic arithmetic, $(\\text{Positive}) \\times (\\text{Negative}) = \\text{Negative}$. When one asset exceeds its average while the other falls below its average, their cross-product is negative, pulling the total covariance below zero.',
+    hint: 'Recall the rule of signs in algebra: a positive number times a negative number produces a negative result.'
+  }
+];
+
 export const ALL_COLLATED_QUIZZES: CollatedQuizQuestion[] = [
   ...compounding.quizzes.map(q => ({
     ...q,
@@ -262,5 +333,6 @@ export const ALL_COLLATED_QUIZZES: CollatedQuizQuestion[] = [
   })),
   ...SIGMA_QUEST_QUIZZES,
   ...GEOMETRIC_QUEST_QUIZZES,
-  ...GORDON_QUEST_QUIZZES
+  ...GORDON_QUEST_QUIZZES,
+  ...VARIANCE_QUEST_QUIZZES
 ];

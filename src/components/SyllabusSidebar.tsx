@@ -268,6 +268,28 @@ export function SyllabusSidebar({ activeModule, setActiveModule }: SyllabusSideb
               <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_gordon' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
             )}
           </button>
+
+          <button
+            onClick={() => setActiveModule('side_quest_variance')}
+            className={`w-full text-left px-3 py-2.5 rounded-xl transition-all font-sans text-xs sm:text-sm font-semibold flex items-center justify-between group ${
+              activeModule === 'side_quest_variance'
+                ? 'bg-purple-950 text-white shadow-xs'
+                : masteredUnits['side_quest_variance']
+                ? 'bg-emerald-50/80 text-emerald-950 border border-emerald-300/80 hover:bg-emerald-100/80'
+                : 'text-slate-700 hover:bg-purple-50/80 hover:text-purple-950 border border-transparent'
+            }`}
+            id="sidebar-nav-side-quest-variance"
+          >
+            <span className="flex items-center space-x-2.5 min-w-0">
+              <Activity className={`w-4 h-4 flex-shrink-0 ${activeModule === 'side_quest_variance' ? 'text-purple-300' : 'text-purple-600'}`} />
+              <span className="truncate">Quest 4: Variance & Covariance</span>
+            </span>
+            {masteredUnits['side_quest_variance'] ? (
+              <span className="text-xs" title="Quest Mastered">🏆</span>
+            ) : (
+              <ChevronsRight className={`w-3.5 h-3.5 transition-transform ${activeModule === 'side_quest_variance' ? 'translate-x-0.5' : 'opacity-0 group-hover:opacity-100'}`} />
+            )}
+          </button>
         </nav>
       </div>
     </aside>

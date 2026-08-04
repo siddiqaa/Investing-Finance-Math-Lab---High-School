@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ChevronsRight, Sigma, TrendingUp, Sparkles, Zap, GraduationCap } from 'lucide-react';
+import { ChevronsRight, Sigma, TrendingUp, Sparkles, Zap, GraduationCap, Activity } from 'lucide-react';
 import { PdfExportButton } from './PdfExportButton';
 
 interface SyllabusHomeProps {
@@ -245,7 +245,7 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               Stock Prices & Random Walks
             </h4>
             <p className="text-slate-500 text-xs font-sans leading-relaxed">
-              Bridge Unit 1 compounding and Unit 5 news shocks into daily market math. Master percentage loss asymmetry $(1+x)(1-x) = 1-x^2$, random walks, and volatility drag.
+              Bridge Unit 1 compounding and Unit 5 news shocks into daily market math. Master percentage loss asymmetry $(1+x)(1-x) = 1-x^2$, random walks, and geometric vs. arithmetic means.
             </p>
             <button
               onClick={() => setActiveModule('stochastic')}
@@ -466,6 +466,31 @@ export function SyllabusHome({ setActiveModule }: SyllabusHomeProps) {
               onClick={() => setActiveModule('side_quest_gordon')}
               className="text-xs text-indigo-300 font-sans font-bold hover:text-indigo-100 flex items-center space-x-1 border border-indigo-900 hover:border-indigo-800 px-2.5 py-1.5 rounded-lg bg-indigo-950/40 transition-all cursor-pointer"
               id="btn-nav-side-quest-3"
+            >
+              <span>Launch Math Side Quest</span>
+              <ChevronsRight className="w-3 h-3 text-indigo-400" />
+            </button>
+          </div>
+
+          {/* Side Quest 4 */}
+          <div className="bg-slate-900 border border-slate-950 text-slate-100 rounded-2xl p-5 space-y-3 relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+              <Activity className="w-24 h-24 text-white" />
+            </div>
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-xs font-bold text-indigo-400 block uppercase">Math Quest 4</span>
+              <span className="bg-indigo-950 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-900">Algebra II Statistics</span>
+            </div>
+            <h4 className="font-sans font-bold text-slate-100 text-sm">
+              Variance & Covariance Algebra
+            </h4>
+            <p className="text-slate-400 text-xs font-serif leading-relaxed">
+              Explore means, deviations, squared errors, covariance products, and correlation to see how negative co-movement eliminates risk.
+            </p>
+            <button
+              onClick={() => setActiveModule('side_quest_variance')}
+              className="text-xs text-indigo-300 font-sans font-bold hover:text-indigo-100 flex items-center space-x-1 border border-indigo-900 hover:border-indigo-800 px-2.5 py-1.5 rounded-lg bg-indigo-950/40 transition-all cursor-pointer"
+              id="btn-nav-side-quest-4"
             >
               <span>Launch Math Side Quest</span>
               <ChevronsRight className="w-3 h-3 text-indigo-400" />

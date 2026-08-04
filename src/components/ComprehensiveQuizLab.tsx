@@ -70,7 +70,8 @@ export const ComprehensiveQuizLab: React.FC<ComprehensiveQuizLabProps> = ({ setA
     { id: 'mortgage', label: 'Bonus Unit C: Mortgages & Equity', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'mortgage').length },
     { id: 'side_quest_sigma', label: 'Quest 1: Sigma Notation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_sigma').length },
     { id: 'side_quest_geometric', label: 'Quest 2: Geometric Series', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_geometric').length },
-    { id: 'side_quest_gordon', label: 'Quest 3: Gordon Derivation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_gordon').length }
+    { id: 'side_quest_gordon', label: 'Quest 3: Gordon Derivation', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_gordon').length },
+    { id: 'side_quest_variance', label: 'Quest 4: Variance & Covariance', count: ALL_COLLATED_QUIZZES.filter(q => q.unitId === 'side_quest_variance').length }
   ];
 
   // List of all 14 unit IDs
